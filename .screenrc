@@ -1,0 +1,24 @@
+chdir # the default dir is home directory
+startup_message off	# do not display the startup message
+term xterm
+altscreen on
+vbell off # disable the bell
+defscrollback 1000
+
+# ways to get the bindkey code:
+#	* cat > /dev/null
+#	* read
+#	* ctrl+v
+# then press key and display code
+bindkey "^[[D" prev
+bindkey "^[[C" next 
+
+# status line
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{= br}%{g}[%{G}$USER@%H%{g}]%{w}%1`%{g}[%=%{=kw}%{w}%-w%{Y}[%{W}%n-%t%{Y}]%{w}%+w%=%{g}][%l][%{w}%Y-%m-%d %{Y}%c%{g}]"
+
+# screen windows
+screen -t tankykwoo   0
+screen -t ops-dev     1
+select                0
