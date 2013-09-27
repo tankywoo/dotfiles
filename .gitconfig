@@ -21,6 +21,7 @@
 	ca = commit -a
 	pl = pull
 	ps = push
+	co = checkout
 
 [color]
 	ui = auto
