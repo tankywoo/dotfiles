@@ -12,7 +12,7 @@ ln -sf ${PWD}/.screenrc ${HOME}/.screenrc
 # Then clone oh-my-zsh
 # git clone git@github.com:robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 ln -sf ${PWD}/.zshrc ${HOME}/.zshrc
-ln -sf ${PWD}/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme
+ln -sf ${PWD}/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme # TODO: See ~/.oh-my-zsh/custom/
 chsh -s /bin/zsh
 source ~/.zshrc
 
@@ -25,3 +25,6 @@ ln -sf ${PWD}/tmux.sh ${HOME}/tmux.sh # TODO, use alise?
 # git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 # vim +BundleInstall +qall
 ln -sf ${PWD}/.vimrc ${HOME}/.vimrc
+
+# Git
+ln -sf ${PWD}/.gitconfig ${HOME}/.gitconfig
