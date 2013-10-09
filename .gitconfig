@@ -16,6 +16,7 @@
 [alias]
 	s = status
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	b = branch
 	ci = commit
 	ca = commit -a
