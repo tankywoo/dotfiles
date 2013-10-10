@@ -27,7 +27,7 @@ create_symlinks(){
 	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc")
 	for dotfile in "${dotfiles[@]}"
 	do
-		ln -sf "${PWD}"/"${dotfile}" "${HOME}"/"${dotfile}"
+		ln -sf ${PWD}/${dotfile} ${HOME}/${dotfile}
 		echo "Create symlink ${HOME}/${dotfile}"
 	done
 }
@@ -37,7 +37,7 @@ install_oh_my_zsh(){
 		cd "${OH_MY_ZSH}"
 		echo "Change directory to `pwd`"
 		echo "${OH_MY_ZSH} exists. Git pull to update..."
-		#git pull
+		git pull
 		cd - > /dev/null 2>&1
 		echo "Change directory back to `pwd`"
 	else
@@ -52,7 +52,7 @@ install_vundle(){
 		cd "${VUNDLE}"
 		echo "Change directory to `pwd`"
 		echo "${VUNDLE} exists. Git pull to update..."
-		#git pull
+		git pull
 		cd - > /dev/null 2>&1
 		echo "Change directory back to `pwd`"
 	else
