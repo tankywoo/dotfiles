@@ -23,6 +23,9 @@ ZSH_THEME="tanky" # Custom
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
 
+# Uncomment following line if you want to disable command autocorrection
+DISABLE_CORRECTION="true" # Custom
+
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true" # Custom
 
