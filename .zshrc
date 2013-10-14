@@ -121,3 +121,8 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+# virtualenvwrapper
+# default $WORKON_HOME is ~/.virtualenvs after source virtualenvwrapper.sh
+#export WORKON_HOME=~/Envs
+source /usr/local/bin/virtualenvwrapper.sh
