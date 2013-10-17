@@ -63,6 +63,8 @@ install_vundle(){
 }
 
 config_zsh(){
+	echo "Create symlink ${HOME}/.zsh"
+	ln -sf ${PWD}/.zsh ${HOME}/.zsh
 	# TODO: See ~/.oh-my-zsh/custom/
 	ln -sf ${PWD}/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme
 	chsh -s `which zsh` # TODO: If zsh is an alias?
@@ -70,6 +72,7 @@ config_zsh(){
 }
 
 config_tmux(){
+	echo "Create symlink ${HOME}/tmux.sh"
 	ln -sf ${PWD}/tmux.sh ${HOME}/tmux.sh # TODO, use alise?
 }
 
@@ -83,3 +86,5 @@ main(){
 }
 
 main
+
+echo "[SETUP OK]"
