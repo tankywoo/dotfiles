@@ -96,6 +96,7 @@ Bundle 'kevinw/pyflakes-vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'fs111/pydoc.vim'
 Bundle 'chriskempson/tomorrow-theme'
+Bundle 'kien/rainbow_parentheses.vim'
 
 " vim-scripts repos
 " NOTE:
@@ -144,6 +145,34 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors"
 au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 " neocomplcache
 "let g:neocomplcache_enable_at_startup = 1
+
+" Better Rainbow Parentheses
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 
 "================"
 " Color Settings "
