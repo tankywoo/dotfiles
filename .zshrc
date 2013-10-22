@@ -117,8 +117,10 @@ compctl -K _completemarks cda
 compctl -K _completemarks unmark
 
 # rbenv; Octopress
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if command -v rbenv 2>/dev/null; then
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init -)"
+fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
