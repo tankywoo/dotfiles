@@ -38,7 +38,7 @@ set pastetoggle=<F11> "" Bind `F11` to `:set paste`
 set list
 set listchars=tab:>-,trail:.
 
-" NOTE: vim <leader> default is `Alt`
+" NOTE: vim <leader> default is `\`, can `:help <leader>` to see more.
 
 " Not display above list
 nmap <leader>l :set list!<CR>
