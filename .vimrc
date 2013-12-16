@@ -178,7 +178,12 @@ au Syntax * RainbowParenthesesLoadBraces
 " Color Settings "
 " ==============="
 set t_Co=256
-set background=dark
-colorscheme Tomorrow-Night-Bright
-highlight Nornal ctermbg=NONE
-highlight NonText ctermbg=NONE
+
+try
+    set background=dark
+    colorscheme Tomorrow-Night-Bright
+    highlight Nornal ctermbg=NONE
+    highlight NonText ctermbg=NONE
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry
