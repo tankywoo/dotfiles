@@ -38,7 +38,7 @@ set pastetoggle=<F11> "" Bind `F11` to `:set paste`
 set list
 set listchars=tab:>-,trail:.
 
-" NOTE: vim <leader> default is `Alt`
+" NOTE: vim <leader> default is `\`, can `:help <leader>` to see more.
 
 " Not display above list
 nmap <leader>l :set list!<CR>
@@ -178,7 +178,12 @@ au Syntax * RainbowParenthesesLoadBraces
 " Color Settings "
 " ==============="
 set t_Co=256
-set background=dark
-colorscheme Tomorrow-Night-Bright
-highlight Nornal ctermbg=NONE
-highlight NonText ctermbg=NONE
+
+try
+    set background=dark
+    colorscheme Tomorrow-Night-Bright
+    highlight Nornal ctermbg=NONE
+    highlight NonText ctermbg=NONE
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry

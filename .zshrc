@@ -32,9 +32,12 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 # virtualenvwrapper
 # default $WORKON_HOME is ~/.virtualenvs after source virtualenvwrapper.sh
 #export WORKON_HOME=~/Envs
-VIRTUALENVWRAPPER="/usr/local/bin/virtualenvwrapper.sh"
-if [ -e "${VIRTUALENVWRAPPER}" ]; then
-	source ${VIRTUALENVWRAPPER}
+VIRTUALENVWRAPPER_UBUNTU="/usr/local/bin/virtualenvwrapper.sh"
+VIRTUALENVWRAPPER_GENTOO="/usr/bin/virtualenvwrapper.sh"
+if [ -e "${VIRTUALENVWRAPPER_UBUNTU}" ]; then
+	source ${VIRTUALENVWRAPPER_UBUNTU}
+elif [ -e "${VIRTUALENVWRAPPER_GENTOO}" ]; then
+	source ${VIRTUALENVWRAPPER_GENTOO}
 fi
 
 # Set up ssh-agent
