@@ -1,9 +1,11 @@
 [user]
-	email = wtq1990@gmail.com
 	name = Tanky Woo
+	email = wtq1990@gmail.com
 [push]
+	; for git 1.8
 	default = simple
 [core]
+	editor = vim
 	excludesfile = /home/tankywoo/.gitignore
 	quotepath = false
 [diff]
@@ -14,9 +16,9 @@
 	prompt = false
 
 [alias]
-	s = status
+	st = status
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
-	ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	ll = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	b = branch
 	ci = commit
 	ca = commit -a
