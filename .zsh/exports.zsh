@@ -8,7 +8,7 @@ if [ "$TERM" = "xterm" ]; then
 fi
 
 export TERM='xterm-256color'
-export PATH=${PATH}:/sbin:/usr/local/bin:
+export PATH=${PATH}:/sbin:/usr/local/bin:/usr/local/sbin:
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
