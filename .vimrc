@@ -1,12 +1,12 @@
 " Tanky Woo <me@tankywoo.com>
-" www.wutianqi.com
+" https://tankywoo.com
 
 "========="
 " General "
 "========="
 set nu " Set the line number
 syntax on " Syntax highlighting
-set autochdir " Set the current dir as thr work dir
+"set autochdir " Set the current dir as thr work dir
 set hlsearch " Highlight the search result
 set incsearch " Real-time search
 " Disabled by `vundle`
@@ -32,7 +32,7 @@ set cursorline " Highlighter the current line
 "hi cursorline gui=UNDERLINE cterm=UNDERLINE
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
 set t_Co=256 " If under tty, use 256
-set pastetoggle=<F11> "" Bind `F11` to `:set paste`
+set pastetoggle=<F10> "" Bind `F10` to `:set paste`
 
 " Display `tab` and `trail space`
 set list
@@ -50,7 +50,7 @@ map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
 if exists('+colorcolumn')
     set cc=81 " Short for colorcolumn
 else
-	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 hi ColorColumn ctermbg=lightgrey guibg=lightgreya  " Highlighter cc
 
@@ -103,6 +103,8 @@ Bundle 'kien/rainbow_parentheses.vim'
 " `snipMate` will conflict with `PyDiction`, Google
 " `Auto-Pairs` is more useful than `AutoClose`
 Bundle 'taglist.vim'
+Bundle 'Tagbar'
+Bundle 'TaskList.vim'
 Bundle 'snipMate'
 Bundle 'ZenCoding.vim'
 Bundle 'Tabular'
@@ -130,14 +132,20 @@ filetype plugin indent on     " required!
 " Vundle Plugins Configuration "
 "=============================="
 " TagList
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
+" In Mac, use brew install ctags and specified the command path
+let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+map <F7> :Tlist<CR>
+" TaskList
+map <leader>tl :TaskList<CR>
+" Tagbar
+map <leader>tb :Tagbar<CR>
+map <leader>tbc :TagbarClose<CR>
 " PyDiction
 let g:pydiction_location = '/home/tankywoo/.vim/bundle/Pydiction/complete-dict' " TODO
 let g:pydiction_menu_height = 10
 " NERDTree
-nmap <leader>t :NERDTree<CR>
-nmap <leader>tt :NERDTreeClose<CR>
+nmap <leader>tne :NERDTree<CR>
+nmap <leader>ttne :NERDTreeClose<CR>
 " vim-powerline
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -147,31 +155,31 @@ au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 "let g:neocomplcache_enable_at_startup = 1
 
 " Better Rainbow Parentheses
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['black',       'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 0
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 
 
 "================"
@@ -181,9 +189,18 @@ set t_Co=256
 
 try
     set background=dark
-    colorscheme Tomorrow-Night-Bright
-    highlight Nornal ctermbg=NONE
-    highlight NonText ctermbg=NONE
+    "colorscheme Tomorrow-Night-Bright
+    colorscheme desert
+    "highlight Nornal ctermbg=NONE
+    "highlight NonText ctermbg=NONE
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
+
+" Highlight TODO/FIXME/XXX
+highlight myTodo cterm=bold term=bold ctermbg=blue ctermfg=black
+match myTodo /TODO/
+highlight myFixme cterm=bold term=bold ctermbg=red ctermfg=black
+match myFixme /FIXME/
+highlight myXxx cterm=bold term=bold ctermbg=blue ctermfg=black
+match myXxx /\(XXX\|FIXME\)/
