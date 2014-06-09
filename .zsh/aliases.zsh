@@ -1,8 +1,14 @@
 alias tmux="tmux -2"
-# For Linux
-alias ls='ls --color=auto'
-# For Mac OS
-#alias ls='ls -hG'
+
+if [[ "$(uname)" == "Darwin" ]]; then
+	# For Mac OS
+	alias ls='ls -hG'
+elif [[ "$(uname)" == "Linux" ]];then
+	# For Linux
+	alias ls='ls --color=auto'
+else
+	:
+fi
 alias ll='ls -al'
 alias lls='ls -alSh'
 alias rm='rm -i'
