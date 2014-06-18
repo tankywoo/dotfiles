@@ -41,8 +41,10 @@ install_oh_my_zsh(){
 		cd - > /dev/null 2>&1
 		echo "Change directory back to `pwd`"
 	else
-		echo "${OH_MY_ZSH} not exists. Git clone to create..."
-		git clone git@github.com:robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
+		echo "${OH_MY_ZSH} not exists. Install..."
+		#git clone git@github.com:robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
+		#wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+		git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
 	fi
 }
 
@@ -78,9 +80,9 @@ config_tmux(){
 
 main(){
 	check_software_exist
-	create_symlinks
 	install_oh_my_zsh
 	install_vundle
+	create_symlinks
 	config_zsh
 	config_tmux
 }
