@@ -26,3 +26,5 @@ alias t='python ~/.t/t.py --task-dir ~/.tasks --list tasks'
 alias tpush='cd ~/.tasks/; git add tasks .tasks.done; git commit -m "add tasks"; git push; cd -'
 alias tpull='cd ~/.tasks/; git pull; cd -'
 alias tst='cd ~/.tasks/; git status; cd -'
+
+alias json="python -mjson.tool"
