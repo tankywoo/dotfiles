@@ -1,9 +1,12 @@
 # changed from philips.zsh-theme
 
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="cyan"; fi
+#if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="cyan"; fi
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="magenta"; fi
 
 # PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}::%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)» '
-PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%}::%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)» '
+#PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%}::%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)» '
+#PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} $ %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)» '
+PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} $ %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}⇒ %{$reset_color%} '
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B"
