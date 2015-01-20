@@ -97,11 +97,14 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'fs111/pydoc.vim'
 Bundle 'chriskempson/tomorrow-theme'
 Bundle 'kien/rainbow_parentheses.vim'
+"Bundle 'nvie/vim-flake8'
+Bundle 'davidhalter/jedi-vim'
 
 " vim-scripts repos
 " NOTE:
 " `snipMate` will conflict with `PyDiction`, Google
 " `Auto-Pairs` is more useful than `AutoClose`
+Bundle 'pep8'
 Bundle 'taglist.vim'
 Bundle 'Tagbar'
 Bundle 'TaskList.vim'
@@ -113,6 +116,7 @@ Bundle 'Pydiction'
 Bundle 'The-NERD-tree'
 Bundle 'neocomplcache'
 Bundle 'Color-Scheme-Explorer'
+Bundle 'Jinja'
 
 " non github repos
 
@@ -181,6 +185,16 @@ au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 
+" Flake8
+"autocmd BufWritePost *.py call Flake8()
+"let g:flake8_builtins="_,apply"
+
+" pep8
+"let g:pep8_map='<C-k>'
+
+" davidhalter/jedi-vim
+autocmd FileType python setlocal completeopt-=preview    " disable docstring
+let g:jedi#completions_command = "<C-N>"
 
 "================"
 " Color Settings "
@@ -189,8 +203,8 @@ set t_Co=256
 
 try
     set background=dark
-    "colorscheme Tomorrow-Night-Bright
-    colorscheme desert
+    colorscheme Tomorrow-Night-Bright
+    "colorscheme desert
     "highlight Nornal ctermbg=NONE
     "highlight NonText ctermbg=NONE
 catch /^Vim\%((\a\+)\)\=:E185/
