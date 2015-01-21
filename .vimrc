@@ -33,6 +33,7 @@ set cursorline " Highlighter the current line
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
 set t_Co=256 " If under tty, use 256
 set pastetoggle=<F10> "" Bind `F10` to `:set paste`
+set backspace=2 " same as ":set backspace=indent,eol,start" in vim7.4
 
 " Display `tab` and `trail space`
 set list
