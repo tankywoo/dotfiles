@@ -47,7 +47,7 @@ nmap <leader>l :set list!<CR>
 " Execute file being edited with <Shift> + e:
 map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
 
-" cc is only exist in `Vim7.3`
+" cc is only exist >= `Vim7.3`
 if exists('+colorcolumn')
     set cc=81 " Short for colorcolumn
 else
@@ -80,111 +80,126 @@ autocmd bufnewfile *.sh call HeaderBash()
 "======================"
 " Bundle Configuration "
 "======================"
-""set nocompatible               " be iMproved
+set nocompatible               " be iMproved, required
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+" let Vundle manage Vundle, required! 
+Bundle 'gmarik/Vundle.vim'
 
 " My Bundles here:
-"
+
 " original repos on github
-Bundle 'kevinw/pyflakes-vim'
+" newer powerline is https://github.com/powerline/powerline
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'fs111/pydoc.vim'
 Bundle 'chriskempson/tomorrow-theme'
 Bundle 'kien/rainbow_parentheses.vim'
-"Bundle 'nvie/vim-flake8'
+Bundle 'nvie/vim-flake8'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'godlygeek/tabular'
+Bundle 'scrooloose/nerdtree'
+"Bundle 'ervandew/supertab'
+" neocomplete need vim --with-lua
+"Bundle 'Shougo/neocomplete.vim'
+"Bundle 'kevinw/pyflakes-vim'
+" doc: https://github.com/vim-scripts/pydoc.vim
+"Bundle 'fs111/pydoc.vim'
 
 " vim-scripts repos
-" NOTE:
-" `snipMate` will conflict with `PyDiction`, Google
-" `Auto-Pairs` is more useful than `AutoClose`
-Bundle 'pep8'
-Bundle 'taglist.vim'
+" Tagbar is more powerful than 'taglist.vim'
 Bundle 'Tagbar'
-Bundle 'TaskList.vim'
-Bundle 'snipMate'
-Bundle 'ZenCoding.vim'
-Bundle 'Tabular'
+" `Auto-Pairs` is more useful than `AutoClose`
+" TODO need to research
 Bundle 'Auto-Pairs'
-Bundle 'Pydiction'
-Bundle 'The-NERD-tree'
-Bundle 'neocomplcache'
-Bundle 'Color-Scheme-Explorer'
-Bundle 'Jinja'
+"Bundle 'pep8'
+"Bundle 'TaskList.vim'
+" `snipMate` will conflict with `PyDiction`, Google
+"Bundle 'snipMate'
+"Bundle 'ZenCoding.vim'
+"Bundle 'Pydiction'
+"Bundle 'Color-Scheme-Explorer'
+"Bundle 'Jinja'
 
 " non github repos
 
-
+call vundle#end()             " required!
 filetype plugin indent on     " required!
+" To ignore plugin indent changes, instead use:
+"filetype plugin on"
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
+" Put your non-Plugin stuff after this line
 
 "=============================="
 " Vundle Plugins Configuration "
 "=============================="
-" TagList
-" In Mac, use brew install ctags and specified the command path
-let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
-map <F7> :Tlist<CR>
-" TaskList
-map <leader>tl :TaskList<CR>
 " Tagbar
-map <leader>tb :Tagbar<CR>
-map <leader>tbc :TagbarClose<CR>
-" PyDiction
-let g:pydiction_location = '/home/tankywoo/.vim/bundle/Pydiction/complete-dict' " TODO
-let g:pydiction_menu_height = 10
+map <leader>tb :TagbarToggle<CR>
+"map <leader>tbc :TagbarClose<CR>
+nmap <F8> :TagbarToggle<CR>
+
 " NERDTree
-nmap <leader>tne :NERDTree<CR>
-nmap <leader>ttne :NERDTreeClose<CR>
+nmap <leader>ne :NERDTreeToggle<CR>
+
 " vim-powerline
+let g:Powerline_symbols = 'unicode' " compatible/unicode/fancy
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors"
 au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
+
+" Better Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" davidhalter/jedi-vim
+autocmd FileType python setlocal completeopt-=preview    " disable docstring
+let g:jedi#completions_command = "<C-N>"
+
+" tabular
+" use `Tab /|` to auto align '|'
+
+" vim-flake8
+autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
+let g:flake8_quickfix_height=5
+let g:flake8_show_in_gutter=1
+highlight link Flake8_Error      Error
+highlight link Flake8_Warning    WarningMsg
+highlight link Flake8_Complexity WarningMsg
+highlight link Flake8_Naming     WarningMsg
+highlight link Flake8_PyFlake    WarningMsg
+"autocmd BufWritePost *.py call Flake8()
+
+" TagList
+" In Mac, use brew install ctags and specified the command path
+"let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+"map <F7> :Tlist<CR>
+
+" TaskList
+"map <leader>tl :TaskList<CR>
+
+" PyDiction
+"let g:pydiction_location = '/home/tankywoo/.vim/bundle/Pydiction/complete-dict' " TODO
+"let g:pydiction_menu_height = 10
+
 " neocomplcache
 "let g:neocomplcache_enable_at_startup = 1
 
-" Better Rainbow Parentheses
-"let g:rbpt_colorpairs = [
-"    \ ['brown',       'RoyalBlue3'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrchid3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'RoyalBlue3'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['brown',       'firebrick3'],
-"    \ ['gray',        'RoyalBlue3'],
-"    \ ['black',       'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['Darkblue',    'firebrick3'],
-"    \ ['darkgreen',   'RoyalBlue3'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrchid3'],
-"    \ ['red',         'firebrick3'],
-"    \ ]
-"
-"let g:rbpt_max = 16
-"let g:rbpt_loadcmd_toggle = 0
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
+"set completeopt=longest,menu,preview
+"let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Flake8
 "autocmd BufWritePost *.py call Flake8()
@@ -193,9 +208,6 @@ au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 " pep8
 "let g:pep8_map='<C-k>'
 
-" davidhalter/jedi-vim
-autocmd FileType python setlocal completeopt-=preview    " disable docstring
-let g:jedi#completions_command = "<C-N>"
 
 "================"
 " Color Settings "
@@ -213,9 +225,5 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
 " Highlight TODO/FIXME/XXX
-highlight myTodo cterm=bold term=bold ctermbg=blue ctermfg=black
-match myTodo /TODO/
-highlight myFixme cterm=bold term=bold ctermbg=red ctermfg=black
-match myFixme /FIXME/
-highlight myXxx cterm=bold term=bold ctermbg=blue ctermfg=black
-match myXxx /\(XXX\|FIXME\)/
+highlight myTODO cterm=bold term=bold ctermbg=yellow ctermfg=black
+match myTODO /\(TODO\|XXX\|FIXME\)/
