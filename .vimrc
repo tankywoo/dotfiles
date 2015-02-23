@@ -78,7 +78,7 @@ endf
 autocmd bufnewfile *.sh call HeaderBash()
 
 "======================"
-" Bundle Configuration "
+" Vundle Configuration "
 "======================"
 set nocompatible               " be iMproved, required
 filetype off                   " required!
@@ -90,41 +90,41 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required! 
-Bundle 'gmarik/Vundle.vim'
+Plugin 'gmarik/Vundle.vim'
 
-" My Bundles here:
+" My Vundles here:
 
 " original repos on github
 " newer powerline is https://github.com/powerline/powerline
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'chriskempson/tomorrow-theme'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'nvie/vim-flake8'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/nerdtree'
-Bundle 'mitsuhiko/vim-jinja'
-"Bundle 'ervandew/supertab'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'chriskempson/tomorrow-theme'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'scrooloose/nerdtree'
+Plugin 'mitsuhiko/vim-jinja'
+"Plugin 'ervandew/supertab'
 " neocomplete need vim --with-lua
-"Bundle 'Shougo/neocomplete.vim'
-"Bundle 'kevinw/pyflakes-vim'
+"Plugin 'Shougo/neocomplete.vim'
+"Plugin 'kevinw/pyflakes-vim'
 " doc: https://github.com/vim-scripts/pydoc.vim
-"Bundle 'fs111/pydoc.vim'
+"Plugin 'fs111/pydoc.vim'
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
-Bundle 'Tagbar'
+Plugin 'Tagbar'
 " `Auto-Pairs` is more useful than `AutoClose`
 " TODO need to research
-Bundle 'Auto-Pairs'
-"Bundle 'pep8'
-"Bundle 'TaskList.vim'
+Plugin 'Auto-Pairs'
+"Plugin 'pep8'
+"Plugin 'TaskList.vim'
 " `snipMate` will conflict with `PyDiction`, Google
-"Bundle 'snipMate'
-"Bundle 'ZenCoding.vim'
-"Bundle 'Pydiction'
-"Bundle 'Color-Scheme-Explorer'
-"Bundle 'Jinja'
+"Plugin 'snipMate'
+"Plugin 'ZenCoding.vim'
+"Plugin 'Pydiction'
+"Plugin 'Color-Scheme-Explorer'
+"Plugin 'Jinja'
 
 " non github repos
 
