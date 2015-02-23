@@ -104,6 +104,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'scrooloose/nerdtree'
 Plugin 'mitsuhiko/vim-jinja'
+Plugin 'airblade/vim-gitgutter'
 "Plugin 'ervandew/supertab'
 " neocomplete need vim --with-lua
 "Plugin 'Shougo/neocomplete.vim'
@@ -204,6 +205,11 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
+" vim-gitgutter
+" https://github.com/airblade/vim-gitgutter
+let g:gitgutter_max_signs = 100
+let g:gitgutter_highlight_lines = 1 " just try a period of time
+
 " TagList
 " In Mac, use brew install ctags and specified the command path
 "let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
@@ -248,3 +254,6 @@ endtry
 " Highlight TODO/FIXME/XXX
 highlight myTODO cterm=bold term=bold ctermbg=yellow ctermfg=black
 match myTODO /\(TODO\|XXX\|FIXME\)/
+
+" vim-gitgutter
+highlight clear SignColumn
