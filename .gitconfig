@@ -25,6 +25,7 @@
 	pl = pull
 	ps = push
 	co = checkout
+	df = diff
 
 [color]
 	ui = auto
