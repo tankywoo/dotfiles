@@ -257,3 +257,8 @@ match myTODO /\(TODO\|XXX\|FIXME\)/
 
 " vim-gitgutter
 highlight clear SignColumn
+"highlight GitGutterAdd ctermfg=green guifg=darkgreen
+"highlight GitGutterChange ctermfg=yellow guifg=darkyellow
+"highlight GitGutterDelete ctermfg=red guifg=darkred
+"highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+"highlight GitGutterAddLine ctermbg=darkgreen guifg=darkgreen
