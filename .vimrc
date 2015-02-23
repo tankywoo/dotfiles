@@ -103,6 +103,7 @@ Bundle 'nvie/vim-flake8'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdtree'
+Bundle 'mitsuhiko/vim-jinja'
 "Bundle 'ervandew/supertab'
 " neocomplete need vim --with-lua
 "Bundle 'Shougo/neocomplete.vim'
