@@ -7,6 +7,13 @@ DISABLE_AUTO_TITLE="true"
 
 plugins=(git svn python colored-man tmux git-flow)
 
+# TODO, get path by command
+WORK_DIR="$HOME/.dotfiles/"
+PRE_CUSTOM="${WORK_DIR}/custom/pre_custom.zsh"
+if [ -e "${PRE_CUSTOM}" ]; then
+    source ${PRE_CUSTOM}
+fi
+
 ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -61,4 +68,9 @@ if [ -f "${SSH_ENV}" ]; then
 }
 else
 	start_agent;
+fi
+
+POST_CUSTOM="${WORK_DIR}/custom/post_custom.zsh"
+if [ -e "${POST_CUSTOM}" ]; then
+    source ${POST_CUSTOM}
 fi
