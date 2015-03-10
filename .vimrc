@@ -208,7 +208,7 @@ let g:rbpt_colorpairs = [
 " vim-gitgutter
 " https://github.com/airblade/vim-gitgutter
 let g:gitgutter_max_signs = 100
-let g:gitgutter_highlight_lines = 1 " just try a period of time
+"let g:gitgutter_highlight_lines = 1
 
 " TagList
 " In Mac, use brew install ctags and specified the command path
