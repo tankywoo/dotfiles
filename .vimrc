@@ -111,6 +111,9 @@ Plugin 'airblade/vim-gitgutter'
 "Plugin 'kevinw/pyflakes-vim'
 " doc: https://github.com/vim-scripts/pydoc.vim
 "Plugin 'fs111/pydoc.vim'
+Plugin 'SirVer/ultisnips'
+" with ultisnips, Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
@@ -209,6 +212,12 @@ let g:rbpt_colorpairs = [
 " https://github.com/airblade/vim-gitgutter
 let g:gitgutter_max_signs = 100
 "let g:gitgutter_highlight_lines = 1
+
+" SirVer/ultisnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " TagList
 " In Mac, use brew install ctags and specified the command path
