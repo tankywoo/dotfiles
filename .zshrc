@@ -4,6 +4,7 @@
 ZSH_THEME="tanky"
 DISABLE_CORRECTION="true"
 DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_UPDATE="true"
 
 plugins=(git svn python colored-man tmux git-flow autojump)
 
