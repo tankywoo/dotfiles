@@ -5,7 +5,7 @@ ZSH_THEME="tanky"
 DISABLE_CORRECTION="true"
 DISABLE_AUTO_TITLE="true"
 
-plugins=(git svn python colored-man tmux git-flow)
+plugins=(git svn python colored-man tmux git-flow autojump)
 
 # TODO, get path by command
 WORK_DIR="$HOME/.dotfiles/"
