@@ -77,6 +77,8 @@ function HeaderBash()
 endf
 autocmd bufnewfile *.sh call HeaderBash()
 
+autocmd FileType html set shiftwidth=2|set expandtab
+
 "======================"
 " Vundle Configuration "
 "======================"
@@ -114,6 +116,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'SirVer/ultisnips'
 " with ultisnips, Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+Plugin 'mattn/emmet-vim'
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
@@ -125,7 +128,6 @@ Plugin 'Auto-Pairs'
 "Plugin 'TaskList.vim'
 " `snipMate` will conflict with `PyDiction`, Google
 "Plugin 'snipMate'
-"Plugin 'ZenCoding.vim'
 "Plugin 'Pydiction'
 "Plugin 'Color-Scheme-Explorer'
 "Plugin 'Jinja'
