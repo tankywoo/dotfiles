@@ -10,7 +10,7 @@
 HOME=${HOME}
 PWD=`pwd`
 OH_MY_ZSH=${HOME}"/.oh-my-zsh"
-VUNDLE=${HOME}"/.vim/bundle/vundle"
+VUNDLE=${HOME}"/.vim/bundle/Vundle.vim"
 
 # Pre check
 check_software_exist(){
@@ -59,7 +59,7 @@ install_vundle(){
 		echo "Change directory back to `pwd`"
 	else
 		echo "${VUNDLE} not exists. Git clone to create..."
-		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/vundle
+		git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE}
 		vim +BundleInstall +qall
 	fi
 }
