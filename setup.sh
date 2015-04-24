@@ -6,6 +6,7 @@
 #	* vim
 #	* git
 #	* screen
+#	* tig
 
 HOME=${HOME}
 PWD=`pwd`
@@ -24,7 +25,7 @@ check_software_exist(){
 }
 
 create_symlinks(){
-	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc")
+	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc", ".tigrc")
 	for dotfile in "${dotfiles[@]}"
 	do
 		ln -sf ${PWD}/${dotfile} ${HOME}/${dotfile}
