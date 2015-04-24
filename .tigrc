@@ -1,3 +1,8 @@
+# Tig
+# Project Page: https://github.com/jonas/tig
+# Default RC: https://github.com/jonas/tig/blob/master/tigrc
+# Man: http://jonas.nitro.dk/tig/tigrc.5.html
+
 # View settings
 set main-view = \
 	line-number:yes,interval=5 \
