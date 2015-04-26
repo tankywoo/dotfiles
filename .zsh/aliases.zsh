@@ -28,4 +28,4 @@ alias tpull='cd ~/.tasks/; git pull; cd -'
 alias tst='cd ~/.tasks/; git status; cd -'
 
 alias json="python -mjson.tool"
-alias ccat="pygmentize -g"
+alias ccat="pygmentize -f terminal256 -O style=monokai -g"
