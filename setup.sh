@@ -25,7 +25,7 @@ check_software_exist(){
 }
 
 create_symlinks(){
-	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc", ".tigrc")
+	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc" ".tigrc")
 	for dotfile in "${dotfiles[@]}"
 	do
 		ln -sf ${PWD}/${dotfile} ${HOME}/${dotfile}
@@ -75,8 +75,8 @@ config_zsh(){
 }
 
 config_tmux(){
-	echo "Create symlink ${HOME}/tmux.sh"
-	ln -sf ${PWD}/tmux.sh ${HOME}/tmux.sh # TODO, use alise?
+	echo "Create symlink ${HOME}/.tmux.sh"
+	ln -sf ${PWD}/.tmux.sh ${HOME}/.tmux.sh # TODO, use alise?
 }
 
 main(){
