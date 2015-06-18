@@ -167,6 +167,7 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors"
 au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 
 " Better Rainbow Parentheses
+" :RainbowParenthesesToggle            " Toggle it on/off
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
