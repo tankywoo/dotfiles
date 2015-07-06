@@ -1,15 +1,16 @@
 # changed from philips.zsh-theme
 
-#if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="cyan"; fi
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="magenta"; fi
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="blue"; fi
 
-# PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}::%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)» '
-#PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%}::%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)» '
-#PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} $ %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)» '
-if [ -n "${PS1_ENABLE_HOSTNAE}" ] && [ "${PS1_ENABLE_HOSTNAE}" = true ]; then
-    PROMPT='%{$fg[$NCOLOR]%}%B%n@%m%b%{$reset_color%} $ %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}⇒ %{$reset_color%} '
+if [ -n "${PS1_DEBUG}" ] && [ "${PS1_DEBUG}" = true ]; then
+    # use $FG, not $fg, for 256 color
+    PROMPT='%{$fg[$NCOLOR]%}%n%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
+elif [ -n "${PS1_ENABLE_HOSTNAME}" ] && [ "${PS1_ENABLE_HOSTNAME}" = true ]; then
+    PROMPT='%{$fg[$NCOLOR]%}%B%n@%m%b%{$reset_color%} %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}%%%{$reset_color%} '
+elif [ -n "${PS1_ENABLE_USERNAME}" ] && [ "${PS1_ENABLE_USERNAME}" = true ]; then
+    PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}%%%{$reset_color%} '
 else
-    PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} $ %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}⇒ %{$reset_color%} '
+    PROMPT='%{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}$%{$reset_color%} '
 fi
 
 

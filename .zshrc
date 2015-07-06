@@ -6,6 +6,9 @@ DISABLE_CORRECTION="true"
 DISABLE_AUTO_TITLE="true"
 DISABLE_AUTO_UPDATE="true"
 
+PS1_ENABLE_USERNAME="true"
+PS1_DEBUG="true"
+
 plugins=(git svn python colored-man tmux git-flow autojump)
 
 # TODO, get path by command
