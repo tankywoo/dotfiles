@@ -214,7 +214,7 @@ let g:rbpt_colorpairs = [
 
 " vim-gitgutter
 " https://github.com/airblade/vim-gitgutter
-let g:gitgutter_max_signs = 100
+let g:gitgutter_max_signs = 500
 "let g:gitgutter_highlight_lines = 1
 
 " SirVer/ultisnips
