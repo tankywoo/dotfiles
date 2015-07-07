@@ -16,3 +16,4 @@ set line-graphics = utf-8    # Enum: ascii, default, utf-8
 
 set reference-format = (branch) <tag>
 
+set split-view-width = 60%
