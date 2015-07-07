@@ -117,6 +117,7 @@ Plugin 'SirVer/ultisnips'
 " with ultisnips, Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
+"Plugin 'plasticboy/vim-markdown'  " must behind tabular
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
@@ -247,6 +248,23 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " pep8
 "let g:pep8_map='<C-k>'
 
+" vim-markdown
+"let g:vim_markdown_frontmatter=1
+
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '/Users/TankyWoo/.dotfiles/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 "================"
 " Color Settings "
