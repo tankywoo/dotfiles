@@ -2,16 +2,23 @@
 
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="blue"; fi
 
-if [ -n "${PS1_DEBUG}" ] && [ "${PS1_DEBUG}" = true ]; then
-    # use $FG, not $fg, for 256 color
-    PROMPT='%{$fg[$NCOLOR]%}%n%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
-elif [ -n "${PS1_ENABLE_HOSTNAME}" ] && [ "${PS1_ENABLE_HOSTNAME}" = true ]; then
-    PROMPT='%{$fg[$NCOLOR]%}%B%n@%m%b%{$reset_color%} %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}%%%{$reset_color%} '
-elif [ -n "${PS1_ENABLE_USERNAME}" ] && [ "${PS1_ENABLE_USERNAME}" = true ]; then
-    PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%} %{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}%%%{$reset_color%} '
-else
-    PROMPT='%{$fg[blue]%}%B%d/%b%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}$%{$reset_color%} '
+PS1_PRE=''
+PS1_BOLD_PRE="false"
+if [ -n "${PS1_ENABLE_USERNAME}" ] && [ "${PS1_ENABLE_USERNAME}" = true ]; then
+    PS1_PRE=${PS1_PRE}'%n'
 fi
+if [ -n "${PS1_ENABLE_HOSTNAME}" ] && [ "${PS1_ENABLE_HOSTNAME}" = true ]; then
+    PS1_PRE=${PS1_PRE}'@%m'
+fi
+if [ -n "${PS1_BOLD_PRE}" ] && [ "${PS1_BOLD_PRE}" = true ]; then
+    PS1_PRE='%B'${PS1_PRE}'%b'
+fi
+if [ -n "${PS1_PRE}" ]; then
+    PS1_PRE=${PS1_PRE}' '   # add a space between username and path
+fi
+
+# use $FG, not $fg, for 256 color
+PROMPT='%{$fg[$NCOLOR]%}'${PS1_PRE}'%{$reset_color%}%{$fg[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
 
 
 # git theming

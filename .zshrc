@@ -7,7 +7,8 @@ DISABLE_AUTO_TITLE="true"
 DISABLE_AUTO_UPDATE="true"
 
 PS1_ENABLE_USERNAME="true"
-PS1_DEBUG="true"
+PS1_ENABLE_HOSTNAME="false"
+PS1_BOLD_PRE="false"
 
 plugins=(git svn python colored-man tmux git-flow autojump)
 
