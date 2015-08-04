@@ -117,7 +117,10 @@ Plugin 'SirVer/ultisnips'
 " with ultisnips, Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
+" https://github.com/plasticboy/vim-markdown
 "Plugin 'plasticboy/vim-markdown'  " must behind tabular
+" https://github.com/flazz/vim-colorschemes
+"Plugin 'flazz/vim-colorschemes'
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
