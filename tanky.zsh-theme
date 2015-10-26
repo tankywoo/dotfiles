@@ -18,7 +18,8 @@ if [ -n "${PS1_PRE}" ]; then
 fi
 
 # use $FG, not $fg, for 256 color
-PROMPT='%{$fg[$NCOLOR]%}'${PS1_PRE}'%{$reset_color%}%{$fg[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
+#PROMPT='%{$fg[$NCOLOR]%}'${PS1_PRE}'%{$reset_color%}%{$fg[green]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
+PROMPT='%{$fg[$NCOLOR]%}'${PS1_PRE}'%{$reset_color%}%{$FG[077]%}%~%{$reset_color%} $(git_prompt_info)%{$fg[blue]%}%%%{$reset_color%} '
 
 
 # git theming
