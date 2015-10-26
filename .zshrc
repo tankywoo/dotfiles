@@ -10,7 +10,8 @@ PS1_ENABLE_USERNAME="true"
 PS1_ENABLE_HOSTNAME="false"
 PS1_BOLD_PRE="false"
 
-plugins=(git svn python colored-man tmux git-flow autojump)
+# tmuxinator is completion script almost like offical
+plugins=(git svn python colored-man tmux git-flow autojump tmuxinator)
 
 # TODO, get path by command
 WORK_DIR="$HOME/.dotfiles/"
