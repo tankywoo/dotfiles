@@ -78,6 +78,8 @@ endf
 autocmd bufnewfile *.sh call HeaderBash()
 
 autocmd FileType html set shiftwidth=2|set expandtab
+autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 "======================"
 " Vundle Configuration "
