@@ -1,0 +1,104 @@
+# 设置发信地址和用户名
+set from = ""
+set realname = ""
+set use_from = yes
+
+# 设置邮箱帐户和密码
+set imap_user = ""
+set imap_pass = ""
+
+# 设置远程服务器文件夹
+set folder = "imaps://<mail_server>:<imap_port>"
+set spoolfile = "+INBOX"
+
+# 允许mutt自动创建一个新的imap连接
+unset imap_passive
+
+# imap连接保持时间
+set imap_keepalive = 300
+
+# 检查新邮件间隔时间
+set mail_check = 120
+
+# 本地缓存目录
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+
+# 设置内建smtp, 这里我们不使用
+#set smtp_url = "smtps://username@gmail.com@smtp.gmail.com:465/"
+#set smtp_pass = "your password"
+#set ssl_starttls = yes
+
+# 使用msmtp
+#set sendmail = "/usr/bin/msmtp"
+
+# 退出提醒
+set quit = ask-yes
+
+# 回信包含原文
+set include
+
+# 设置回信引文之前的插入符号
+set indent_str = "> "
+
+# 设置邮件头
+my_hdr From: xxx@xxx.com
+
+# 邮件打分
+# score "~N" +4
+# score "~s 通知" +2
+# score "~D" -5
+# score "~O" +1
+# score "~s believe" -10
+
+# 排序方式
+set sort = date
+
+# 二级排序
+#set sort_aux = score
+
+# 翻到最后一页不回到第一页
+set pager_stop
+
+# 删除邮件自动移动光标
+set resolve = yes
+
+# 设置编码，保持和终端一致
+set charset = "utf-8"
+
+# 是否编辑邮件头
+set edit_headers = no
+
+# pager显示行数
+set pager_index_lines = 4
+
+set pager_index_lines=15
+set sort=threads
+
+ignore *
+unignore from date subject to cc
+unignore organization organisation x-mailer: x-newsreader: x-mailing-list:
+unignore posted-to:
+
+# 颜色配置
+# http://www.mutt.org/doc/manual/manual-3.html
+color header cyan black .
+color header yellow black ^From
+color header yellow black ^Subject
+
+color hdrdefault green black
+color quoted green black
+color signature cyan black
+color attachment yellow black
+color tree white black
+color indicator brightyellow red
+color status yellow blue
+color tilde blue black
+color normal white black
+
+color message brightred black
+color error brightred black
+color markers red black
+color search white black
+color index blue black ~F
+color index red black "~N|~O"
