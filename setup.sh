@@ -61,7 +61,7 @@ install_vundle(){
 	else
 		echo "${VUNDLE} not exists. Git clone to create..."
 		git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE}
-		vim +BundleInstall +qall
+		vim +PluginInstall +qall
 	fi
 }
 
