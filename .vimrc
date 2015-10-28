@@ -63,20 +63,19 @@ function HeaderPython()
     call append(2,  "# Tanky Woo @ " . strftime('%Y-%m-%d', localtime()))
     normal G
     normal o
-    normal o
 endf
 autocmd bufnewfile *.py call HeaderPython()
 
 " .sh file auto add header
 function HeaderBash()
     call setline(1, "#!/bin/bash")
-    call append(1,  "# Tanky Woo @ " . strftime('%Y-%m-%d %T', localtime()))
+    call append(1,  "# Tanky Woo @ " . strftime('%Y-%m-%d', localtime()))
     normal G
-    normal o
     normal o
 endf
 autocmd bufnewfile *.sh call HeaderBash()
 
+" ref: http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
 autocmd FileType html set shiftwidth=2|set expandtab
 autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
