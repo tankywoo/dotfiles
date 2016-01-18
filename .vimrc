@@ -296,6 +296,7 @@ set cursorline " Highlighter the current line
 set cursorcolumn " Highlighter the vertical line"
 "hi cursorline cterm=bold ctermbg=darkgrey ctermfg=red
 set cursorline
+hi search cterm=underline ctermfg=white
 
 " vim-gitgutter
 highlight clear SignColumn
