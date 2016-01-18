@@ -199,7 +199,7 @@ highlight link Flake8_Warning    WarningMsg
 highlight link Flake8_Complexity WarningMsg
 highlight link Flake8_Naming     WarningMsg
 highlight link Flake8_PyFlake    WarningMsg
-"autocmd BufWritePost *.py call Flake8()
+autocmd BufWritePost *.py call Flake8()
 
 " rainbow_parentheses.vim
 let g:rbpt_colorpairs = [
