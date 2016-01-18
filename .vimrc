@@ -28,9 +28,6 @@ set smartindent
 set showmatch " When a bracket is inserted, briefly jump to the matching one
 set showmode " Show the mode
 set nobackup " No backup
-set cursorline " Highlighter the current line
-set cursorcolumn " Highlighter the vertical line"
-"hi cursorline gui=UNDERLINE cterm=UNDERLINE
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
 set t_Co=256 " If under tty, use 256
 set pastetoggle=<F10> "" Bind `F10` to `:set paste`
@@ -293,6 +290,12 @@ endtry
 " Highlight TODO/FIXME/XXX
 highlight myTODO cterm=bold term=bold ctermbg=yellow ctermfg=black
 match myTODO /\(TODO\|XXX\|FIXME\)/
+
+" this options can be setted with colors, and must be put after colorscheme
+set cursorline " Highlighter the current line
+set cursorcolumn " Highlighter the vertical line"
+"hi cursorline cterm=bold ctermbg=darkgrey ctermfg=red
+set cursorline
 
 " vim-gitgutter
 highlight clear SignColumn
