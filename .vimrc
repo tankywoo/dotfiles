@@ -123,6 +123,9 @@ Plugin 'mattn/emmet-vim'
 "Plugin 'plasticboy/vim-markdown'  " must behind tabular
 " https://github.com/flazz/vim-colorschemes
 "Plugin 'flazz/vim-colorschemes'
+" https://github.com/AndrewRadev/splitjoin.vim
+" transition between multiline and single-line code
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
