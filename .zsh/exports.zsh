@@ -24,3 +24,4 @@ export PATH=${PATH}:/sbin:/usr/local/bin:/usr/local/sbin:${HOME}/.local/bin:
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
+export LESS='-RS'
