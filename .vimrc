@@ -100,6 +100,7 @@ Plugin 'gmarik/Vundle.vim'
 " newer powerline is https://github.com/powerline/powerline
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'chriskempson/tomorrow-theme'
+" another: https://github.com/luochen1990/rainbow
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'davidhalter/jedi-vim'
@@ -175,30 +176,11 @@ au BufRead,BufNewFile *.md set filetype=markdown  " .md default is modula2
 
 " Better Rainbow Parentheses
 " :RainbowParenthesesToggle            " Toggle it on/off
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+au VimEnter *.py,*.html,*.css,*.sls RainbowParenthesesToggle
+au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadRound
+au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadSquare
+au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadBraces
 
-" davidhalter/jedi-vim
-autocmd FileType python setlocal completeopt-=preview    " disable docstring
-let g:jedi#completions_command = "<C-N>"
-
-" tabular
-" use `Tab /|` to auto align '|'
-
-" vim-flake8
-autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
-let g:flake8_quickfix_height=5
-let g:flake8_show_in_gutter=1
-highlight link Flake8_Error      Error
-highlight link Flake8_Warning    WarningMsg
-highlight link Flake8_Complexity WarningMsg
-highlight link Flake8_Naming     WarningMsg
-highlight link Flake8_PyFlake    WarningMsg
-autocmd BufWritePost *.py call Flake8()
-
-" rainbow_parentheses.vim
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -217,6 +199,24 @@ let g:rbpt_colorpairs = [
     \ ['darkcyan',    'SeaGreen3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+" davidhalter/jedi-vim
+autocmd FileType python setlocal completeopt-=preview    " disable docstring
+let g:jedi#completions_command = "<C-N>"
+
+" tabular
+" use `Tab /|` to auto align '|'
+
+" vim-flake8
+autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
+let g:flake8_quickfix_height=5
+let g:flake8_show_in_gutter=1
+highlight link Flake8_Error      Error
+highlight link Flake8_Warning    WarningMsg
+highlight link Flake8_Complexity WarningMsg
+highlight link Flake8_Naming     WarningMsg
+highlight link Flake8_PyFlake    WarningMsg
+autocmd BufWritePost *.py call Flake8()
 
 " vim-gitgutter
 " https://github.com/airblade/vim-gitgutter
