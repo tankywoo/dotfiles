@@ -5,6 +5,7 @@
 " General "
 "========="
 set nu " Set the line number
+set mouse=a  " Enable mouse
 syntax on " Syntax highlighting
 "set autochdir " Set the current dir as thr work dir
 set hlsearch " Highlight the search result
