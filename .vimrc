@@ -52,7 +52,7 @@ if exists('+colorcolumn')
 else
     au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
-hi ColorColumn ctermbg=lightgrey guibg=lightgreya  " Highlighter cc
+hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 
 " Auto add head info
 " .py file auto add header
