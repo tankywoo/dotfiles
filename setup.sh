@@ -66,8 +66,8 @@ install_vundle(){
 }
 
 config_zsh(){
-	echo "Create symlink ${HOME}/.zsh"
-	ln -sf ${PWD}/.zsh ${HOME}/.zsh
+	echo "Create symlink ${HOME}/.common"
+	ln -sf ${PWD}/.common ${HOME}/.common
 	# TODO: See ~/.oh-my-zsh/custom/
 	ln -sf ${PWD}/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme
 	chsh -s `which zsh` # TODO: If zsh is an alias?
