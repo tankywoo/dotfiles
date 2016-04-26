@@ -31,3 +31,5 @@ alias json="python -mjson.tool"
 alias ccat="pygmentize -f terminal256 -O style=monokai -g"
 
 alias mac-listen='sudo lsof -i -n -P | grep TCP'
+
+alias hp="http_proxy=http://127.0.0.1:8123"
