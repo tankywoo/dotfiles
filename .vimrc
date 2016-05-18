@@ -189,9 +189,12 @@ au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadRound
 au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadSquare
 au Syntax *.py,*.html,*.css,*.sls RainbowParenthesesLoadBraces
 
+" rainbow_parentheses.vim
+" the outer layer is the last pair
+" remove black for dark terminal
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkblue',    'SeaGreen3'],
     \ ['darkgray',    'DarkOrchid3'],
     \ ['darkgreen',   'firebrick3'],
     \ ['darkcyan',    'RoyalBlue3'],
@@ -200,13 +203,13 @@ let g:rbpt_colorpairs = [
     \ ['brown',       'firebrick3'],
     \ ['gray',        'RoyalBlue3'],
     \ ['darkred',     'DarkOrchid3'],
-    \ ['black',       'SeaGreen3'],
     \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
+    \ ['darkblue',    'firebrick3'],
     \ ['darkgreen',   'RoyalBlue3'],
     \ ['darkcyan',    'SeaGreen3'],
     \ ['red',         'firebrick3'],
     \ ]
+let g:rbpt_max = 15
 
 " davidhalter/jedi-vim
 autocmd FileType python setlocal completeopt-=preview    " disable docstring
