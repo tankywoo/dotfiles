@@ -83,6 +83,7 @@ autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 " for gui, such as macvim
 if has("gui_running")
 	set guifont=Monaco:h12
+	set gcr=a:blinkon0  "Disable cursor blink
 	set lines=60
 	set columns=150
 endif
@@ -148,7 +149,12 @@ Plugin 'Auto-Pairs'
 "Plugin 'Color-Scheme-Explorer'
 "Plugin 'Jinja'
 
+"""""""""""""""""""""""""""""""""""
+" Dedicated Plugins
+"""""""""""""""""""""""""""""""""""
+Plugin 'rizzatti/dash.vim'
 " non github repos
+Plugin 'vim-twlog'
 
 call vundle#end()             " required!
 filetype plugin indent on     " required!
@@ -283,6 +289,16 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
+"""""""""""""""""""""""""""""""""""
+" Dedicated Plugins
+"""""""""""""""""""""""""""""""""""
+" dash
+" https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
+let g:dash_map = {
+	\ 'python' : ['py', 'python2', 'py3', 'python3']
+	\ }
+nmap <silent> <leader>da <Plug>DashSearch
+
 "================"
 " Color Settings "
 " ==============="
@@ -306,7 +322,6 @@ match myTODO /\(TODO\|XXX\|FIXME\)/
 set cursorline " Highlighter the current line
 set cursorcolumn " Highlighter the vertical line"
 "hi cursorline cterm=bold ctermbg=darkgrey ctermfg=red
-set cursorline
 hi search cterm=underline ctermfg=white
 
 " vim-gitgutter
