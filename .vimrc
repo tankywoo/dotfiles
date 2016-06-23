@@ -5,6 +5,9 @@
 " General "
 "========="
 set nu " Set the line number
+" press `shift` while selecting with the mouse can disable into visual mode
+" in mac os, hold `alt/option` is easier
+" ref: http://stackoverflow.com/questions/4608161/copy-text-out-of-vim-with-set-mouse-a-enabled
 set mouse=a  " Enable mouse
 syntax on " Syntax highlighting
 "set autochdir " Set the current dir as thr work dir
