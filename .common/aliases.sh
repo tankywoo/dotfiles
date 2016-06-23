@@ -18,7 +18,7 @@ alias grep='grep --color'
 
 alias treepy='tree -I "*.pyc"'
 
-alias vix='vi --cmd "set expandtab"'
+alias vix='vim --cmd "set expandtab"'
 
 # Command-Line Tools `t`
 # https://github.com/tankywoo/t
