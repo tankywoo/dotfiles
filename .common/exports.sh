@@ -25,3 +25,8 @@ export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
 export LESS='-RS'
+
+# Fix colored man pages not work
+# * http://unix.stackexchange.com/questions/6010/colored-man-pages-not-working-on-gentoo
+# * https://forums.gentoo.org/viewtopic-t-819833-start-0.html
+export GROFF_NO_SGR=1
