@@ -30,6 +30,8 @@ set smartindent shiftwidth=4
 "set expandtab " Use the space to instead of tab
 set smartindent
 set showmatch " When a bracket is inserted, briefly jump to the matching one
+set ignorecase
+set smartcase
 set showmode " Show the mode
 set nobackup " No backup
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
