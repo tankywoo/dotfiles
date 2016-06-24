@@ -47,3 +47,6 @@ fi
 # disable CTRL+S from sending XOFF
 stty ixany
 stty ixoff -ixon
+
+# added by travis gem
+[ -f /Users/TankyWoo/.travis/travis.sh ] && source /Users/TankyWoo/.travis/travis.sh
