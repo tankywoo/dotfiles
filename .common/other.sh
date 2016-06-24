@@ -15,10 +15,13 @@ export PATH=$HOME/Library/Python/2.7/bin:$PATH
 #export WORKON_HOME=~/Envs
 VIRTUALENVWRAPPER_UBUNTU="/usr/local/bin/virtualenvwrapper.sh"
 VIRTUALENVWRAPPER_GENTOO="/usr/bin/virtualenvwrapper.sh"
+VIRTUALENVWRAPPER_PIP_USER="~/.local/bin/virtualenvwrapper.sh"
 if [ -e "${VIRTUALENVWRAPPER_UBUNTU}" ]; then
 	source ${VIRTUALENVWRAPPER_UBUNTU}
 elif [ -e "${VIRTUALENVWRAPPER_GENTOO}" ]; then
 	source ${VIRTUALENVWRAPPER_GENTOO}
+elif [ -e "${VIRTUALENVWRAPPER_PIP_USER}" ]; then
+	source ${VIRTUALENVWRAPPER_PIP_USER}
 fi
 
 # Set up ssh-agent
