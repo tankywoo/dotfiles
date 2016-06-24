@@ -20,7 +20,7 @@ elif [ -n "$TMUX" ]; then
 		export TERM='screen'
 	fi
 fi
-export PATH=${PATH}:/sbin:/usr/local/bin:/usr/local/sbin:${HOME}/.local/bin:
+export PATH=${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:${PATH}
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'

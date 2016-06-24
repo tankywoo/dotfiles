@@ -5,10 +5,10 @@ if command -v rbenv 2>/dev/null; then
 fi
 
 # rvm
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 
 # for Mac new Python
-PATH=$PATH:$HOME/Library/Python/2.7/bin/
+export PATH=$HOME/Library/Python/2.7/bin:$PATH
 
 # virtualenvwrapper
 # default $WORKON_HOME is ~/.virtualenvs after source virtualenvwrapper.sh
