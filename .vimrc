@@ -83,6 +83,7 @@ autocmd bufnewfile *.sh call HeaderBash()
 autocmd FileType html set shiftwidth=2|set expandtab
 autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " for gui, such as macvim
@@ -139,6 +140,7 @@ Plugin 'mattn/emmet-vim'
 " https://github.com/AndrewRadev/splitjoin.vim
 " transition between multiline and single-line code
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'pangloss/vim-javascript'  " improved indentation
 
 " vim-scripts repos
 " Tagbar is more powerful than 'taglist.vim'
