@@ -14,3 +14,6 @@ rm -f ${HOME}/tmux.sh
 echo "Delete symlink ${HOME}/tmux.sh"
 rm -f ${HOME}/.zsh
 echo "Delete symlink ${HOME}/.zsh"
+rm -f ${HOME}/.pip/pip.conf
+rmdir ${HOME}/.pip
+echo "Delete symlink ${HOME}/.pip/pip.conf"

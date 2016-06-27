@@ -79,6 +79,12 @@ config_tmux(){
 	ln -sf ${PWD}/.tmux.sh ${HOME}/.tmux.sh # TODO, use alise?
 }
 
+config_pip(){
+	echo "Create symlink ${HOME}/.pip/pip.conf"
+	mkdir ${HOME}/.pip
+	ln -sf ${PWD}/.pip/pip.conf ${HOME}/.pip/pip.conf
+}
+
 main(){
 	check_software_exist
 	install_oh_my_zsh
@@ -86,6 +92,7 @@ main(){
 	create_symlinks
 	config_zsh
 	config_tmux
+	config_pip
 }
 
 main
