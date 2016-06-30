@@ -85,6 +85,7 @@ autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandt
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " for gui, such as macvim
 if has("gui_running")
