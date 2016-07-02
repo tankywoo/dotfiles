@@ -210,6 +210,13 @@ let g:rbpt_max = 15
 " -------------------------------------------------------------------------------
 " davidhalter/jedi-vim
 " -------------------------------------------------------------------------------
+"   Goto assignments <leader>g (typical goto function)
+"   Goto definitions <leader>d (follow identifier as far as possible, includes
+"   imports and statements)
+"   Show Documentation/Pydoc K (shows a popup with assignments)
+"   Renaming <leader>r
+"   Usages <leader>n (shows all the usages of a name)
+"   Open module, e.g. :Pyimport os (opens the os module)
 autocmd FileType python setlocal completeopt-=preview    " disable docstring
 let g:jedi#completions_command = "<C-N>"
 
