@@ -139,13 +139,13 @@ Plugin 'ternjs/tern_for_vim'  " js autocompletion
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
+Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
 Plugin 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
 Plugin 'Tagbar'  " Tagbar is more powerful than 'taglist.vim'
 Plugin 'Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 "Plugin 'godlygeek/tabular'
 
 " Others
-"Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
 "Plugin 'SirVer/ultisnips'
 " with ultisnips, Snippets are separated from the engine. Add this if you want them:
 "Plugin 'honza/vim-snippets'
@@ -252,6 +252,60 @@ nmap <leader>ne :NERDTreeToggle<CR>
 set completeopt=longest,menu,preview
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"  " use omni completion instead of default
 let g:SuperTabCrMapping = 1  " disable <enter> with newline, https://github.com/ervandew/supertab/issues/142
+
+" ----------------------------------------------------------------------------
+" Shougo/neocomplete.vim
+" ----------------------------------------------------------------------------
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 1
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=tern#Complete  " for ternjs
+autocmd FileType python setlocal omnifunc=jedi#completions  " for jedi
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
 
 " ----------------------------------------------------------------------------
 " Tagbar
