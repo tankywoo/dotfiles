@@ -101,6 +101,7 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " ===============================================================================
 " Vundle Configuration
@@ -364,8 +365,8 @@ highlight clear SignColumn
 " ----------------------------------------------------------------------------
 " https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
 let g:dash_map = {
-	\ 'python' : ['py', 'python2', 'py3', 'python3']
-	\ }
+  \ 'python' : ['py', 'python2', 'py3', 'python3']
+  \ }
 nmap <silent> <leader>da <Plug>DashSearch
 
 " ----------------------------------------------------------------------------
@@ -398,10 +399,10 @@ endtry
 
 " for gui, such as macvim
 if has("gui_running")
-	set guifont=Monaco:h12
-	set gcr=a:blinkon0  "Disable cursor blink
-	set lines=60
-	set columns=150
+  set guifont=Monaco:h12
+  set gcr=a:blinkon0  "Disable cursor blink
+  set lines=60
+  set columns=150
 endif
 
 " Highlight TODO/FIXME/XXX
