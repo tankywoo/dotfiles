@@ -304,9 +304,11 @@ nmap <silent> <leader>da <Plug>DashSearch
 " use `Tab /|` to auto align '|'
 
 
-"================"
-" Color Settings "
-" ==============="
+" ===============================================================================
+" Color Settings
+" ===============================================================================
+" test color with run `:runtime syntax/colortest.vim`
+
 set t_Co=256
 
 if exists('+colorcolumn')
