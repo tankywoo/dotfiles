@@ -149,16 +149,13 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'  " needed with SirVer/ultisnips
 Plugin 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
 Plugin 'Tagbar'  " Tagbar is more powerful than 'taglist.vim'
 Plugin 'Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 "Plugin 'godlygeek/tabular'
 
-" Others
-"Plugin 'SirVer/ultisnips'
-" with ultisnips, Snippets are separated from the engine. Add this if you want them:
-"Plugin 'honza/vim-snippets'
-"Plugin 'mattn/emmet-vim'
 
 if has('mac') || has('macunix')
     Plugin 'rizzatti/dash.vim'
@@ -336,6 +333,17 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+
+" ----------------------------------------------------------------------------
+" SirVer/ultisnips
+" ----------------------------------------------------------------------------
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " ----------------------------------------------------------------------------
 " Tagbar
