@@ -13,6 +13,10 @@
 
 set nocompatible  " Use the vim's keyboard setting, not vi
 
+if filereadable(expand("~/.vim/vimrc.vundle"))
+  source ~/.vim/vimrc.vundle
+endif
+
 set nu  " Set the line number
 syntax on  " Syntax highlighting
 "set autochdir  " Set the current dir as thr work dir
