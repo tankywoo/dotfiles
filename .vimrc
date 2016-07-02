@@ -131,6 +131,9 @@ Plugin 'mitsuhiko/vim-jinja'
 "Plugin 'Pydiction'
 "Plugin 'pep8'
 
+" HTML & CSS
+Plugin 'hail2u/vim-css3-syntax'
+
 " JavaScript
 Plugin 'pangloss/vim-javascript'  " improved indentation
 Plugin 'ternjs/tern_for_vim'  " js autocompletion
@@ -232,6 +235,15 @@ highlight link Flake8_Complexity WarningMsg
 highlight link Flake8_Naming     WarningMsg
 highlight link Flake8_PyFlake    WarningMsg
 autocmd BufWritePost *.py call Flake8()
+
+" ----------------------------------------------------------------------------
+" hail2u/vim-css3-syntax
+" ----------------------------------------------------------------------------
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
 
 " ----------------------------------------------------------------------------
 " ternjs/tern_for_vim
