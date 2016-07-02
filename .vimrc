@@ -340,3 +340,5 @@ match myTODO /\(TODO\|XXX\|FIXME\)/
 set cursorline " Highlighter the current line
 set cursorcolumn " Highlighter the vertical line"
 hi search cterm=underline ctermfg=white
+
+highlight PmenuSel cterm=underline,bold ctermfg=blue
