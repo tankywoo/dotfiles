@@ -137,6 +137,7 @@ Plugin 'mitsuhiko/vim-jinja'
 "Plugin 'pep8'
 
 " HTML & CSS
+Plugin 'mattn/emmet-vim'
 Plugin 'hail2u/vim-css3-syntax'
 
 " JavaScript
@@ -240,6 +241,18 @@ highlight link Flake8_Complexity WarningMsg
 highlight link Flake8_Naming     WarningMsg
 highlight link Flake8_PyFlake    WarningMsg
 autocmd BufWritePost *.py call Flake8()
+
+" ----------------------------------------------------------------------------
+" mattn/emmet-vim
+" ----------------------------------------------------------------------------
+"   trigger key: <c-y>,  " note with comma
+"   html:5
+"   <c-y>n: next edit point
+"   <c-y>N: previous edit point
+"   <c-y>d: select whole label
+"   <c-y>D: select whole label content
+"   <c-y>k: delete current label
+
 
 " ----------------------------------------------------------------------------
 " hail2u/vim-css3-syntax
