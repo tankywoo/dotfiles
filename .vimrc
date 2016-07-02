@@ -250,7 +250,8 @@ nmap <leader>ne :NERDTreeToggle<CR>
 " ervandew/supertab
 " ----------------------------------------------------------------------------
 set completeopt=longest,menu,preview
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"  " use omni completion instead of default
+let g:SuperTabCrMapping = 1  " disable <enter> with newline, https://github.com/ervandew/supertab/issues/142
 
 " ----------------------------------------------------------------------------
 " Tagbar
