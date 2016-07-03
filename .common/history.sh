@@ -4,4 +4,6 @@ alias history='fc -l'  # defult: aliased to fc -l 1
 HISTFILE=~/.zsh_history
 HISTSIZE=9999
 SAVEHIST=9999
-setopt extendedhistory
+if [[ "$SHELL" == `which zsh 2>/dev/null`   ]]; then
+    setopt extendedhistory
+fi

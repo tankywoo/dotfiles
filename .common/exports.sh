@@ -3,7 +3,7 @@
 # If not set null_glob option, when '/usr/share/terminfo/*/xterm-256color'
 # not exists, will output: no matches found: /usr/share/terminfo/*/xterm-256color
 # more detailed see this answer: http://unix.stackexchange.com/a/26825/45725
-if [[ "$SHELL" == `which zsh`   ]]; then
+if [[ "$SHELL" == `which zsh 2>/dev/null`   ]]; then
 	setopt null_glob
 fi
 

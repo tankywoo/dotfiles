@@ -130,7 +130,6 @@ source ~/.common/exports.sh
 source ~/.common/aliases.sh
 source ~/.common/functions.sh
 source ~/.common/history.sh
-source ~/.common/quickjump.sh
 
 source ~/.common/other.sh
 
