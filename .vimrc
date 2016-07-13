@@ -103,6 +103,14 @@ autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
+" -------------------------------------------------------------------------------
+" Bind Keys
+" -------------------------------------------------------------------------------
+
+" <C-l>: quick temp disable hlsearch
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+
 " ===============================================================================
 " Vundle Configuration
 " ===============================================================================
