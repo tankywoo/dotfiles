@@ -103,6 +103,9 @@ autocmd FileType sh setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
+" enable quick jump between keyword, such as if/endif
+runtime macros/matchit.vim
+
 " -------------------------------------------------------------------------------
 " Bind Keys
 " -------------------------------------------------------------------------------
