@@ -106,6 +106,10 @@ autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 " enable quick jump between keyword, such as if/endif
 runtime macros/matchit.vim
 
+" quick expand current active file's directory (not work directory)
+" use `%%' to auto expand instead of `%:h<Tab>'
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " -------------------------------------------------------------------------------
 " Bind Keys
 " -------------------------------------------------------------------------------
