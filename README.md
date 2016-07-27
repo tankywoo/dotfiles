@@ -8,6 +8,7 @@ My dotfiles for:
 * zsh(with theme)
 * git
 * sublime
+* useful tools
 
 ## Quick Install & Uninstall ##
 
