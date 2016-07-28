@@ -1,0 +1,30 @@
+#!/bin/bash
+# ------------------------------------------------------------------
+# Tanky Woo (2016-07-28)
+# HTTP Wrapper (with polipo)
+# Usage:
+#   ./run [start|stop]
+# ------------------------------------------------------------------
+
+realpath() {
+    [[ $1 = /*  ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+PROGPATH=$(realpath ${BASH_SOURCE})
+DWORK=$(dirname ${PROGPATH})
+
+CONF=${DWORK}/polipo.conf
+PIDFILE=/var/run/polipo.pid
+
+if [ ! -f ${CONF} ]; then
+    echo ">> ${CONF} not exists!"
+    exit 1
+fi
+
+if [[ $1 == "stop" ]]; then
+    kill -TERM $(cat ${PIDFILE})
+    echo ">> stop polipo ok"
+else
+    polipo -c ${CONF} -- daemonise=True logFile=/tmp/polipo.log pidFile=${PIDFILE}
+    echo ">> start polipo ok"
+fi
