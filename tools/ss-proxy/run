@@ -1,0 +1,30 @@
+#!/bin/bash
+# ------------------------------------------------------------------
+# Tanky Woo (2016-07-28)
+# Shadowsocks Wrapper (Python version, not libev)
+# Usage:
+#   ./run <config-name> [start|stop]
+# ------------------------------------------------------------------
+
+realpath() {
+    [[ $1 = /*  ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+PROGPATH=$(realpath ${BASH_SOURCE})
+DWORK=$(dirname ${PROGPATH})
+
+CONF_NAME=$1
+CONF=${DWORK}/${CONF_NAME}.json
+
+if [ ! -f ${CONF} ]; then
+    echo ">> ${CONF} not exists!"
+    exit 1
+fi
+
+if [[ $2 == "stop" ]]; then
+    sslocal -c ${CONF} --log-file /tmp/ss.log -d stop
+    echo ">> stop shadowsocks [$CONF_NAME] ok"  # TODO stop failed also return 0
+else
+    sslocal -c ${CONF} --log-file /tmp/ss.log -d start
+    (( ! $? )) && echo ">> start shadowsocks [$CONF_NAME] ok" || echo ">> start shadowsocks [$CONF_NAME] failed"
+fi
