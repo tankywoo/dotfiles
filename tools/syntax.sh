@@ -28,5 +28,9 @@ EOF
 
 for theme in ${THEMES[@]}; do
   printf '=%.0s' {1..30}; printf "%s" " $theme "; printf '=%.0s' {1..30}; echo
-  echo -e "${CODE}" | pygmentize -f terminal256 -O style=$theme -l python -s  # with quote, no need to set $IFS
+  if [ -n "$1" ]; then
+    pygmentize -f terminal256 -O style=$theme -g $1
+  else
+    echo -e "${CODE}" | pygmentize -f terminal256 -O style=$theme -l python -s  # with quote, no need to set $IFS
+  fi
 done
