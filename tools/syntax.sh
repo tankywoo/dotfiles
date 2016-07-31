@@ -7,7 +7,7 @@
 #   - http://stackoverflow.com/questions/5349718/how-can-i-repeat-a-character-in-bash
 # ------------------------------------------------------------------
 
-IFS=''
+#IFS=''
 
 # pygmentize -L styles | grep '* ' | cut -d ' ' -f2 | cut -d ':' -f1  # get style list
 THEMES=("manni" "igor" "lovelace" "xcode" "vim" "autumn" "vs" "rrt"
@@ -15,9 +15,18 @@ THEMES=("manni" "igor" "lovelace" "xcode" "vim" "autumn" "vs" "rrt"
         "colorful" "murphy" "bw" "pastie" "algol_nu" "paraiso-light" "trac"
         "default" "algol" "fruity")
 
-CODE='#!/usr/bin/env python\n# -*- coding: utf-8 -*-\nimport sys\n\nif __name__ == "__name__":\n    print("Hello, World!")\n    print(sys.version)\n'
+CODE=$(cat <<EOF
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+
+if __name__ == "__name__":
+    print("Hello, World!")
+    print(sys.version)
+EOF
+)
 
 for theme in ${THEMES[@]}; do
   printf '=%.0s' {1..30}; printf "%s" " $theme "; printf '=%.0s' {1..30}; echo
-  echo -e ${CODE} | pygmentize -f terminal256 -O style=$theme -l python -s
+  echo -e "${CODE}" | pygmentize -f terminal256 -O style=$theme -l python -s  # with quote, no need to set $IFS
 done
