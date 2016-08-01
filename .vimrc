@@ -161,6 +161,7 @@ Plugin 'ternjs/tern_for_vim'  " js autocompletion
 
 " Enhanced
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
@@ -284,9 +285,10 @@ autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 " ----------------------------------------------------------------------------
-" scrooloose/nerdtree
+" scrooloose/nerdtree and jistr/vim-nerdtree-tabs
 " ----------------------------------------------------------------------------
-nmap <leader>ne :NERDTreeToggle<CR>
+"nmap <leader>ne :NERDTreeToggle<CR>
+nmap <leader>ne :NERDTreeTabsToggle<CR>
 
 " ----------------------------------------------------------------------------
 " ervandew/supertab
