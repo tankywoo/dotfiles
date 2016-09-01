@@ -54,7 +54,8 @@ nmap <leader>l :set list!<CR>
 " Other
 set nobackup
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
-set pastetoggle=<F10>  " Bind `F10` to `:set paste`
+" set pastetoggle=<F10>  " Bind `F10` to `:set paste`
+set pastetoggle=<leader>p
 set backspace=2 " same as ":set backspace=indent,eol,start" in vim7.4
 
 " Press `shift` while selecting with the mouse can disable into visual mode
