@@ -25,6 +25,6 @@ setTerminalText() {
   local mode=$1 ; shift
   echo -ne "\033]$mode;$@\007"
 }
-set_both() { setTerminalText 0 $@; }
-set_tab() { setTerminalText 1 $@; }
-set_window() { setTerminalText 2 $@; }
+set-both() { setTerminalText 0 $@; }
+set-tab() { setTerminalText 1 $@; }
+set-window() { setTerminalText 2 $@; }
