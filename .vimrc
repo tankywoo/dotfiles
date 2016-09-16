@@ -141,6 +141,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerline/powerline
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'Yggdroot/indentLine'
 "Plugin 'flazz/vim-colorschemes'  " themes collection
 
 " Python
@@ -229,6 +230,13 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 let g:rbpt_max = 15
+
+" -------------------------------------------------------------------------------
+" Yggdroot/indentLine
+" -------------------------------------------------------------------------------
+"   https://github.com/Yggdroot/indentLine
+" let g:indentLine_char='┆'
+" let g:indentLine_enabled = 1
 
 " -------------------------------------------------------------------------------
 " davidhalter/jedi-vim
