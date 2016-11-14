@@ -28,3 +28,11 @@ setTerminalText() {
 set-both() { setTerminalText 0 $@; }
 set-tab() { setTerminalText 1 $@; }
 set-window() { setTerminalText 2 $@; }
+
+# -------------------------------------------------------------------------------
+# mdv is a python tool, markdown preview under terminal
+# -------------------------------------------------------------------------------
+mdv_path=`command -v mdv`
+if [ $? -eq 0 ]; then
+    mdv() { $mdv_path $@ | less; }
+fi
