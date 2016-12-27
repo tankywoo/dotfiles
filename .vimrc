@@ -161,6 +161,9 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'pangloss/vim-javascript'  " improved indentation
 Plugin 'ternjs/tern_for_vim'  " js autocompletion
 
+" Markdown
+Plugin 'sjl/badwolf'
+
 " Enhanced
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -439,7 +442,9 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 
 try
     set background=dark
-    colorscheme Tomorrow-Night-Bright
+    " colorscheme Tomorrow-Night-Bright
+    autocmd BufEnter * colorscheme Tomorrow-Night-Bright
+    autocmd BufEnter *.md,*.mkd,*.markdown colorscheme badwolf
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
