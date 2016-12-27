@@ -161,6 +161,9 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'pangloss/vim-javascript'  " improved indentation
 Plugin 'ternjs/tern_for_vim'  " js autocompletion
 
+" Go
+Plugin 'fatih/vim-go'
+
 " Markdown
 Plugin 'sjl/badwolf'
 
