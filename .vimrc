@@ -138,7 +138,8 @@ Plugin 'gmarik/Vundle.vim'
 " My Vundles here:
 
 " Display
-Plugin 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerline/powerline
+"Plugin 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerline/powerline
+Plugin 'vim-airline/vim-airline'
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'Yggdroot/indentLine'
@@ -207,7 +208,27 @@ filetype plugin indent on     " required!
 let g:Powerline_symbols = 'unicode' " compatible/unicode/fancy
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors"
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
+
+" -------------------------------------------------------------------------------
+" vim-airline/vim-airline
+" -------------------------------------------------------------------------------
+" Keep vim-powerline configuration opened
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '|'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.spell = 'Ꞩ'
+
 
 " -------------------------------------------------------------------------------
 " kien/rainbow_parentheses.vim
