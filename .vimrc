@@ -144,6 +144,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'Yggdroot/indentLine'
 " Note vim-colorschemes will cause vim-powerline not work if :tabnew
 " Plugin 'flazz/vim-colorschemes'  " themes collection
+Plugin 'Color-Scheme-Explorer'
 
 " Python
 Plugin 'davidhalter/jedi-vim'
