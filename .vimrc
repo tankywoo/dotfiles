@@ -142,7 +142,8 @@ Plugin 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerli
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'Yggdroot/indentLine'
-"Plugin 'flazz/vim-colorschemes'  " themes collection
+" Note vim-colorschemes will cause vim-powerline not work if :tabnew
+" Plugin 'flazz/vim-colorschemes'  " themes collection
 
 " Python
 Plugin 'davidhalter/jedi-vim'
