@@ -140,6 +140,7 @@ Plugin 'gmarik/Vundle.vim'
 " Display
 "Plugin 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerline/powerline
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'Yggdroot/indentLine'
@@ -215,19 +216,10 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 " vim-airline/vim-airline
 " -------------------------------------------------------------------------------
 " Keep vim-powerline configuration opened
+" In Mac with iTerm2, need to select patched font for non-ascii font, in
+" Profiles -> Text
 let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-" unicode symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '|'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_theme='tomorrow'
 
 
 " -------------------------------------------------------------------------------
@@ -468,8 +460,10 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 
 try
     set background=dark
-    " colorscheme Tomorrow-Night-Bright
-    autocmd BufEnter * colorscheme Tomorrow-Night-Bright
+    colorscheme Tomorrow-Night-Bright
+    " Below syntax will affect vim-airline statusbar; write colorscheme
+    " directly is ok
+    " autocmd BufEnter * colorscheme Tomorrow-Night-Bright
     autocmd BufEnter *.md,*.mkd,*.markdown colorscheme badwolf
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
