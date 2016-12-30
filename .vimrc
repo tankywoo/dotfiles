@@ -471,7 +471,8 @@ endtry
 
 " for gui, such as macvim
 if has("gui_running")
-  set guifont=Monaco:h12
+  "set guifont=Monaco:h12
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h12  " for vim-airline
   set gcr=a:blinkon0  "Disable cursor blink
   set lines=60
   set columns=150
