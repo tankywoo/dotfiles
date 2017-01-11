@@ -183,6 +183,7 @@ Plugin 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-li
 Plugin 'Tagbar'  " Tagbar is more powerful than 'taglist.vim'
 Plugin 'Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 "Plugin 'godlygeek/tabular'
+Plugin 'hotoo/pangu.vim'
 
 
 if has('mac') || has('macunix')
@@ -441,6 +442,12 @@ nmap <silent> <leader>da <Plug>DashSearch
 " godlygeek/tabular
 " ----------------------------------------------------------------------------
 " use `Tab /|` to auto align '|'
+
+" ----------------------------------------------------------------------------
+" hotoo/pangu.vim
+" https://github.com/hotoo/pangu.vim
+" ----------------------------------------------------------------------------
+autocmd BufWritePre *.markdown,*.md call PanGuSpacing()
 
 
 " ===============================================================================
