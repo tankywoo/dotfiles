@@ -21,8 +21,30 @@ elif [ -n "$TMUX" ]; then
 	fi
 fi
 
+# refer to: http://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
+pathappend() {
+  for _path in "$@"
+  do
+    if [ -d "$_path" ] && [[ ":$PATH:" != *":$_path:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$_path"
+    fi
+  done
+}
+
+pathprepend() {
+  _paths=("$@")
+  for ((i=$#; i>0; i--)); 
+  do
+    _path=${_paths[$i]}  # for bash & zsh
+    if [ -d "$_path" ] && [[ ":$PATH:" != *":$_path:"* ]]; then
+        PATH="$_path${PATH:+":$PATH"}"
+    fi
+  done
+}
+
 export GOPATH=${HOME}/.go
-export PATH=${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:$GOPATH/bin:${PATH}
+pathprepend $GOPATH ${HOME}/.local/bin ${HOME}/.local/bin /usr/local/sbin /usr/sbin /sbin
+
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
