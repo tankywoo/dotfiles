@@ -34,7 +34,7 @@ declare -i selected_pane
 while read host; do
 
     # every MAX_PANES number of hosts put in one window
-    if [ $(( hidx % 16 )) -eq 0 ]; then
+    if [ $(( hidx % MAX_PANES )) -eq 0 ]; then
         (( widx++ ))
         selected_pane=${PANE_BASE_INDEX:-1}
         tmux new-window -n "$WINDOW_NAME-$widx"
