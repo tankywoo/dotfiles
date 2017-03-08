@@ -25,7 +25,7 @@ HOSTS=$(sed -e 's/#.*$//' -e '/^$/d' $HOSTS_FILE)
 WINDOW_NAME=tmux-multi
 MAX_PANES=16  # max panes per window
 HOSTS_COUNT=$(echo "$HOSTS" | wc -l)
-PANE_BASE_INDEX=$(tmux show -gv pane-base-index)
+PANE_BASE_INDEX=$(tmux showw -gv pane-base-index)
 
 widx=0  # window index
 hidx=0  # host index
