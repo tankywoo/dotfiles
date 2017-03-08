@@ -31,12 +31,14 @@ widx=0  # window index
 hidx=0  # host index
 declare -i selected_pane
 
+pane_offset=$(( 1 - ${PANE_BASE_INDEX:-0} ))
+
 while read host; do
 
     # every MAX_PANES number of hosts put in one window
     if [ $(( hidx % MAX_PANES )) -eq 0 ]; then
         (( widx++ ))
-        selected_pane=${PANE_BASE_INDEX:-1}
+        selected_pane=${PANE_BASE_INDEX:-0}
         tmux new-window -n "$WINDOW_NAME-$widx"
         tmux select-window -t "$WINDOW_NAME-$widx"
     fi
@@ -46,7 +48,8 @@ while read host; do
     # The C-m at the end is interpreted by Tmux as the enter key.
     tmux send-keys -t $selected_pane "ssh root@$host" C-m
 
-    if [ $selected_pane -lt $MAX_PANES -a $hidx -lt $HOSTS_COUNT ]; then
+    if [ $(( $selected_pane + $pane_offset )) -lt $MAX_PANES \
+      -a $hidx -lt $HOSTS_COUNT ]; then
         tmux split-window -h
     else
         # last pane of a window, enable sync
