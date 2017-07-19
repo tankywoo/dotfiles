@@ -184,6 +184,7 @@ Plugin 'Tagbar'  " Tagbar is more powerful than 'taglist.vim'
 Plugin 'Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 "Plugin 'godlygeek/tabular'
 Plugin 'hotoo/pangu.vim'
+Plugin 'easymotion/vim-easymotion'
 
 
 if has('mac') || has('macunix')
@@ -449,6 +450,24 @@ nmap <silent> <leader>da <Plug>DashSearch
 " ----------------------------------------------------------------------------
 autocmd BufWritePre *.markdown,*.md call PanGuSpacing()
 
+" ----------------------------------------------------------------------------
+" easymotion/vim-easymotion
+" https://github.com/easymotion/vim-easymotion
+" ----------------------------------------------------------------------------
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " ===============================================================================
 " Color Settings
