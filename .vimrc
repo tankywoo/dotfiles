@@ -399,6 +399,7 @@ let g:UltiSnipsEditSplit="vertical"
 " ----------------------------------------------------------------------------
 nmap <F8> :TagbarToggle<CR>
 map <leader>tb :TagbarToggle<CR>
+let g:tagbar_sort = 0
 
 "let g:tagbar_type_markdown = {
 "    \ 'ctagstype': 'markdown',
