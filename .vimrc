@@ -164,6 +164,7 @@ Plugin 'hail2u/vim-css3-syntax'
 " JavaScript
 Plugin 'pangloss/vim-javascript'  " improved indentation
 Plugin 'ternjs/tern_for_vim'  " js autocompletion
+Plugin 'Shutnik/jshint2.vim'
 
 " Go
 Plugin 'fatih/vim-go'
@@ -315,6 +316,13 @@ let tern_show_signature_in_pum = 1
 let tern_show_argument_hints = 'on_hold'
 autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
 autocmd FileType javascript setlocal omnifunc=tern#Complete
+"
+" ----------------------------------------------------------------------------
+" Shutnik/jshint2.vim
+" ----------------------------------------------------------------------------
+let jshint2_save = 1
+" jshint validation
+nnoremap <leader>j :JSHint<CR>
 
 " ----------------------------------------------------------------------------
 " scrooloose/nerdtree and jistr/vim-nerdtree-tabs
