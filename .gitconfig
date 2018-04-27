@@ -30,6 +30,12 @@
 	df = diff
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
+; https://github.com/git/git/tree/master/contrib/diff-highlight
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+
 [color]
 	ui = auto
 [color "branch"]
@@ -41,6 +47,11 @@
 	frag = magenta bold
 	old = red bold
 	new = green bold
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
 [color "status"]
 	added = yellow
 	changed = green
