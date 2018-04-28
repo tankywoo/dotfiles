@@ -61,7 +61,7 @@ set backspace=2 " same as ":set backspace=indent,eol,start" in vim7.4
 " Press `shift` while selecting with the mouse can disable into visual mode
 " In mac os, hold `alt/option` is easier
 " ref: http://stackoverflow.com/questions/4608161/copy-text-out-of-vim-with-set-mouse-a-enabled
-set mouse=a  " Enable mouse
+"set mouse=a  " Enable mouse
 
 set foldmethod=indent  " The kind of folding used for the current window
 set foldlevel=99
@@ -457,7 +457,7 @@ nmap <silent> <leader>da <Plug>DashSearch
 " hotoo/pangu.vim
 " https://github.com/hotoo/pangu.vim
 " ----------------------------------------------------------------------------
-autocmd BufWritePre *.markdown,*.md call PanGuSpacing()
+"autocmd BufWritePre *.markdown,*.md call PanGuSpacing()
 
 " ----------------------------------------------------------------------------
 " easymotion/vim-easymotion
