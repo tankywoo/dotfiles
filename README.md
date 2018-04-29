@@ -45,7 +45,18 @@ Uninstall:
 - `man`: man with color
 
 `common/virtualenvwrapper.sh`: source virtualenvwrapper script
+
 `common/ssh-agent-wrapper.sh`: auto start ssh agent to load private key
+
+`git/gitconfig`: user global configuration. `git diff` with `diff-highlight` tool, set some alias shortkey, and colors for status
+
+`pip/pip.conf`: set pypi mirror for [ustc.edu.cn](https://mirrors.ustc.edu.cn/pypi/web/) or [douban](http://pypi.doubanio.com/)
+
+`tmux/tmux.conf`: set prefix key with `control + a` instead default `control + b`, for compatible with `screen`
+
+`tools/tmux-multi.sh`: get hosts list file as arg, auto quick start tmux window with multiple panes, each pane with one host login by ssh, and operate these hosts synchronized.
+
+`tools/256-color.sh`: display 256 colors in terminal
 
 
 ## State ##
