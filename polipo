@@ -1,4 +1,0 @@
-socksParentProxy = "localhost:1080"
-socksProxyType = socks5
-logFile=/tmp/polipo.log
-logLevel=4

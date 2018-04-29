@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # First, **make sure** all the softwares have been installed.
 #	* zsh
@@ -25,13 +25,22 @@ check_software_exist(){
 }
 
 create_symlinks(){
-	dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc" ".tigrc", ".muttrc")
+	dotfiles=(
+	"zsh/zshrc"
+	"vim/vimrc"
+	"tmux/tmux.conf"
+	"git/gitconfig"
+	"git/tigrc"
+	"screen/screenrc"
+	"mutt/muttrc"
+	)
 	for dotfile in "${dotfiles[@]}"
 	do
-		ln -sf ${PWD}/${dotfile} ${HOME}/${dotfile}
-		echo "Create symlink ${HOME}/${dotfile}"
+		echo $dotfiles
+		ln -sf ${PWD}/${dotfile} ${HOME}/.${dotfile#*/}
+		echo "Create symlink ${HOME}/.${dotfile#*/}"
 	done
-}
+	}
 
 install_oh_my_zsh(){
 	if [ -d "${OH_MY_ZSH}"  ]; then
@@ -67,36 +76,32 @@ install_vundle(){
 
 config_zsh(){
 	echo "Create symlink ${HOME}/.common"
-	ln -sf ${PWD}/.common ${HOME}/.common
+	ln -sf ${PWD}/common ${HOME}/.common
 	echo "Create symlink ${HOME}/tools"
 	ln -sf ${PWD}/tools ${HOME}/tools
 	# TODO: See ~/.oh-my-zsh/custom/
-	ln -sf ${PWD}/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme
+	ln -sf ${PWD}/zsh/tanky.zsh-theme ${OH_MY_ZSH}/themes/tanky.zsh-theme
 	chsh -s `which zsh` # TODO: If zsh is an alias?
 	source ${HOME}/.zshrc
 }
 
 config_tmux(){
 	echo "Create symlink ${HOME}/.tmux.sh"
-	ln -sf ${PWD}/.tmux.sh ${HOME}/.tmux.sh # TODO, use alise?
+	ln -sf ${PWD}/tmux/tmux.sh ${HOME}/.tmux.sh # TODO, use alise?
 }
 
 config_pip(){
 	echo "Create symlink ${HOME}/.pip/pip.conf"
 	mkdir ${HOME}/.pip
-	ln -sf ${PWD}/.pip/pip.conf ${HOME}/.pip/pip.conf
+	ln -sf ${PWD}/pip/pip.conf ${HOME}/.pip/pip.conf
 }
 
-main(){
-	check_software_exist
-	install_oh_my_zsh
-	install_vundle
-	create_symlinks
-	config_zsh
-	config_tmux
-	config_pip
-}
-
-main
+check_software_exist
+install_oh_my_zsh
+install_vundle
+create_symlinks
+config_zsh
+config_tmux
+config_pip
 
 echo "[SETUP OK]"
