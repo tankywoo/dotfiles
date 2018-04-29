@@ -27,6 +27,24 @@ Uninstall:
 	./uninstall.sh
 
 
+## Usage  ##
+
+`common/aliases.sh`:
+- `treepy`: `tree` exclude `.pyc`
+- `json`: pretty print json file
+- `ccat`: cat code with color
+- `mux`: alias [tmuxinator](https://github.com/tmuxinator/tmuxinator)
+- `mac-listen`: `netstat -tlnp` under macOS
+
+`common/functions.sh`:
+- `pycd`: quick cd to python source package directory
+- `set-tab`: change terminal tab's title
+- `mdv`: markdown preview in terminal, [mdv](https://github.com/axiros/terminal_markdown_viewer)
+- `wanip`: get outer ip in private network
+- `getip`: get geo ip
+- `man`: man with color
+
+
 ## State ##
 
 Current the configurations and install script have been tested to work on:
