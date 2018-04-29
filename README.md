@@ -44,6 +44,9 @@ Uninstall:
 - `getip`: get geo ip
 - `man`: man with color
 
+`common/virtualenvwrapper.sh`: source virtualenvwrapper script
+`common/ssh-agent-wrapper.sh`: auto start ssh agent to load private key
+
 
 ## State ##
 

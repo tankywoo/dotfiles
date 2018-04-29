@@ -129,7 +129,10 @@ done
 source ~/.common/exports.sh
 source ~/.common/aliases.sh
 source ~/.common/functions.sh
-source ~/.common/history.sh
+
+source ~/.common/quickjump.sh
+source ~/.common/virtualenvwrapper.sh
+source ~/.common/ssh-agent-wrapper.sh
 
 source ~/.common/other.sh
 
