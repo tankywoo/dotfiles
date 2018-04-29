@@ -329,6 +329,7 @@ nnoremap <leader>j :JSHint<CR>
 " ----------------------------------------------------------------------------
 "nmap <leader>ne :NERDTreeToggle<CR>
 nmap <leader>ne :NERDTreeTabsToggle<CR>
+autocmd vimEnter *.go NERDTree
 
 " ----------------------------------------------------------------------------
 " ervandew/supertab
