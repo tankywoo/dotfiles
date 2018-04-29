@@ -2,15 +2,16 @@ if [[ $EUID -ne 0  ]]; then
     SUDO=sudo
 fi
 
+# -------------------------------------------------------------------------------
 # Quick jump to Python package directory
+# -------------------------------------------------------------------------------
 pycd(){ cd $(dirname $(python -c "print __import__('$1').__file__")); }
 
+# -------------------------------------------------------------------------------
 # Simplify ntpdate command
+# -------------------------------------------------------------------------------
 ntpupdate(){ $SUDO ntpdate cn.pool.ntp.org; }
 #ntpupdate(){ $SUDO ntpdate jp.pool.ntp.org; }
-
-i(){ curl ip.cn/$1; }
-
 
 # -------------------------------------------------------------------------------
 # set window/tab title
@@ -42,3 +43,31 @@ fi
 # ref: http://unix.stackexchange.com/questions/22615/how-can-i-get-my-external-ip-address-in-a-shell-script
 # -------------------------------------------------------------------------------
 wanip() { dig +short myip.opendns.com @resolver1.opendns.com }
+
+# -------------------------------------------------------------------------------
+# Geo lookup
+# -------------------------------------------------------------------------------
+geoip(){ curl ip.cn/$1; }
+
+# -------------------------------------------------------------------------------
+# colored man
+# -------------------------------------------------------------------------------
+# Fix colored man pages not work
+# * http://unix.stackexchange.com/questions/6010/colored-man-pages-not-working-on-gentoo
+# * https://forums.gentoo.org/viewtopic-t-819833-start-0.html
+export GROFF_NO_SGR=1
+# Overwrite man with different color
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;34m") \
+		LESS_TERMCAP_md=$(printf "\e[1;34m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+		PAGER="${commands[less]:-$PAGER}" \
+		_NROFF_U=1 \
+		PATH="$HOME/bin:$PATH" \
+			man "$@"
+}

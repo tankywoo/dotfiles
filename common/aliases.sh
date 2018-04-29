@@ -6,8 +6,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
 elif [[ "$(uname)" == "Linux" ]];then
 	# For Linux
 	alias ls='ls --color=auto'
-else
-	:
 fi
 alias ll='ls -al'
 alias lls='ls -alSh'
@@ -16,22 +14,22 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color'
 
-alias treepy='tree -I "*.pyc"'
-
 alias vix='vim --cmd "set expandtab"'
 
-# Command-Line Tools `t`
-# https://github.com/tankywoo/t
-alias t='python ~/.t/t.py --task-dir ~/.tasks --list tasks'
-alias tpush='cd ~/.tasks/; git add tasks .tasks.done; git commit -m "add tasks"; git push; cd -'
-alias tpull='cd ~/.tasks/; git pull; cd -'
-alias tst='cd ~/.tasks/; git status; cd -'
-
+alias treepy='tree -I "*.pyc"'
 alias json="python -mjson.tool"
 alias ccat="pygmentize -f terminal256 -O style=monokai -g"
-
-alias mac-listen='sudo lsof -i -n -P | grep TCP'
-
-alias hp="http_proxy=http://127.0.0.1:8123"
-
 alias mux="tmuxinator"
+
+alias history='fc -l'  # defult: aliased to fc -l 1
+#export HISTTIMEFORMAT='%F %T' # for Bash only
+HISTFILE=~/.zsh_history
+HISTSIZE=9999
+SAVEHIST=9999
+if [[ "$SHELL" == `which zsh 2>/dev/null` ]]; then
+    setopt extendedhistory
+fi
+
+if [[ "$(uname)" == "Darwin" ]]; then
+	alias mac-listen='sudo lsof -i -n -P | grep TCP'
+fi
