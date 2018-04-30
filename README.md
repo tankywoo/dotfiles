@@ -9,8 +9,6 @@ My dotfiles for: `bash`, `zsh`, `vim`, `git`, `tmux`, `screen` and useful tools,
 
 > **READ BEFORE YOU RUN THESE SCRIPTS**
 
-Before Install, make sure you have installed zsh.
-
 Install:
 
 	./setup.sh
