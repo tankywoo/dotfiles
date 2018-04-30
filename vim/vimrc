@@ -120,6 +120,26 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 
+" -------------------------------------------------------------------------------
+" Platform
+" -------------------------------------------------------------------------------
+" ref: https://unix.stackexchange.com/a/253202/45725
+let g:platform = 0
+let g:distro = 0
+if filereadable("/etc/gentoo-release")
+    let g:platform="Linux"
+    let g:distro="Gentoo"
+elseif filereadable("/etc/debian_version")
+    let g:platform="Linux"
+    let g:distro="Debian"
+elseif has('mac')
+    let g:platform="Darwin"
+    let g:distro="OS X"
+else
+    let g:platform="Unknown"
+endif
+
+
 " ===============================================================================
 " Vundle Configuration
 " ===============================================================================
@@ -152,7 +172,10 @@ Plugin 'Color-Scheme-Explorer'
 " Python
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
-Plugin 'mitsuhiko/vim-jinja'
+if ! distro == 'Gentoo'
+    " under gentoo, conflict with dev-python/jinja builtin vim-jinja extension
+    Plugin 'mitsuhiko/vim-jinja'
+endif
 "Plugin 'kevinw/pyflakes-vim'
 "Plugin 'fs111/pydoc.vim'
 "Plugin 'Pydiction'
