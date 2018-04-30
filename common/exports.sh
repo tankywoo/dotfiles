@@ -42,8 +42,7 @@ pathprepend() {
   done
 }
 
-export GOPATH=${HOME}/.go
-pathprepend $GOPATH/bin ${HOME}/.local/bin ${HOME}/.local/bin /usr/local/sbin /usr/sbin /sbin
+pathprepend /usr/local/sbin /usr/sbin /sbin
 
 export TZ='Asia/Shanghai'
 export EDITOR='vim'

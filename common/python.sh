@@ -1,0 +1,1 @@
+pathprepend ${HOME}/.local/bin
