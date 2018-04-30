@@ -17,7 +17,8 @@ Install:
 
 Uninstall:
 
-	./uninstall.sh
+	./uninstall.sh  # by default in dry-run mode, it's not going to actually execute
+	./uninstall.sh -f  # actually execute rm symlink, and keep if it's not symlink
 
 
 ## Usage  ##

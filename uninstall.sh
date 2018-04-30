@@ -1,27 +1,45 @@
 #!/bin/bash
 # Tanky Woo @ 2013-10-18 00:19:56
 
-HOME=${HOME}
+dry_run=1
+if [ "$1" == "-f" ]; then
+    dry_run=0
+fi
 
-dotfiles=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig" ".screenrc")
+if [ "$dry_run" -eq 1 ]; then
+    echo "=== DRY RUN MODE ==="
+fi
+
+remove_symlink() {
+    dotfile=$1
+    if ! [ -e $dotfile ]; then
+        # echo "Ignore as symlink $dotfile not exists"
+        return
+    fi
+
+    if [ -h $dotfile ]; then
+        echo "Delete symlink $dotfile"
+        if [ "$dry_run" -eq 0 ]; then
+            rm -f $dotfile
+        fi
+    else
+        echo "Keep $dotfile as it's not a symlink"
+    fi
+}
+
+dotfiles=(
+".zshrc"
+".tmux.conf"
+".vimrc"
+".gitconfig"
+".screenrc"
+"tools"
+".common"
+"tmux.sh"
+".zsh"
+".pip/pip.conf"
+)
 for dotfile in "${dotfiles[@]}"
 do
-	echo "Delete symlink ${HOME}/${dotfile}"
-	rm -f ${HOME}/${dotfile}
+    remove_symlink $HOME/$dotfile
 done
-
-echo "Delete symlink ${HOME}/tools"
-rm -f ${HOME}/tools
-
-echo "Delete symlink ${HOME}/.common"
-rm -f ${HOME}/.common
-
-echo "Delete symlink ${HOME}/tmux.sh"
-rm -f ${HOME}/tmux.sh
-
-echo "Delete symlink ${HOME}/.zsh"
-rm -f ${HOME}/.zsh
-
-echo "Delete symlink ${HOME}/.pip/pip.conf"
-rm -f ${HOME}/.pip/pip.conf
-rmdir ${HOME}/.pip
