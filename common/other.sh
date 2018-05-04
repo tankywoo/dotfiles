@@ -5,10 +5,12 @@ if command -v rbenv 2>/dev/null; then
 fi
 
 # rvm
-export PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
+pathappend $HOME/.rvm/bin  # Add RVM to PATH for scripting
 
 # for Mac new Python
-export PATH=$HOME/Library/Python/2.7/bin:$PATH
+if [[ "$(uname)" == "Darwin" ]]; then
+  pathappend $HOME/Library/Python/2.7/bin
+fi
 
 # disable CTRL+S from sending XOFF
 stty ixany

@@ -42,7 +42,36 @@ pathprepend() {
   done
 }
 
-pathprepend /usr/local/sbin /usr/sbin /sbin
+pathprepend_f() {
+  # force prepend path no matter if it already exists in $PATH
+  _paths=("$@")
+  for ((i=$#; i>0; i--)); 
+  do
+    _path=${_paths[$i]}  # for bash & zsh
+    if [ -d "$_path" ]; then
+        PATH="$_path${PATH:+":$PATH"}"
+    fi
+  done
+}
+
+normalize_path() {
+  # remove duplicate items in $PATH
+  # shell will auto add some path to $PATH, which cause duplicate paths
+  paths=""
+  declare -a _paths=( $(echo $PATH | tr ':' ' ') )
+  for _path in "${_paths[@]}"; do
+    if [[ ":$paths:" != *":$_path:"* ]]; then
+      paths="${paths:+"$paths:"}$_path"
+    fi
+  done
+  unset PATH
+  PATH=$paths
+}
+
+pathprepend_f /usr/local/bin /usr/local/sbin
+pathprepend /bin /usr/bin /sbin /usr/sbin
+normalize_path
+
 
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
