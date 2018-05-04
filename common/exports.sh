@@ -1,3 +1,6 @@
+# -------------------------------------------------------------------------------
+# xterm settings
+# -------------------------------------------------------------------------------
 # xterm hack for some terminals to support 256 colors
 
 # If not set null_glob option, when '/usr/share/terminfo/*/xterm-256color'
@@ -21,6 +24,9 @@ elif [ -n "$TMUX" ]; then
 	fi
 fi
 
+# -------------------------------------------------------------------------------
+# $PATH settings
+# -------------------------------------------------------------------------------
 # refer to: http://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
 pathappend() {
   for _path in "$@"
@@ -73,6 +79,9 @@ pathprepend /bin /usr/bin /sbin /usr/sbin
 normalize_path
 
 
+# -------------------------------------------------------------------------------
+# other environment variables
+# -------------------------------------------------------------------------------
 export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
