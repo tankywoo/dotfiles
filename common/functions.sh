@@ -42,7 +42,7 @@ fi
 # wanip get the external ip
 # ref: http://unix.stackexchange.com/questions/22615/how-can-i-get-my-external-ip-address-in-a-shell-script
 # -------------------------------------------------------------------------------
-wanip() { dig +short myip.opendns.com @resolver1.opendns.com }
+wanip() { dig +short myip.opendns.com @resolver1.opendns.com; }
 
 # -------------------------------------------------------------------------------
 # Geo lookup
