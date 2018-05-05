@@ -5,14 +5,33 @@ VUNDLE=$HOME"/.vim/bundle/Vundle.vim"
 
 IS_VIM=0
 IS_GIT=0
+IS_BASH=0
 IS_ZSH=0
 IS_TMUX=0
 IS_PIP=0
 IS_SCREEN=0
 
+read -p "CHOOSE SHELL (bash or zsh)? " _shell
+# echo $choose_shell
+
+if [ "$_shell" = "bash" ]; then
+    unset IS_ZSH
+elif [ "$_shell" = "zsh" ]; then
+    unset IS_BASH
+else
+    echo "Invalid shell type, exit."
+    exit 1
+fi
+
 # Pre check
 check_installed() {
-    softwares=("vim" "git" "zsh" "tmux" "pip" "screen")
+    softwares=("vim" "git" "tmux" "pip" "screen")
+    # bash >= 4.2
+    if [ -v IS_BASH ]; then
+        softwares+=( "bash" )
+    else
+        softwares+=( "zsh" )
+    fi
     for sw in "${softwares[@]}"
     do
         flag="IS_${sw^^}"  # bash >= 4.0
@@ -81,6 +100,14 @@ config_git() {
 
 
 #
+# BASH
+#
+config_bash() {
+    create_symlinks "bash/bashrc" ".bashrc"
+}
+
+
+#
 # ZSH
 #
 _install_oh_my_zsh() {
@@ -140,7 +167,8 @@ config_screen() {
 check_installed
 [ $IS_VIM -eq 1 ] && config_vim
 [ $IS_GIT -eq 1 ] && config_git
-[ $IS_ZSH -eq 1 ] && config_zsh
+[ -v IS_BASH ] && [ "$IS_BASH" -eq 1 ] && config_bash
+[ -v IS_ZSH ] && [ "$IS_ZSH" -eq 1 ] && config_zsh
 [ $IS_TMUX -eq 1 ] && config_tmux
 [ $IS_PIP -eq 1 ] && config_pip
 [ $IS_SCREEN -eq 1 ] && config_screen
