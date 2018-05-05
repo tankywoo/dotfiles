@@ -15,7 +15,18 @@ function marks {
 }
 function _completemarks {
   reply=($(ls $MARKPATH))
-
 }
-compctl -K _completemarks cda
-compctl -K _completemarks unmark
+
+if [[ "$SHELL" == */"bash" ]]; then
+    _completemarks() {
+      local curw=${COMP_WORDS[COMP_CWORD]}
+      local wordlist=$(find $MARKPATH -type l -printf "%f\n")
+      COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
+      return 0
+    }
+
+    complete -F _completemarks jump unmark
+elif [[ "$SHELL" == */"zsh" ]]; then
+    compctl -K _completemarks cda
+    compctl -K _completemarks unmark
+fi
