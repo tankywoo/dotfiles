@@ -102,8 +102,14 @@ config_git() {
 #
 # BASH
 #
+_config_shell() {
+    create_symlinks "common" ".common"
+    create_symlinks "tools" "tools"
+}
+
 config_bash() {
     create_symlinks "bash/bashrc" ".bashrc"
+    _config_shell
 }
 
 
@@ -129,8 +135,7 @@ _install_oh_my_zsh() {
 config_zsh() {
     _install_oh_my_zsh
     create_symlinks "zsh/zshrc" ".zshrc"
-    create_symlinks "common" ".common"
-    create_symlinks "tools" "tools"
+    _config_shell
     # TODO: See ~/.oh-my-zsh/custom/
     create_symlinks "zsh/tanky.zsh-theme" "${OH_MY_ZSH}/themes/tanky.zsh-theme"
     # chsh -s `which zsh` # TODO: If zsh is an alias?
