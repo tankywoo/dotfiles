@@ -61,7 +61,7 @@ create_symlinks() {
             echo "[WARN] Ignore due to $dotfile_dst exists and is not a symlink"
         fi
     else
-        ln -s $PWD/$dotfile_src $dotfile_dst
+        ln -sf $PWD/$dotfile_src $dotfile_dst
         echo "Create symlink $dotfile_dst"
     fi
 }
