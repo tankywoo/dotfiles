@@ -36,6 +36,9 @@
 	show = diff-highlight | less
 	diff = diff-highlight | less
 
+[interactive]
+	diffFilter = diff-highlight | less
+
 [color]
 	ui = auto
 [color "branch"]
