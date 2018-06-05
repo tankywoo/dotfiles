@@ -169,6 +169,9 @@ Plugin 'kien/rainbow_parentheses.vim'
 " Plugin 'flazz/vim-colorschemes'  " themes collection
 Plugin 'Color-Scheme-Explorer'
 
+" Linter
+Plugin 'w0rp/ale'
+
 " Python
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
@@ -288,6 +291,17 @@ let g:rbpt_max = 15
 " let g:indentLine_enabled = 1
 
 " -------------------------------------------------------------------------------
+" w0rp/ale
+" -------------------------------------------------------------------------------
+let g:ale_lint_on_text_changed = 'never'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" -------------------------------------------------------------------------------
 " davidhalter/jedi-vim
 " -------------------------------------------------------------------------------
 "   Goto assignments <leader>g (typical goto function)
@@ -311,7 +325,7 @@ highlight link Flake8_Warning    WarningMsg
 highlight link Flake8_Complexity WarningMsg
 highlight link Flake8_Naming     WarningMsg
 highlight link Flake8_PyFlake    WarningMsg
-autocmd BufWritePost *.py call Flake8()
+"autocmd BufWritePost *.py call Flake8()
 
 " ----------------------------------------------------------------------------
 " mattn/emmet-vim
