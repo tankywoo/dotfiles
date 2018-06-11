@@ -139,5 +139,7 @@ source ~/.common/ssh-agent-wrapper.sh
 
 source ~/.common/other.sh
 
+source ~/.custom/*.sh
+
 # Try to keep environment pollution down, EPA loves us.
 unset use_color sh

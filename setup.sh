@@ -168,6 +168,13 @@ config_screen() {
     create_symlinks "screen/screenrc" ".screenrc"
 }
 
+#
+# CUSTOM
+#
+mkdir_custom() {
+    [ -e ${HOME}/.custom ] || { mkdir $HOME/.custom; echo "mkdir $HOME/.custom"; }
+}
+
 
 check_installed
 [ $IS_VIM -eq 1 ] && config_vim
@@ -177,5 +184,6 @@ check_installed
 [ $IS_TMUX -eq 1 ] && config_tmux
 [ $IS_PIP -eq 1 ] && config_pip
 [ $IS_SCREEN -eq 1 ] && config_screen
+mkdir_custom
 
 echo "[SETUP OK]"

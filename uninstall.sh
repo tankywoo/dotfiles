@@ -43,3 +43,5 @@ for dotfile in "${dotfiles[@]}"
 do
     remove_symlink $HOME/$dotfile
 done
+
+echo "Delete ${HOME}/.custom manually"
