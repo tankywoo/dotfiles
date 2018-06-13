@@ -41,4 +41,8 @@ if [ -e "${POST_CUSTOM}" ]; then
     source ${POST_CUSTOM}
 fi
 
-source ~/.custom/*.sh
+# compat with bash/zsh
+custom_sh=( $( find ~/.custom -name '*.sh'  )  )
+if [ ${#custom_sh[@]} -gt 0 ]; then
+    source ~/.custom/*.sh
+fi

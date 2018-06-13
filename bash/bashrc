@@ -139,7 +139,11 @@ source ~/.common/ssh-agent-wrapper.sh
 
 source ~/.common/other.sh
 
-source ~/.custom/*.sh
+# compat with bash/zsh
+custom_sh=( $( find ~/.custom -name '*.sh'  )  )
+if [ ${#custom_sh[@]} -gt 0 ]; then
+    source ~/.custom/*.sh
+fi
 
 # Try to keep environment pollution down, EPA loves us.
 unset use_color sh
