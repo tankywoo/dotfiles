@@ -140,9 +140,11 @@ source ~/.common/ssh-agent-wrapper.sh
 source ~/.common/other.sh
 
 # compat with bash/zsh
-custom_sh=( $( find ~/.custom -name '*.sh'  )  )
-if [ ${#custom_sh[@]} -gt 0 ]; then
-    source ~/.custom/*.sh
+if [ -d ${HOME}/.custom ]; then
+  custom_sh=( $( find ${HOME}/.custom -name '*.sh'  )  )
+  if [ ${#custom_sh[@]} -gt 0 ]; then
+      source ${HOME}/.custom/*.sh
+  fi
 fi
 
 # Try to keep environment pollution down, EPA loves us.
