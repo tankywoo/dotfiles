@@ -217,6 +217,9 @@ Plugin 'hotoo/pangu.vim'
 Plugin 'easymotion/vim-easymotion'
 " https://github.com/dyng/ctrlsf.vim
 Plugin 'dyng/ctrlsf.vim'
+Plugin 'terryma/vim-smooth-scroll'  " make scrolling in Vim more pleasant
+Plugin 'tpope/vim-commentary'  " quick add comment for code
+Plugin 'rhysd/clever-f.vim'  " Extended f, F, t and T key mappings for Vim
 
 
 if has('mac') || has('macunix')
@@ -545,6 +548,30 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 let g:ctrlsf_search_mode = 'async'  " vim >= 8.0
 " let g:ctrlsf_winsize = '40%'
+
+" ----------------------------------------------------------------------------
+" terryma/vim-smooth-scroll
+" https://github.com/terryma/vim-smooth-scroll
+" ----------------------------------------------------------------------------
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+
+" ----------------------------------------------------------------------------
+" tpope/vim-commentary
+" https://github.com/tpope/vim-commentary
+" usage:
+" - gcc: comment current line
+" - gc: in visual mode, comment selection
+" - gcap: auto comment paragraph
+" ----------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------
+" rhysd/clever-f.vim
+" https://github.com/rhysd/clever-f.vim
+" ----------------------------------------------------------------------------
+" enable thus plugin cause  `;' and `,' disabled by defaults, so reopen it.
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
 
 
 " ===============================================================================
