@@ -204,6 +204,8 @@ Plugin 'plasticboy/vim-markdown'
 " Enhanced
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plugin 'ryanoasis/vim-devicons'  " need patch nerd fonts first
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
