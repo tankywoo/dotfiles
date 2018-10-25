@@ -143,7 +143,9 @@ source ~/.common/other.sh
 if [ -d ${HOME}/.custom ]; then
   custom_sh=( $( find ${HOME}/.custom -name '*.sh'  )  )
   if [ ${#custom_sh[@]} -gt 0 ]; then
-      source ${HOME}/.custom/*.sh
+    for sf in "${custom_sh[@]}"; do
+      source $sf
+    done
   fi
 fi
 
