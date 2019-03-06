@@ -36,6 +36,13 @@ source ~/.common/ssh-agent-wrapper.sh
 
 source ~/.common/other.sh
 
+if [[ "$SHELL" == `which zsh 2>/dev/null` ]]; then
+	# disable zsh default glob.
+	# such cause something strange, like `ls *.ext` if *.ext
+	# with no match, it will do as direct `ls` with all files list.
+	setopt noglob
+fi
+
 POST_CUSTOM="${WORK_DIR}/custom/post_custom.zsh"
 if [ -e "${POST_CUSTOM}" ]; then
     source ${POST_CUSTOM}
