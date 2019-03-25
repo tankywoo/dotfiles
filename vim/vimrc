@@ -163,7 +163,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'chriskempson/tomorrow-theme'
-Plugin 'kien/rainbow_parentheses.vim'
+" Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'Yggdroot/indentLine'
 " Note vim-colorschemes will cause vim-powerline not work if :tabnew
 " Plugin 'flazz/vim-colorschemes'  " themes collection
@@ -270,10 +270,12 @@ let g:airline_theme='tomorrow'
 " kien/rainbow_parentheses.vim
 " -------------------------------------------------------------------------------
 " always on
-au VimEnter *.py,*.js,*.html,*.css,*.sls RainbowParenthesesToggle
-au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadRound
-au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadSquare
-au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadBraces
+if exists(':RainbowParenthesesToggle')
+  au VimEnter *.py,*.js,*.html,*.css,*.sls RainbowParenthesesToggle
+  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadRound
+  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadSquare
+  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadBraces
+endif
 
 " the outer layer is the last pair
 " remove black for dark terminal
