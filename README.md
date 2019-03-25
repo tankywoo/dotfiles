@@ -2,7 +2,7 @@
 
 > **WARNING: 2018-04-29, THE STRUCTURE OF REPOSITORY HAS BEEN CHANGED, IF YOU PULLED, YOU SHOULD RE-SYMLINK THE DOTFILES**
 
-My dotfiles for: `bash`, `zsh`, `vim`, `git`, `tmux`, `screen` and useful tools, etc.
+My dotfiles for: `bash`, `zsh`, `vim`, `neovim`, `git`, `tmux`, `screen` and useful tools, etc.
 
 
 ## Install & Uninstall ##

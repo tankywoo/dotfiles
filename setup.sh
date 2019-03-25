@@ -2,8 +2,10 @@
 
 OH_MY_ZSH=$HOME"/.oh-my-zsh"
 VUNDLE=$HOME"/.vim/bundle/Vundle.vim"
+NEO_VUNDLE=$HOME"/.config/nvim/bundle/Vundle.vim"
 
 IS_VIM=0
+IS_NVIM=0  # neovim
 IS_GIT=0
 IS_BASH=0
 IS_ZSH=0
@@ -25,7 +27,7 @@ fi
 
 # Pre check
 check_installed() {
-    softwares=("vim" "git" "tmux" "pip" "screen")
+    softwares=("vim" "nvim" "git" "tmux" "pip" "screen")
     # bash >= 4.2
     if [ -v IS_BASH ]; then
         softwares+=( "bash" )
@@ -70,23 +72,36 @@ create_symlinks() {
 # VIM
 #
 _install_vundle(){
-    if [ -d "${VUNDLE}" ]; then
-        cd "${VUNDLE}"
+    VUNDLE_DIR=$1
+    if [ -d "${VUNDLE_DIR}" ]; then
+        cd "${VUNDLE_DIR}"
         echo "Change directory to `pwd`"
-        echo "${VUNDLE} exists. Git pull to update..."
+        echo "${VUNDLE_DIR} exists. Git pull to update..."
         git pull
         cd - > /dev/null 2>&1
         echo "Change directory back to `pwd`"
     else
-        echo "${VUNDLE} not exists. Git clone to create..."
-        git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE}
+        echo "${VUNDLE_DIR} not exists. Git clone to create..."
+        git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE_DIR}
         vim +PluginInstall +qall
     fi
 }
 
 config_vim() {
-    _install_vundle
+    _install_vundle $VUNDLE
     create_symlinks "vim/vimrc" ".vimrc"
+}
+
+#
+# NEOVIM
+#
+config_nvim() {
+    if [ -e $HOME/.vim ]; then
+        create_symlinks "$HOME/.vim" "$HOME/.config/nvim"
+    else
+        _install_vundle $NEO_VUNDLE
+    fi
+    create_symlinks "vim/vimrc" "$HOME/.config/nvim/init.vim"
 }
 
 
@@ -178,6 +193,7 @@ mkdir_custom() {
 
 check_installed
 [ $IS_VIM -eq 1 ] && config_vim
+[ $IS_NVIM -eq 1 ] && config_nvim
 [ $IS_GIT -eq 1 ] && config_git
 [ -v IS_BASH ] && [ "$IS_BASH" -eq 1 ] && config_bash
 [ -v IS_ZSH ] && [ "$IS_ZSH" -eq 1 ] && config_zsh
