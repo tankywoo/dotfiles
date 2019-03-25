@@ -600,6 +600,8 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 try
     set background=dark
     colorscheme Tomorrow-Night-Bright
+    hi LineNr ctermfg=darkgreen
+    hi CursorLineNr cterm=bold ctermfg=yellow
     " Below syntax will affect vim-airline statusbar; write colorscheme
     " directly is ok
     " autocmd BufEnter * colorscheme Tomorrow-Night-Bright
