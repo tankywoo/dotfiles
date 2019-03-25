@@ -456,6 +456,17 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 
 " ----------------------------------------------------------------------------
+" Valloric/YouCompleteMe
+" ----------------------------------------------------------------------------
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_complete_in_comments = 0
+let g:ycm_complete_in_strings = 0
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
+let g:ycm_min_num_of_chars_for_completion=2
+
+" ----------------------------------------------------------------------------
 " SirVer/ultisnips
 " ----------------------------------------------------------------------------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
