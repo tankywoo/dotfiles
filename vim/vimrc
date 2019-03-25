@@ -208,11 +208,12 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 "Plugin 'ryanoasis/vim-devicons'  " need patch nerd fonts first
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
-if has('nvim')
-  Plugin 'Shougo/deoplete.nvim'
-else
-  Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
-endif
+"if has('nvim')
+"  Plugin 'Shougo/deoplete.nvim'
+"else
+"  Plugin 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
+"endif
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'  " needed with SirVer/ultisnips
 Plugin 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
