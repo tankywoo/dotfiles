@@ -21,9 +21,14 @@ alias json="python -mjson.tool"
 alias ccat="pygmentize -f terminal256 -O style=monokai -g"
 alias mux="tmuxinator"
 
-alias history='fc -l'  # defult: aliased to fc -l 1
+#@bug: fc -l cause fzf works wrong
+#alias history='fc -l'  # defult: aliased to fc -l 1
 #export HISTTIMEFORMAT='%F %T' # for Bash only
+if [[ "$SHELL" == `which zsh 2>/dev/null` ]]; then
 HISTFILE=~/.zsh_history
+elif [[ "$SHELL" == `which bash 2>/dev/null` ]]; then
+HISTFILE=~/.bash_history
+fi
 HISTSIZE=9999
 SAVEHIST=9999
 if [[ "$SHELL" == `which zsh 2>/dev/null` ]]; then
