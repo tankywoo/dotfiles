@@ -3,13 +3,6 @@
 # -------------------------------------------------------------------------------
 # xterm hack for some terminals to support 256 colors
 
-# If not set null_glob option, when '/usr/share/terminfo/*/xterm-256color'
-# not exists, will output: no matches found: /usr/share/terminfo/*/xterm-256color
-# more detailed see this answer: http://unix.stackexchange.com/a/26825/45725
-if [[ "$SHELL" == `which zsh 2>/dev/null`   ]]; then
-	setopt null_glob
-fi
-
 if [ -z "$TMUX" ] && [[ "$TERM" =~ "xterm" ]]; then
 	if [ -e /usr/share/terminfo/*/xterm-256color ]; then
 		export TERM='xterm-256color'
