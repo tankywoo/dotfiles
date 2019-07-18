@@ -11,7 +11,9 @@ PS1_ENABLE_HOSTNAME="false"
 PS1_BOLD_PRE="false"
 
 # tmuxinator is completion script almost like offical
-plugins=(git svn python colored-man-pages tmux git-flow autojump tmuxinator web-search golang)
+plugins=(git svn python colored-man-pages tmux git-flow autojump tmuxinator web-search golang zsh-autosuggestions zsh-completions)
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=66,underline"
 
 # TODO, get path by command
 WORK_DIR="$HOME/.dotfiles/"
@@ -58,3 +60,23 @@ if [ -d ${HOME}/.custom ]; then
     done
   fi
 fi
+
+#
+# find key code:
+#   - `showkey -a`
+#   - `cat`, ref <https://stackoverflow.com/a/12403798/1276501>
+#
+# bind keys:
+#   - ctrl + n : accept current suggestion
+#   - ctrl + alt + t : toggle zsh-autosuggestions plugin
+#
+#
+
+# enable vi mode
+bindkey -v
+
+# ctrl + n : accept current suggestion
+bindkey '^N' autosuggest-accept
+
+# ctrl + alt + t : toggle zsh-autosuggestions plugin
+bindkey '^[^T' autosuggest-toggle

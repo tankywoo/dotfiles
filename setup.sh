@@ -132,7 +132,7 @@ config_bash() {
 # ZSH
 #
 _install_oh_my_zsh() {
-    if [ -d "${OH_MY_ZSH}"  ]; then
+    if [ -d "${OH_MY_ZSH}" ]; then
         cd "${OH_MY_ZSH}"
         echo "Change directory to `pwd`"
         echo "${OH_MY_ZSH} exists. Git pull to update..."
@@ -144,6 +144,16 @@ _install_oh_my_zsh() {
         #git clone git@github.com:robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
         #wget --no-check-certificate http://install.ohmyz.sh -O - | sh
         git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
+    fi
+
+    # install plugins
+    zsh_autosuggestions="${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    if ! [ -d "$zsh_autosuggestions" ]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions.git $zsh_autosuggestions
+    fi
+    zsh_completions="${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
+    if ! [ -d "$zsh_completions" ]; then
+        git clone https://github.com/zsh-users/zsh-completions.git $zsh_completions
     fi
 }
 
