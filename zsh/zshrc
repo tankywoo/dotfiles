@@ -73,7 +73,7 @@ fi
 #
 
 # enable vi mode
-bindkey -v
+#bindkey -v
 
 # ctrl + n : accept current suggestion
 bindkey '^N' autosuggest-accept
