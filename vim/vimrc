@@ -394,8 +394,9 @@ let g:vim_markdown_conceal = 0  " do not conceal fenced code tag
 " ----------------------------------------------------------------------------
 "nmap <leader>ne :NERDTreeToggle<CR>
 nmap <leader>ne :NERDTreeTabsToggle<CR>
-autocmd vimEnter *.go NERDTree
-" todo: highlight file and folder?
+" open golang file with nerdtree, and auto switch panel to main panel
+" https://vi.stackexchange.com/a/16000
+autocmd vimEnter *.go NERDTree | wincmd w
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
 
