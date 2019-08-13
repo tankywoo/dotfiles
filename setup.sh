@@ -1,8 +1,13 @@
 #!/bin/bash
+#
+# TODO:
+#   - nvim support
+#
 
 OH_MY_ZSH=$HOME"/.oh-my-zsh"
-VUNDLE=$HOME"/.vim/bundle/Vundle.vim"
-NEO_VUNDLE=$HOME"/.config/nvim/bundle/Vundle.vim"
+VIM_PLUG=$HOME"/.vim/autoload/plug.vim"
+#VUNDLE=$HOME"/.vim/bundle/Vundle.vim"
+#NEO_VUNDLE=$HOME"/.config/nvim/bundle/Vundle.vim"
 
 IS_VIM=0
 IS_NVIM=0  # neovim
@@ -72,6 +77,7 @@ create_symlinks() {
 # VIM
 #
 _install_vundle(){
+    # deprecated
     VUNDLE_DIR=$1
     if [ -d "${VUNDLE_DIR}" ]; then
         cd "${VUNDLE_DIR}"
@@ -87,8 +93,16 @@ _install_vundle(){
     fi
 }
 
+_install_vim_plug() {
+    if ! [ -e $VIM_PLUG ]; then
+        curl -fLo $VIM_PLUG --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    fi
+}
+
 config_vim() {
-    _install_vundle $VUNDLE
+    # _install_vundle $VUNDLE
+    _install_vim_plug
     create_symlinks "vim/vimrc" ".vimrc"
 }
 
@@ -98,8 +112,8 @@ config_vim() {
 config_nvim() {
     if [ -e $HOME/.vim ]; then
         create_symlinks "$HOME/.vim" "$HOME/.config/nvim"
-    else
-        _install_vundle $NEO_VUNDLE
+    # else
+    #     _install_vundle $NEO_VUNDLE
     fi
     create_symlinks "vim/vimrc" "$HOME/.config/nvim/init.vim"
 }
