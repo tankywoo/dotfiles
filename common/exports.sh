@@ -1,16 +1,17 @@
+# shellcheck shell=bash
 # -------------------------------------------------------------------------------
 # xterm settings
 # -------------------------------------------------------------------------------
 # xterm hack for some terminals to support 256 colors
 
 if [ -z "$TMUX" ] && [[ "$TERM" =~ "xterm" ]]; then
-	if [ -e /usr/share/terminfo/*/xterm-256color ]; then
+	if ls /usr/share/terminfo/*/xterm-256color >/dev/null 2>&1; then
 		export TERM='xterm-256color'
 	else
 		export TERM='xterm-color'
 	fi
 elif [ -n "$TMUX" ]; then
-	if [ -e /usr/share/terminfo/*/screen-256color ]; then
+	if ls /usr/share/terminfo/*/screen-256color >/dev/null 2>&1; then
 		export TERM='screen-256color'
 	else
 		export TERM='screen'
