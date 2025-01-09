@@ -33,9 +33,9 @@ pathappend() {
 
 pathprepend() {
   _paths=("$@")
-  for (( i=$#-1; i>=0; i-- ));
+  for ((i=$(($# - 1)); i>=0; i--));
   do
-    _path=${_paths[$i]}  # for bash & zsh
+    _path=${_paths[*]:$i:1}  # for bash & zsh, https://stackoverflow.com/a/56311706/1276501
     if [ -d "$_path" ] && [[ ":$PATH:" != *":$_path:"* ]]; then
         PATH="$_path${PATH:+":$PATH"}"
     fi
@@ -45,9 +45,9 @@ pathprepend() {
 pathprepend_f() {
   # force prepend path no matter if it already exists in $PATH
   _paths=("$@")
-  for (( i=$#-1; i>=0; i--));
+  for ((i=$(($# - 1)); i>=0; i--));
   do
-    _path=${_paths[$i]}  # for bash & zsh
+    _path=${_paths[*]:$i:1}  # for bash & zsh, https://stackoverflow.com/a/56311706/1276501
     if [ -d "$_path" ]; then
         PATH="$_path${PATH:+":$PATH"}"
     fi
