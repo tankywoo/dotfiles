@@ -39,6 +39,7 @@ pathprepend() {
     if [ -d "$_path" ] && [[ ":$PATH:" != *":$_path:"* ]]; then
         PATH="$_path${PATH:+":$PATH"}"
     fi
+    export PATH
   done
 }
 
@@ -51,6 +52,7 @@ pathprepend_f() {
     if [ -d "$_path" ]; then
         PATH="$_path${PATH:+":$PATH"}"
     fi
+    export PATH
   done
 }
 
@@ -65,7 +67,8 @@ normalize_path() {
     fi
   done
   unset PATH
-  PATH=$paths
+  # should export, or behave strangely under darwin bash, like which command
+  export PATH=$paths
 }
 
 pathprepend_f /usr/local/bin /usr/local/sbin
