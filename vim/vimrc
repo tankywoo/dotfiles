@@ -54,6 +54,8 @@ nmap <leader>l :set list!<CR>
 " Other
 set nobackup
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
+set fileencoding=utf-8
+set termencoding=utf-8
 " set pastetoggle=<F10>  " Bind `F10` to `:set paste`
 set pastetoggle=<leader>p
 set backspace=2 " same as ":set backspace=indent,eol,start" in vim7.4
@@ -193,7 +195,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'  " need patch nerd fonts first
+"Plug 'ryanoasis/vim-devicons'  " need patch nerd fonts first
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 "if has('nvim')
@@ -205,7 +207,8 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'  " needed with SirVer/ultisnips
 Plug 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
-Plug 'vim-scripts/Tagbar'  " Tagbar is more powerful than 'taglist.vim'
+"Plug 'preservim/tagbar'  " Tagbar is more powerful than 'taglist.vim'
+"Plug 'lvht/tagbar-markdown'
 Plug 'vim-scripts/Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 Plug 'godlygeek/tabular'  " need by plasticboy/vim-markdown
 Plug 'hotoo/pangu.vim'
@@ -239,7 +242,6 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 " Keep vim-powerline configuration opened
 " In Mac with iTerm2, need to select patched font for non-ascii font, in
 " Profiles -> Text
-let g:airline_powerline_fonts = 1
 let g:airline_theme='tomorrow'
 
 
@@ -286,6 +288,7 @@ let g:rbpt_max = 15
 " w0rp/ale
 " -------------------------------------------------------------------------------
 let b:ale_linters = ['flake8', 'shellcheck']
+let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_lint_on_text_changed = 'never'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
@@ -365,6 +368,8 @@ let g:vim_markdown_folding_level = 3
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_conceal = 0  " do not conceal fenced code tag
+" https://github.com/mhinz/vim-startify/issues/271#issuecomment-280852113
+"autocmd vimEnter *.md execute 'Toc' | wincmd w
 
 " ----------------------------------------------------------------------------
 " scrooloose/nerdtree and jistr/vim-nerdtree-tabs
@@ -374,8 +379,8 @@ nmap <leader>ne :NERDTreeTabsToggle<CR>
 " open golang file with nerdtree, and auto switch panel to main panel
 " https://vi.stackexchange.com/a/16000
 autocmd vimEnter *.go NERDTree | wincmd w
-let g:NERDTreeDirArrowExpandable='▷'
-let g:NERDTreeDirArrowCollapsible='▼'
+"let g:NERDTreeDirArrowExpandable='▷'
+"let g:NERDTreeDirArrowCollapsible='▼'
 
 " ----------------------------------------------------------------------------
 " ervandew/supertab
@@ -467,6 +472,14 @@ nmap <F8> :TagbarToggle<CR>
 map <leader>tb :TagbarToggle<CR>
 let g:tagbar_sort = 0
 
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
+
 "let g:tagbar_type_markdown = {
 "    \ 'ctagstype': 'markdown',
 "    \ 'ctagsbin' : '/Users/TankyWoo/.dotfiles/markdown2ctags.py',
@@ -486,6 +499,7 @@ let g:tagbar_sort = 0
 " airblade/vim-gitgutter
 " ----------------------------------------------------------------------------
 let g:gitgutter_max_signs = 500
+set updatetime=100
 "let g:gitgutter_highlight_lines = 1
 highlight clear SignColumn
 
@@ -593,21 +607,23 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 
 try
     set background=dark
-    colorscheme Tomorrow-Night-Bright
+    "colorscheme Tomorrow-Night-Bright
+    colorscheme apprentice-modified
+    set background=dark
     hi LineNr ctermfg=darkgreen
     hi CursorLineNr cterm=bold ctermfg=yellow
     " Below syntax will affect vim-airline statusbar; write colorscheme
     " directly is ok
     " autocmd BufEnter * colorscheme Tomorrow-Night-Bright
-    autocmd BufEnter *.md,*.mkd,*.markdown colorscheme badwolf
+    ""autocmd BufEnter *.md,*.mkd,*.markdown colorscheme badwolf
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
 
 " for gui, such as macvim
 if has("gui_running")
-  "set guifont=Monaco:h12
-  set guifont=Source\ Code\ Pro\ for\ Powerline:h12  " for vim-airline
+  colorscheme apprentice-modified
+  set guifont=MonacoForPowerline:h14
   set gcr=a:blinkon0  "Disable cursor blink
   set lines=60
   set columns=150

@@ -1,9 +1,8 @@
-" 'apprentice_mod.vim' -- Vim color scheme.
+" 'apprentice.vim' -- Vim color scheme.
 " Author:       Romain Lafourcade (romainlafourcade@gmail.com)
 " Description:  Essentially a streamlining and conversion to xterm colors of
 "               'sorcerer' by Jeet Sukumaran (jeetsukumaran@gmailcom)
 " Last Change:  2017 Oct 07
-" Fork and Modified: 2019-03-26, Tanky Woo (me@tankywoo.com)
 
 " MADE-UP NAME    HEX        RGB                   XTERM  ANSI
 " ========================================================================
@@ -34,16 +33,21 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "apprentice_mod"
+let colors_name = "apprentice-modified"
 
 if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
-  hi Normal           ctermbg=235  ctermfg=250  guibg=#262626 guifg=#bcbcbc cterm=NONE           gui=NONE
+  " modified: ctermbg=235->000
+  hi Normal           ctermbg=000  ctermfg=250  guibg=#262626 guifg=#bcbcbc cterm=NONE           gui=NONE
   hi Terminal         ctermbg=235  ctermfg=250  guibg=#262626 guifg=#bcbcbc cterm=NONE           gui=NONE
   hi LineNr           ctermbg=234  ctermfg=242  guibg=#1c1c1c guifg=#6c6c6c cterm=NONE           gui=NONE
   hi FoldColumn       ctermbg=234  ctermfg=242  guibg=#1c1c1c guifg=#6c6c6c cterm=NONE           gui=NONE
   hi Folded           ctermbg=234  ctermfg=242  guibg=#1c1c1c guifg=#6c6c6c cterm=NONE           gui=NONE
   hi MatchParen       ctermbg=234  ctermfg=229  guibg=#1c1c1c guifg=#ffffaf cterm=NONE           gui=NONE
   hi signColumn       ctermbg=234  ctermfg=242  guibg=#1c1c1c guifg=#6c6c6c cterm=NONE           gui=NONE
+
+  " modified: added
+  " https://github.com/chriskempson/base16-vim/issues/67#issuecomment-450190576
+  hi QuickFixLine     ctermbg=234  ctermfg=99  guibg=#1c1c1c guifg=#6c6c6c cterm=NONE           gui=NONE
 
   set background=dark
 
@@ -108,7 +112,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
   hi DiffText         ctermbg=235  ctermfg=208  guibg=#262626 guifg=#ff8700 cterm=reverse        gui=reverse
 
   hi IncSearch        ctermbg=131  ctermfg=235  guibg=#af5f5f guifg=#262626 cterm=NONE           gui=NONE
-  hi Search           ctermbg=108  ctermfg=235  guibg=#ffffaf guifg=#262626 cterm=NONE           gui=NONE
+  hi Search           ctermbg=229  ctermfg=235  guibg=#ffffaf guifg=#262626 cterm=NONE           gui=NONE
 
   hi Directory        ctermbg=NONE ctermfg=73   guibg=NONE    guifg=#5fafaf cterm=NONE           gui=NONE
 
@@ -285,7 +289,7 @@ let links = [
             \ ['diffRemoved', 'WarningMsg'],
             \ ['diffAdded', 'String'],
             \ ]
-augroup Apprentice_mod
+augroup Apprentice-modified
     autocmd!
-    autocmd ColorScheme * if expand("<amatch>") == "apprentice_mod" | for link in links | execute 'hi link' link[0] link[1] | endfor | else | for link in links | execute 'hi link' link[0] 'NONE' | endfor | endif
+    autocmd ColorScheme * if expand("<amatch>") == "apprentice-modified" | for link in links | execute 'hi link' link[0] link[1] | endfor | else | for link in links | execute 'hi link' link[0] 'NONE' | endfor | endif
 augroup END
