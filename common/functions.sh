@@ -1,4 +1,6 @@
-if [[ $EUID -ne 0  ]]; then
+# shellcheck shell=bash
+
+if [[ $EUID -ne 0 ]]; then
     SUDO=sudo
 fi
 
@@ -11,7 +13,6 @@ pycd(){ cd $(dirname $(python -c "print __import__('$1').__file__")); }
 # Simplify ntpdate command
 # -------------------------------------------------------------------------------
 ntpupdate(){ $SUDO ntpdate cn.pool.ntp.org; }
-#ntpupdate(){ $SUDO ntpdate jp.pool.ntp.org; }
 
 # -------------------------------------------------------------------------------
 # set window/tab title
@@ -26,9 +27,9 @@ setTerminalText() {
   local mode=$1 ; shift
   echo -ne "\033]$mode;$@\007"
 }
-set-both() { setTerminalText 0 $@; }
-set-tab() { setTerminalText 1 $@; }
-set-window() { setTerminalText 2 $@; }
+set_both() { setTerminalText 0 $@; }
+set_tab() { setTerminalText 1 $@; }
+set_window() { setTerminalText 2 $@; }
 
 # -------------------------------------------------------------------------------
 # mdv is a python tool, markdown preview under terminal
@@ -40,14 +41,15 @@ fi
 
 # -------------------------------------------------------------------------------
 # wanip get the external ip
-# ref: http://unix.stackexchange.com/questions/22615/how-can-i-get-my-external-ip-address-in-a-shell-script
+# @todo
 # -------------------------------------------------------------------------------
-wanip() { dig +short myip.opendns.com @resolver1.opendns.com; }
+wanip() { :; }
 
 # -------------------------------------------------------------------------------
 # Geo lookup
+# @todo
 # -------------------------------------------------------------------------------
-geoip(){ curl ip.cn/$1; }
+geoip() { :; }
 
 # -------------------------------------------------------------------------------
 # colored man
@@ -70,4 +72,27 @@ man() {
 		_NROFF_U=1 \
 		PATH="$HOME/bin:$PATH" \
 			man "$@"
+}
+
+
+proxy() {
+    export http_proxy=socks5://127.0.0.1:7897;
+    export https_proxy=socks5://127.0.0.1:7897;
+    export all_proxy=socks5://127.0.0.1:7897;
+    export no_proxy=socks5://127.0.0.1:7897;
+    export HTTP_PROXY=socks5://127.0.0.1:7897;
+    export HTTPS_PROXY=socks5://127.0.0.1:7897;
+    export ALL_PROXY=socks5://127.0.0.1:7897;
+    export NO_PROXY=socks5://127.0.0.1:7897;
+}
+
+unproxy() {
+    unset http_proxy;
+    unset https_proxy;
+    unset all_proxy;
+    unset no_proxy;
+    unset HTTP_PROXY;
+    unset HTTPS_PROXY;
+    unset ALL_PROXY;
+    unset NO_PROXY
 }
