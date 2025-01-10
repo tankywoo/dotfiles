@@ -87,3 +87,15 @@ export TZ='Asia/Shanghai'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
 export LESS='-RS'
+
+if [[ "$SHELL" == $(which zsh 2>/dev/null) ]]; then
+    export HISTFILE=~/.zsh_history
+    export SAVEHIST=99999
+    setopt extendedhistory
+    alias history='fc -l -i 1'  # defult: aliased to fc -l 1
+elif [[ "$SHELL" == $(which bash 2>/dev/null) ]]; then
+    export HISTFILE=~/.bash_history
+    export HISTFILESIZE=99999
+    export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+fi
+export HISTSIZE=99999
