@@ -3,6 +3,8 @@
 
 PROGPATH=$(realpath "${BASH_SOURCE[0]:-${(%):-%x}}")  # bash && zsh
 COMMDIR=$(dirname "${PROGPATH}")
+PROJDIR=$(dirname "${COMMDIR}")
+CUSTOMDIR=$PROJDIR/custom
 
 source "${COMMDIR}/exports.sh"
 source "${COMMDIR}/aliases.sh"
@@ -18,8 +20,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # compat with bash/zsh
-if [ -d "${HOME}/.custom" ]; then
-    custom_sh=( $( find "${HOME}/.custom" -name '*.sh' ) )
+if [ -d "${CUSTOMDIR}" ]; then
+    custom_sh=( $( find "${CUSTOMDIR}" -name '*.sh' ) )
     if [ ${#custom_sh[@]} -gt 0 ]; then
         for sf in "${custom_sh[@]}"; do
             source "$sf"
