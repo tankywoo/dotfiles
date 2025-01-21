@@ -11,6 +11,6 @@ function prompt_command() {
 }
 
 : "${THEME_CLOCK_COLOR:=${gray?}}"
-: "${THEME_CLOCK_FORMAT:="%I:%M:%S"}"
+: "${THEME_CLOCK_FORMAT:="%H:%M:%S"}"
 
 safe_append_prompt_command prompt_command
