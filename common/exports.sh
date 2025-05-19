@@ -94,8 +94,31 @@ if [[ "$SHELL" == $(which zsh 2>/dev/null) ]]; then
     setopt extendedhistory
     alias history='fc -l -i 1'  # defult: aliased to fc -l 1
 elif [[ "$SHELL" == $(which bash 2>/dev/null) ]]; then
+    shopt -s histappend                      # 允许多个会话同时写入历史文件而不覆盖
     export HISTFILE=~/.bash_history
     export HISTFILESIZE=99999
     export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+    # export PROMPT_COMMAND='history -a; history -n; history -w; '"$PROMPT_COMMAND"
+    export HISTIGNORE='ls:bg:fg'
+
+    # 异步同步函数
+    async_sync_history() {
+        # 立即异步追加当前命令（不阻塞）
+        (history -a &) &> /dev/null
+
+        # 每 5 秒异步加载其他终端的命令（避免频繁操作）
+        if [[ -z "$LAST_HIST_SYNC" || $((SECONDS - LAST_HIST_SYNC)) -ge 5 ]]; then
+            (history -n &) &> /dev/null
+            LAST_HIST_SYNC=$SECONDS
+        fi
+    }
+
+    # 兼容 bash-it（如果使用）
+    if command -v safe_append_prompt_command &> /dev/null; then
+        safe_append_prompt_command async_sync_history
+    else
+        PROMPT_COMMAND="async_sync_history${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+    fi
+
 fi
 export HISTSIZE=99999
