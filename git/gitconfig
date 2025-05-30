@@ -8,11 +8,12 @@
 	editor = vim
 	excludesfile = /home/tankywoo/.gitignore
 	quotepath = false
-	pager = less -RS
+	pager = delta
 [diff]
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+	conflictStyle = zdiff3
 [difftool]
 	prompt = false
 
@@ -30,26 +31,34 @@
 	df = diff
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
-; https://github.com/git/git/tree/master/contrib/diff-highlight
-[pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+; ; https://github.com/git/git/tree/master/contrib/diff-highlight
+; [pager]
+; 	#log = diff-highlight | less
+; 	#show = diff-highlight | less
+; 	#diff = diff-highlight | less
+; 	log = diff-so-fancy | less
+; 	show = diff-so-fancy | less
+; 	diff = diff-so-fancy | less
 
 [interactive]
-	diffFilter = diff-highlight | less
+	# diffFilter = diff-highlight | less
+	# diffFilter = diff-so-fancy --patch
+	diffFilter = delta --color-only
 
 [color]
-	ui = auto
+	ui = true
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
 [color "diff"]
-	meta = yellow bold
+	meta = 11
 	frag = magenta bold
 	old = red bold
 	new = green bold
+	func = 146 bold
+	commit = yellow bold
+	whitespace = red reverse
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
@@ -59,3 +68,7 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
