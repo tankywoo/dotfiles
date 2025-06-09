@@ -70,8 +70,10 @@
 	untracked = cyan
 [delta]
 	navigate = true
-	side-by-side = true
-	line-numbers = true
+	diff-highlight = true
+	#diff-so-fancy = true
+	#side-by-side = true
+	#line-numbers = true
 [http]
 	proxy = http://127.0.0.1:7897
 [https]
