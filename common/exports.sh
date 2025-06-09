@@ -72,6 +72,7 @@ normalize_path() {
 }
 
 pathprepend_f /usr/local/bin /usr/local/sbin
+pathprepend_f /opt/homebrew/bin/ /opt/homebrew/sbin/
 pathprepend /bin /usr/bin /sbin /usr/sbin
 
 if command -v pyenv >/dev/null 2>&1; then

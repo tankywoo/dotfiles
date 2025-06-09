@@ -72,9 +72,7 @@
 	navigate = true
 	side-by-side = true
 	line-numbers = true
-	diff-so-fancy = true
-
 [http]
 	proxy = http://127.0.0.1:7897
 [https]
-	proxy = https://127.0.0.1:7897
+	proxy = http://127.0.0.1:7897
