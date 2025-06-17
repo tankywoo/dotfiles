@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2034 # Expected behavior for themes.
 
-gray="\[\e[2;37m\]"
+# use true color under mosh ssh
+gray="\[\e[38;5;242m\]"
 
 function prompt_command() {
 	local clock_prompt scm_prompt_info
