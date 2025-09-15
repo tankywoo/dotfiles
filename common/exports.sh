@@ -72,7 +72,7 @@ normalize_path() {
 }
 
 pathprepend_f /usr/local/bin /usr/local/sbin
-pathprepend_f /opt/homebrew/bin/ /opt/homebrew/sbin/
+pathprepend_f /opt/homebrew/bin /opt/homebrew/sbin
 pathprepend /bin /usr/bin /sbin /usr/sbin
 
 if command -v pyenv >/dev/null 2>&1; then
@@ -94,7 +94,7 @@ if [[ "$SHELL" == $(which zsh 2>/dev/null) ]]; then
     export SAVEHIST=99999
     setopt extendedhistory
     alias history='fc -l -i 1'  # defult: aliased to fc -l 1
-elif [[ "$SHELL" == $(which bash 2>/dev/null) ]]; then
+elif [[ "$SHELL" == $(command -v bash 2>/dev/null) ]]; then
     shopt -s histappend                      # 允许多个会话同时写入历史文件而不覆盖
     export HISTFILE=~/.bash_history
     export HISTFILESIZE=99999
