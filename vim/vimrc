@@ -10,6 +10,9 @@
 " ===============================================================================
 " General Configuration
 " ===============================================================================
+"if has('nvim')
+"  let g:loaded_python3_provider = 0
+"endif
 
 set nocompatible  " Use the vim's keyboard setting, not vi
 
@@ -55,15 +58,23 @@ nmap <leader>l :set list!<CR>
 set nobackup
 set fileencodings=utf-8,gb18030,cp936,big5 " Set the encode
 set fileencoding=utf-8
-set termencoding=utf-8
-" set pastetoggle=<F10>  " Bind `F10` to `:set paste`
-set pastetoggle=<leader>p
+if has('nvim')
+  " Neovim 配置
+  " Neovim 不支持 termencoding，跳过这行
+  nnoremap <leader>p :set paste<CR>"+p:set nopaste<CR>
+else
+  " Vim 专属配置
+  set termencoding=utf-8
+  " set pastetoggle=<F10>  " Bind `F10` to `:set paste`
+  set pastetoggle=<leader>p
+endif
 set backspace=2 " same as ":set backspace=indent,eol,start" in vim7.4
 
 " Press `shift` while selecting with the mouse can disable into visual mode
 " In mac os, hold `alt/option` is easier
 " ref: http://stackoverflow.com/questions/4608161/copy-text-out-of-vim-with-set-mouse-a-enabled
 "set mouse=a  " Enable mouse
+set mouse=
 
 set foldmethod=indent  " The kind of folding used for the current window
 set foldlevel=99
@@ -163,7 +174,9 @@ Plug 'vim-scripts/Color-Scheme-Explorer'
 Plug 'w0rp/ale'
 
 " Python
-Plug 'davidhalter/jedi-vim'
+"if !has('nvim')
+"    Plug 'davidhalter/jedi-vim'
+"endif
 Plug 'nvie/vim-flake8'
 
 if g:distro != 'Gentoo'
@@ -203,9 +216,8 @@ Plug 'ervandew/supertab'
 "else
 "  Plug 'Shougo/neocomplete.vim'  " neocomplete need vim --with-lua
 "endif
-Plug 'Valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'  " needed with SirVer/ultisnips
+" in nvim, need `pip/pip3 install --user pynvim` first
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
 "Plug 'preservim/tagbar'  " Tagbar is more powerful than 'taglist.vim'
 "Plug 'lvht/tagbar-markdown'
@@ -287,7 +299,11 @@ let g:rbpt_max = 15
 " -------------------------------------------------------------------------------
 " w0rp/ale
 " -------------------------------------------------------------------------------
-let b:ale_linters = ['flake8', 'shellcheck']
+"let b:ale_linters = ['flake8', 'shellcheck']
+let g:ale_linters = {
+    \ 'python': ['flake8'],
+    \ 'sh': ['shellcheck'],
+    \}
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_lint_on_text_changed = 'never'
 let g:airline#extensions#ale#enabled = 1
@@ -297,18 +313,18 @@ let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" -------------------------------------------------------------------------------
-" davidhalter/jedi-vim
-" -------------------------------------------------------------------------------
-"   Goto assignments <leader>g (typical goto function)
-"   Goto definitions <leader>d (follow identifier as far as possible, includes
-"   imports and statements)
-"   Show Documentation/Pydoc K (shows a popup with assignments)
-"   Renaming <leader>r
-"   Usages <leader>n (shows all the usages of a name)
-"   Open module, e.g. :Pyimport os (opens the os module)
-autocmd FileType python setlocal completeopt-=preview    " disable docstring
-let g:jedi#completions_command = "<C-N>"
+"" -------------------------------------------------------------------------------
+"" davidhalter/jedi-vim
+"" -------------------------------------------------------------------------------
+""   Goto assignments <leader>g (typical goto function)
+""   Goto definitions <leader>d (follow identifier as far as possible, includes
+""   imports and statements)
+""   Show Documentation/Pydoc K (shows a popup with assignments)
+""   Renaming <leader>r
+""   Usages <leader>n (shows all the usages of a name)
+""   Open module, e.g. :Pyimport os (opens the os module)
+"autocmd FileType python setlocal completeopt-=preview    " disable docstring
+"let g:jedi#completions_command = "<C-N>"
 
 " -------------------------------------------------------------------------------
 " nvie/vim-flake8
@@ -435,7 +451,7 @@ let g:neocomplete#enable_auto_select = 1
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=tern#Complete  " for ternjs
-autocmd FileType python setlocal omnifunc=jedi#completions  " for jedi
+"autocmd FileType python setlocal omnifunc=jedi#completions  " for jedi
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
@@ -444,26 +460,169 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 
 " ----------------------------------------------------------------------------
-" Valloric/YouCompleteMe
+" neoclide/coc.nvim
 " ----------------------------------------------------------------------------
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_complete_in_comments = 0
-let g:ycm_complete_in_strings = 0
-let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
-let g:ycm_min_num_of_chars_for_completion=2
+"
+" https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.vim
 
-" ----------------------------------------------------------------------------
-" SirVer/ultisnips
-" ----------------------------------------------------------------------------
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
+" utf-8 byte sequence
+set encoding=utf-8
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
+nmap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent><nowait> gd <Plug>(coc-definition)
+nmap <silent><nowait> gy <Plug>(coc-type-definition)
+nmap <silent><nowait> gi <Plug>(coc-implementation)
+nmap <silent><nowait> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s)
+  autocmd FileType typescript,json,python setl formatexpr=CocAction('formatSelected')
+augroup end
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Run the Code Lens action on the current line
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> to scroll float windows/popups
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges
+" Requires 'textDocument/selectionRange' support of language server
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " ----------------------------------------------------------------------------
 " Tagbar
@@ -502,14 +661,6 @@ let g:gitgutter_max_signs = 500
 set updatetime=100
 "let g:gitgutter_highlight_lines = 1
 highlight clear SignColumn
-
-" ----------------------------------------------------------------------------
-" SirVer/ultisnips
-" ----------------------------------------------------------------------------
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " ----------------------------------------------------------------------------
 " rizzatti/dash.vim
@@ -605,7 +756,14 @@ else
 endif
 hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 
+"if has('termguicolors')
+"    set termguicolors
+"endif
+set notermguicolors
+
 try
+    "hi Normal ctermbg=NONE guibg=NONE
+    "autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
     set background=dark
     "colorscheme Tomorrow-Night-Bright
     colorscheme apprentice-modified
@@ -639,3 +797,13 @@ set cursorcolumn " Highlighter the vertical line"
 hi search cterm=underline ctermfg=white
 
 highlight PmenuSel cterm=underline,bold ctermfg=blue
+set rtp+=/usr/local/opt/fzf
+
+" 禁用 diff 模式下的默认折叠
+augroup MyDiff
+  autocmd!
+  autocmd FilterReadPost * if &diff | setlocal nofoldenable foldmethod=manual | endif
+  autocmd VimEnter * if &diff | setlocal nofoldenable foldmethod=manual | endif
+  "autocmd DiffUpdated * silent! normal! zR
+  autocmd DiffUpdated * setlocal nofoldenable foldmethod=manual
+augroup END
