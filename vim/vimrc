@@ -162,7 +162,6 @@ call plug#begin('~/.vim/bundle')
 " Display
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/tomorrow-theme'
 
 Plug 'nvie/vim-flake8'
 if g:distro != 'Gentoo'
@@ -208,7 +207,7 @@ call plug#end()             " required!
 " Keep vim-powerline configuration opened
 " In Mac with iTerm2, need to select patched font for non-ascii font, in
 " Profiles -> Text
-let g:airline_theme='tomorrow'
+let g:airline_theme='apprentice'
 
 " -------------------------------------------------------------------------------
 " nvie/vim-flake8
