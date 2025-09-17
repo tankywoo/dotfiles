@@ -164,13 +164,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/tomorrow-theme'
 
-" Linter
-Plug 'w0rp/ale'
-
-" Python
-"if !has('nvim')
-"    Plug 'davidhalter/jedi-vim'
-"endif
 Plug 'nvie/vim-flake8'
 if g:distro != 'Gentoo'
     " under gentoo, conflict with dev-python/jinja builtin vim-jinja extension
@@ -183,8 +176,6 @@ Plug 'hail2u/vim-css3-syntax'
 
 " JavaScript
 Plug 'pangloss/vim-javascript'  " improved indentation
-Plug 'ternjs/tern_for_vim'  " js autocompletion
-Plug 'Shutnik/jshint2.vim'
 
 " Go
 Plug 'fatih/vim-go'
@@ -204,7 +195,6 @@ Plug 'vim-scripts/Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
 Plug 'easymotion/vim-easymotion'
 " https://github.com/dyng/ctrlsf.vim
 Plug 'dyng/ctrlsf.vim'
-Plug 'terryma/vim-smooth-scroll'  " make scrolling in Vim more pleasant
 Plug 'tpope/vim-commentary'  " quick add comment for code
 Plug 'rhysd/clever-f.vim'  " Extended f, F, t and T key mappings for Vim
 
@@ -219,36 +209,6 @@ call plug#end()             " required!
 " In Mac with iTerm2, need to select patched font for non-ascii font, in
 " Profiles -> Text
 let g:airline_theme='tomorrow'
-
-" -------------------------------------------------------------------------------
-" w0rp/ale
-" -------------------------------------------------------------------------------
-"let b:ale_linters = ['flake8', 'shellcheck']
-let g:ale_linters = {
-    \ 'python': ['flake8'],
-    \ 'sh': ['shellcheck'],
-    \}
-let g:ale_virtualtext_cursor = 'disabled'
-let g:ale_lint_on_text_changed = 'never'
-let g:airline#extensions#ale#enabled = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-"" -------------------------------------------------------------------------------
-"" davidhalter/jedi-vim
-"" -------------------------------------------------------------------------------
-""   Goto assignments <leader>g (typical goto function)
-""   Goto definitions <leader>d (follow identifier as far as possible, includes
-""   imports and statements)
-""   Show Documentation/Pydoc K (shows a popup with assignments)
-""   Renaming <leader>r
-""   Usages <leader>n (shows all the usages of a name)
-""   Open module, e.g. :Pyimport os (opens the os module)
-"autocmd FileType python setlocal completeopt-=preview    " disable docstring
-"let g:jedi#completions_command = "<C-N>"
 
 " -------------------------------------------------------------------------------
 " nvie/vim-flake8
@@ -280,24 +240,8 @@ highlight link Flake8_PyFlake    WarningMsg
 " ----------------------------------------------------------------------------
 augroup VimCSS3Syntax
   autocmd!
-
   autocmd FileType css setlocal iskeyword+=-
 augroup END
-
-" ----------------------------------------------------------------------------
-" ternjs/tern_for_vim
-" ----------------------------------------------------------------------------
-let tern_show_signature_in_pum = 1
-let tern_show_argument_hints = 'on_hold'
-autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
-autocmd FileType javascript setlocal omnifunc=tern#Complete
-"
-" ----------------------------------------------------------------------------
-" Shutnik/jshint2.vim
-" ----------------------------------------------------------------------------
-let jshint2_save = 1
-" jshint validation
-nnoremap <leader>j :JSHint<CR>
 
 " ----------------------------------------------------------------------------
 " plasticboy/vim-markdown
@@ -488,36 +432,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " ----------------------------------------------------------------------------
-" Tagbar
-" ----------------------------------------------------------------------------
-nmap <F8> :TagbarToggle<CR>
-map <leader>tb :TagbarToggle<CR>
-let g:tagbar_sort = 0
-
-let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-\ }
-
-"let g:tagbar_type_markdown = {
-"    \ 'ctagstype': 'markdown',
-"    \ 'ctagsbin' : '/Users/TankyWoo/.dotfiles/markdown2ctags.py',
-"    \ 'ctagsargs' : '-f - --sort=yes',
-"    \ 'kinds' : [
-"        \ 's:sections',
-"        \ 'i:images'
-"    \ ],
-"    \ 'sro' : '|',
-"    \ 'kind2scope' : {
-"        \ 's' : 'section',
-"    \ },
-"    \ 'sort': 0,
-"\ }
-
-" ----------------------------------------------------------------------------
 " airblade/vim-gitgutter
 " ----------------------------------------------------------------------------
 let g:gitgutter_max_signs = 500
@@ -537,14 +451,11 @@ highlight clear SignColumn
 " <Leader>f{char} to move to {char}
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
-
 " s{char}{char} to move to {char}{char}
 nmap s <Plug>(easymotion-overwin-f2)
-
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
-
 " Move to word
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
@@ -563,22 +474,6 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 let g:ctrlsf_search_mode = 'async'  " vim >= 8.0
 " let g:ctrlsf_winsize = '40%'
-
-" ----------------------------------------------------------------------------
-" terryma/vim-smooth-scroll
-" https://github.com/terryma/vim-smooth-scroll
-" ----------------------------------------------------------------------------
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-
-" ----------------------------------------------------------------------------
-" tpope/vim-commentary
-" https://github.com/tpope/vim-commentary
-" usage:
-" - gcc: comment current line
-" - gc: in visual mode, comment selection
-" - gcap: auto comment paragraph
-" ----------------------------------------------------------------------------
 
 " ----------------------------------------------------------------------------
 " rhysd/clever-f.vim
@@ -610,17 +505,11 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 set notermguicolors
 
 try
-    "hi Normal ctermbg=NONE guibg=NONE
-    "autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
     set background=dark
-    "colorscheme Tomorrow-Night-Bright
     colorscheme apprentice-modified
     set background=dark
     hi LineNr ctermfg=darkgreen
     hi CursorLineNr cterm=bold ctermfg=yellow
-    " Below syntax will affect vim-airline statusbar; write colorscheme
-    " directly is ok
-    " autocmd BufEnter * colorscheme Tomorrow-Night-Bright
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
