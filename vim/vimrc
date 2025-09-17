@@ -160,15 +160,9 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " Display
-"Plug 'Lokaltog/vim-powerline'  " newer powerline is https://github.com/powerline/powerline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/tomorrow-theme'
-" Plug 'kien/rainbow_parentheses.vim'
-"Plug 'Yggdroot/indentLine'
-" Note vim-colorschemes will cause vim-powerline not work if :tabnew
-" Plug 'flazz/vim-colorschemes'  " themes collection
-Plug 'vim-scripts/Color-Scheme-Explorer'
 
 " Linter
 Plug 'w0rp/ale'
@@ -178,15 +172,10 @@ Plug 'w0rp/ale'
 "    Plug 'davidhalter/jedi-vim'
 "endif
 Plug 'nvie/vim-flake8'
-
 if g:distro != 'Gentoo'
     " under gentoo, conflict with dev-python/jinja builtin vim-jinja extension
     Plug 'mitsuhiko/vim-jinja'
 endif
-"Plug 'kevinw/pyflakes-vim'
-"Plug 'fs111/pydoc.vim'
-"Plug 'Pydiction'
-"Plug 'pep8'
 
 " HTML & CSS
 Plug 'mattn/emmet-vim'
@@ -201,24 +190,17 @@ Plug 'Shutnik/jshint2.vim'
 Plug 'fatih/vim-go'
 
 " Markdown
-Plug 'sjl/badwolf'
+Plug 'godlygeek/tabular'  " need by plasticboy/vim-markdown
 Plug 'plasticboy/vim-markdown'
 
 " Enhanced
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'ryanoasis/vim-devicons'  " need patch nerd fonts first
 Plug 'airblade/vim-gitgutter'
-Plug 'ervandew/supertab'
 " in nvim, need `pip/pip3 install --user pynvim` first
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'AndrewRadev/splitjoin.vim'  " transition between multiline and single-line code
-"Plug 'preservim/tagbar'  " Tagbar is more powerful than 'taglist.vim'
-"Plug 'lvht/tagbar-markdown'
+Plug 'AndrewRadev/splitjoin.vim'  " gS split, gJ join
 Plug 'vim-scripts/Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
-Plug 'godlygeek/tabular'  " need by plasticboy/vim-markdown
-Plug 'hotoo/pangu.vim'
 Plug 'easymotion/vim-easymotion'
 " https://github.com/dyng/ctrlsf.vim
 Plug 'dyng/ctrlsf.vim'
@@ -227,20 +209,7 @@ Plug 'tpope/vim-commentary'  " quick add comment for code
 Plug 'rhysd/clever-f.vim'  " Extended f, F, t and T key mappings for Vim
 
 
-if has('mac') || has('macunix')
-    Plug 'rizzatti/dash.vim'
-endif
-
 call plug#end()             " required!
-
-
-" -------------------------------------------------------------------------------
-" Lokaltog/vim-powerline
-" -------------------------------------------------------------------------------
-let g:Powerline_symbols = 'unicode' " compatible/unicode/fancy
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
 
 " -------------------------------------------------------------------------------
@@ -250,46 +219,6 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 " In Mac with iTerm2, need to select patched font for non-ascii font, in
 " Profiles -> Text
 let g:airline_theme='tomorrow'
-
-
-" -------------------------------------------------------------------------------
-" kien/rainbow_parentheses.vim
-" -------------------------------------------------------------------------------
-" always on
-if exists(':RainbowParenthesesToggle')
-  au VimEnter *.py,*.js,*.html,*.css,*.sls RainbowParenthesesToggle
-  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadRound
-  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadSquare
-  au Syntax *.py,*.js,*.html,*.css,*.sls RainbowParenthesesLoadBraces
-endif
-
-" the outer layer is the last pair
-" remove black for dark terminal
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 15
-
-" -------------------------------------------------------------------------------
-" Yggdroot/indentLine
-" -------------------------------------------------------------------------------
-"   https://github.com/Yggdroot/indentLine
-" let g:indentLine_char='┆'
-" let g:indentLine_enabled = 1
 
 " -------------------------------------------------------------------------------
 " w0rp/ale
@@ -392,13 +321,6 @@ nmap <leader>ne :NERDTreeTabsToggle<CR>
 autocmd vimEnter *.go NERDTree | wincmd w
 "let g:NERDTreeDirArrowExpandable='▷'
 "let g:NERDTreeDirArrowCollapsible='▼'
-
-" ----------------------------------------------------------------------------
-" ervandew/supertab
-" ----------------------------------------------------------------------------
-set completeopt=longest,menu,preview
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"  " use omni completion instead of default
-let g:SuperTabCrMapping = 1  " disable <enter> with newline, https://github.com/ervandew/supertab/issues/142
 
 " ----------------------------------------------------------------------------
 " neoclide/coc.nvim
@@ -604,24 +526,9 @@ set updatetime=100
 highlight clear SignColumn
 
 " ----------------------------------------------------------------------------
-" rizzatti/dash.vim
-" ----------------------------------------------------------------------------
-" https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
-let g:dash_map = {
-  \ 'python' : ['py', 'python2', 'py3', 'python3']
-  \ }
-nmap <silent> <leader>da <Plug>DashSearch
-
-" ----------------------------------------------------------------------------
 " godlygeek/tabular
 " ----------------------------------------------------------------------------
 " use `Tab /|` to auto align '|'
-
-" ----------------------------------------------------------------------------
-" hotoo/pangu.vim
-" https://github.com/hotoo/pangu.vim
-" ----------------------------------------------------------------------------
-"autocmd BufWritePre *.markdown,*.md call PanGuSpacing()
 
 " ----------------------------------------------------------------------------
 " easymotion/vim-easymotion
@@ -714,7 +621,6 @@ try
     " Below syntax will affect vim-airline statusbar; write colorscheme
     " directly is ok
     " autocmd BufEnter * colorscheme Tomorrow-Night-Bright
-    ""autocmd BufEnter *.md,*.mkd,*.markdown colorscheme badwolf
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
