@@ -102,31 +102,31 @@ elif [[ "$SHELL" == $(command -v bash 2>/dev/null) ]]; then
     # export PROMPT_COMMAND='history -a; history -n; history -w; '"$PROMPT_COMMAND"
     export HISTIGNORE='ls:bg:fg'
 
-    # 更健壮的、基于锁的历史同步函数
-    safe_sync_history() {
-        local lock_dir="${TMPDIR:-/tmp}/bash_history.lock"
+    ## 更健壮的、基于锁的历史同步函数
+    #safe_sync_history() {
+    #    local lock_dir="${TMPDIR:-/tmp}/bash_history.lock"
 
-        # 尝试获取锁。如果mkdir失败，说明另一个同步正在运行，则直接退出。
-        if mkdir "$lock_dir" 2>/dev/null; then
-            # 确保脚本被中断时也能移除锁，避免死锁。
-            trap 'rmdir "$lock_dir" 2>/dev/null' INT TERM EXIT
+    #    # 尝试获取锁。如果mkdir失败，说明另一个同步正在运行，则直接退出。
+    #    if mkdir "$lock_dir" 2>/dev/null; then
+    #        # 确保脚本被中断时也能移除锁，避免死锁。
+    #        trap 'rmdir "$lock_dir" 2>/dev/null' INT TERM EXIT
 
-            # 获取锁后，安全地执行历史操作。
-            history -a  # 将当前会话的新命令追加到历史文件
-            history -n  # 从历史文件中读取其他会话写入的新命令
+    #        # 获取锁后，安全地执行历史操作。
+    #        history -a  # 将当前会话的新命令追加到历史文件
+    #        history -n  # 从历史文件中读取其他会话写入的新命令
 
-            # 任务完成，释放锁并清除陷阱。
-            rmdir "$lock_dir" 2>/dev/null
-            trap - INT TERM EXIT
-        fi
-    }
+    #        # 任务完成，释放锁并清除陷阱。
+    #        rmdir "$lock_dir" 2>/dev/null
+    #        trap - INT TERM EXIT
+    #    fi
+    #}
 
-    # 兼容 bash-it（如果使用）
-    if command -v safe_append_prompt_command &> /dev/null; then
-        safe_append_prompt_command safe_sync_history
-    else
-        PROMPT_COMMAND="safe_sync_history${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
-    fi
+    ## 兼容 bash-it（如果使用）
+    #if command -v safe_append_prompt_command &> /dev/null; then
+    #    safe_append_prompt_command safe_sync_history
+    #else
+    #    PROMPT_COMMAND="safe_sync_history${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+    #fi
 
 fi
 export HISTSIZE=99999
