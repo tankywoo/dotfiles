@@ -4,7 +4,7 @@
 # use true color under mosh ssh
 
 function prompt_command() {
-	PS1="${green?}\h ${reset_color?}${blue?}\$${bold_blue?}${reset_color?} ${normal?}"
+	PS1="${green?}>${bold_blue?}${reset_color?} ${normal?}"
 }
 
 safe_append_prompt_command prompt_command
