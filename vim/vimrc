@@ -563,10 +563,10 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 set notermguicolors
 
 try
-    set background=dark
-    colorscheme apprentice-modified
-    set background=dark
-    hi LineNr ctermfg=darkgreen
+    colorscheme apprentice
+
+    hi LineNr ctermfg=8
+    hi Normal ctermbg=NONE guibg=NONE
     hi CursorLineNr cterm=bold ctermfg=yellow
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
