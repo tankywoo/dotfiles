@@ -1,25 +1,6 @@
 # shellcheck shell=bash
 # shellcheck source=/dev/null
 
-# Bash Completion
-# https://docs.brew.sh/Shell-Completion
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
-fi
-
-# Fzf
-eval "$(fzf --bash)"
-
 # BashIt
 # If not running interactively, don't do anything
 case $- in
@@ -40,6 +21,27 @@ export SCM_CHECK=false
 # export BASH_IT_RELOAD_LEGACY=1
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+
+# Bash Completion
+# https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
+
+# Fzf
+if type fzf &>/dev/null; then
+  eval "$(fzf --bash)"
+fi
 
 # Dotfiles
 export DOTFILES="${HOME}/.dotfiles"
