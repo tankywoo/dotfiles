@@ -38,11 +38,11 @@ then
   fi
 fi
 
+# Dotfiles
+export DOTFILES="${HOME}/.dotfiles"
+source "$DOTFILES/common/init.sh"
+
 # Fzf
 if type fzf &>/dev/null; then
   eval "$(fzf --bash)"
 fi
-
-# Dotfiles
-export DOTFILES="${HOME}/.dotfiles"
-source "$DOTFILES/common/init.sh"
