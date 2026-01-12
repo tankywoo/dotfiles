@@ -591,7 +591,13 @@ set cursorcolumn " Highlighter the vertical line"
 hi search cterm=underline ctermfg=white
 
 highlight PmenuSel cterm=underline,bold ctermfg=blue
-set rtp+=/usr/local/opt/fzf
+
+" 自动识别 Homebrew 路径（兼容 Intel 和 ARM）
+if isdirectory('/opt/homebrew/opt/fzf')
+  set rtp+=/opt/homebrew/opt/fzf
+elseif isdirectory('/usr/local/opt/fzf')
+  set rtp+=/usr/local/opt/fzf
+endif
 
 " 禁用 diff 模式下的默认折叠
 augroup MyDiff
