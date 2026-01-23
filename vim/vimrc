@@ -255,6 +255,10 @@ Plug 'easymotion/vim-easymotion'
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-commentary'  " quick add comment for code
 Plug 'rhysd/clever-f.vim'  " Extended f, F, t and T key mappings for Vim
+Plug 'liuchengxu/vista.vim'  " tagbar alternative
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
+Plug 'junegunn/fzf.vim'
 
 
 call plug#end()             " required!
@@ -540,6 +544,14 @@ let g:ctrlsf_search_mode = 'async'  " vim >= 8.0
 " enable thus plugin cause  `;' and `,' disabled by defaults, so reopen it.
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
+
+" ----------------------------------------------------------------------------
+" liuchengxu/vista.vim
+" https://github.com/liuchengxu/vista.vim
+" ----------------------------------------------------------------------------
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_sidebar_width = 30
 
 
 " ===============================================================================
