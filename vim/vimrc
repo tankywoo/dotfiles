@@ -249,7 +249,7 @@ Plug 'airblade/vim-gitgutter'
 " in nvim, need `pip/pip3 install --user pynvim` first
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'AndrewRadev/splitjoin.vim'  " gS split, gJ join
-Plug 'vim-scripts/Auto-Pairs'  " Auto-Pairs is more useful than AutoClose
+Plug 'jiangmiao/auto-pairs'  " Auto-Pairs is more useful than AutoClose
 Plug 'easymotion/vim-easymotion'
 " https://github.com/dyng/ctrlsf.vim
 Plug 'dyng/ctrlsf.vim'
