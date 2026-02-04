@@ -309,8 +309,8 @@ augroup END
 " plasticboy/vim-markdown
 " https://github.com/plasticboy/vim-markdown
 " ----------------------------------------------------------------------------
-let g:vim_markdown_folding_style_pythonic = 1
-let g:vim_markdown_folding_level = 3
+"let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_disabled = 1 " 禁止折叠
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_conceal = 0  " do not conceal fenced code tag
