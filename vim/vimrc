@@ -580,6 +580,14 @@ try
     hi LineNr ctermfg=8
     hi Normal ctermbg=NONE guibg=NONE
     hi CursorLineNr cterm=bold ctermfg=yellow
+    " fix vim-markdown render htmlH1 under apprentice theme
+    hi link htmlH1 Statement
+    hi link htmlH2 Statement
+    hi link htmlH3 Statement
+    hi link htmlH4 Statement
+    hi link htmlH5 Statement
+    hi link htmlH6 Statement
+    hi link mkdHeading Statement
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
