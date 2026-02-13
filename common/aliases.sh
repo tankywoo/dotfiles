@@ -16,3 +16,9 @@ alias mux="tmuxinator"
 
 alias simpleps="gsed -i \"s|BASH_IT_THEME='candy_modified'|BASH_IT_THEME='simpleps'|g\" $HOME/.dotfiles/bash/bashrc; bash-it reload"
 alias unsimpleps="gsed -i \"s|BASH_IT_THEME='simpleps'|BASH_IT_THEME='candy_modified'|g\" $HOME/.dotfiles/bash/bashrc; bash-it reload"
+
+
+if [[ "$(uname)" == "Darwin" ]] && command -v brew &> /dev/null; then
+    alias ucal='$(brew --prefix util-linux)/bin/cal'
+    alias uhexdump='$(brew --prefix util-linux)/bin/hexdump'
+fi
