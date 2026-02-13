@@ -1,2 +1,2 @@
-export GOPATH=${HOME}/.go
+export GOPATH=${HOME}/develop/golab
 pathprepend $GOPATH/bin
