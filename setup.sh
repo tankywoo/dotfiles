@@ -110,12 +110,11 @@ config_vim() {
 # NEOVIM
 #
 config_nvim() {
-    if [ -e $HOME/.vim ]; then
-        create_symlinks "$HOME/.vim" "$HOME/.config/nvim"
-    # else
-    #     _install_vundle $NEO_VUNDLE
-    fi
-    create_symlinks "vim/vimrc" "$HOME/.config/nvim/init.vim"
+    # 确保 ~/.config 存在
+    [ -d "$HOME/.config" ] || mkdir -p "$HOME/.config"
+
+    # 链接整个 nvim 目录到 ~/.config/nvim
+    create_symlinks "nvim" ".config/nvim"
 }
 
 
