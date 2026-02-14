@@ -572,7 +572,8 @@ hi ColorColumn ctermbg=lightgrey guibg=lightgrey  " Highlighter cc
 "if has('termguicolors')
 "    set termguicolors
 "endif
-set notermguicolors
+"set notermguicolors
+set termguicolors
 
 try
     colorscheme apprentice
