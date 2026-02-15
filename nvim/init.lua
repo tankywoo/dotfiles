@@ -82,6 +82,72 @@ map("c", "%%", function()
     end
 end, { expr = true, desc = "Expand directory" })
 
+-- =============================================
+-- 1.7 自动命令 (Autocommands)
+-- =============================================
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+-- 1.7.1 自动插入文件头 (Auto Header)
+-- Python
+autocmd("BufNewFile", {
+    pattern = "*.py",
+    callback = function()
+        local header = {
+            "#!/usr/bin/env python",
+            "# -*- coding: utf-8 -*-",
+            "# Tanky Woo @ " .. os.date("%Y-%m-%d"),
+            "",
+        }
+        vim.api.nvim_buf_set_lines(0, 0, 0, false, header)
+        vim.cmd("normal! G") -- 跳转到文件末尾
+    end,
+})
+-- Bash
+autocmd("BufNewFile", {
+    pattern = "*.sh",
+    callback = function()
+        local header = {
+            "#!/bin/bash",
+            "# Tanky Woo @ " .. os.date("%Y-%m-%d"),
+            "",
+        }
+        vim.api.nvim_buf_set_lines(0, 0, 0, false, header)
+        vim.cmd("normal! G")
+    end,
+})
+
+-- 1.7.2 特定文件类型的缩进设置 (FileType Indent)
+local function set_indent(files, width)
+    autocmd("FileType", {
+        pattern = files,
+        callback = function()
+            vim.opt_local.shiftwidth = width
+            vim.opt_local.tabstop = width
+            vim.opt_local.softtabstop = width
+            vim.opt_local.expandtab = true
+        end,
+    })
+end
+
+-- 2 空格缩进: 前端相关 + Vim
+set_indent({ "html", "htmldjango", "css", "javascript", "typescript", "vim", "lua", "yaml", "json" }, 2)
+-- 4 空格缩进: Python, Shell (虽然默认是4，显式设置更安全)
+set_indent({ "python", "sh", "zsh" }, 4)
+
+-- 1.7.3 Diff 模式优化 (Diff Mode)
+-- 在 Diff 模式下禁用折叠，方便阅读
+local diff_group = augroup("MyDiff", { clear = true })
+autocmd({ "VimEnter", "DiffUpdated" }, {
+    group = diff_group,
+    callback = function()
+        if vim.wo.diff then
+            vim.opt_local.foldenable = false
+            vim.opt_local.foldmethod = "manual"
+        end
+    end,
+})
+
 -- -----------------------------------------------------------
 -- Phase 2: Plugin Manager (Lazy.nvim)
 -- -----------------------------------------------------------
