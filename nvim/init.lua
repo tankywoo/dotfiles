@@ -5,76 +5,74 @@
 vim.g.mapleader = "\\"       -- Leader 键
 vim.g.maplocalleader = "\\"
 
-local opt = vim.opt
 
 -- =============================================
 -- 1.1 显示与外观 (UI & Appearance)
 -- =============================================
-opt.number = true                -- 显示行号
-opt.relativenumber = false       -- 不使用相对行号
-opt.signcolumn = "yes"           -- 总是显示侧边栏 (避免 LSP 报错时抖动)
-opt.cursorline = true            -- 高亮当前行
-opt.colorcolumn = "81"           -- 80字符提示线
-opt.list = true                  -- 显示不可见字符
-opt.listchars:append("tab:>-")   -- Tab 显示为 >-
-opt.listchars:append("trail:.")  --行尾空格显示为 .
-opt.showmatch = true             -- 插入括号时高亮匹配项
+vim.opt.number = true                -- 显示行号
+vim.opt.relativenumber = false       -- 不使用相对行号
+vim.opt.signcolumn = "yes"           -- 总是显示侧边栏 (避免 LSP 报错时抖动)
+vim.opt.cursorline = true            -- 高亮当前行
+vim.opt.colorcolumn = "81"           -- 80字符提示线
+vim.opt.list = true                  -- 显示不可见字符
+vim.opt.listchars:append("tab:>-")   -- Tab 显示为 >-
+vim.opt.listchars:append("trail:.")  -- 行尾空格显示为 .
+vim.opt.showmatch = true             -- 插入括号时高亮匹配项
 
 -- =============================================
 -- 1.2 缩进 (Indentation)
 -- =============================================
-opt.tabstop = 4                  -- Tab 宽度
-opt.softtabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true             -- 使用空格代替 Tab
-opt.autoindent = true
-opt.smartindent = true
+vim.opt.tabstop = 4                  -- Tab 宽度
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true             -- 使用空格代替 Tab
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 
 -- =============================================
 -- 1.3 搜索 (Search)
 -- =============================================
-opt.ignorecase = true            -- 忽略大小写
-opt.smartcase = true             -- ...除非包含大写字母
-opt.hlsearch = true              -- 高亮搜索结果
-opt.incsearch = true             -- 实时增量搜索
+vim.opt.ignorecase = true            -- 忽略大小写
+vim.opt.smartcase = true             -- ...除非包含大写字母
+vim.opt.hlsearch = true              -- 高亮搜索结果
+vim.opt.incsearch = true             -- 实时增量搜索
 
 -- =============================================
 -- 1.4 编辑与交互 (Editing & Interaction)
 -- =============================================
-opt.mouse = ""                   -- 禁用鼠标 (符合纯键盘流习惯)
-opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
-opt.clipboard:append("unnamedplus") -- 使用系统剪贴板
-opt.foldmethod = "indent"        -- 基于缩进折叠
-opt.foldlevel = 99               -- 默认打开所有折叠
+vim.opt.mouse = ""                   -- 禁用鼠标 (符合纯键盘流习惯)
+vim.opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
+vim.opt.clipboard:append("unnamedplus") -- 使用系统剪贴板
+vim.opt.foldmethod = "indent"        -- 基于缩进折叠
+vim.opt.foldlevel = 99               -- 默认打开所有折叠
 
 -- =============================================
 -- 1.5 文件与编码 (Files & Encoding)
 -- =============================================
-opt.backup = false               -- 禁用备份文件
-opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码猜测顺序
-opt.fileencoding = "utf-8"       -- 默认写入编码
-opt.splitright = true            -- vsplit 新窗口在右侧
-opt.splitbelow = true            -- split 新窗口在下方
+vim.opt.backup = false               -- 禁用备份文件
+vim.opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码猜测顺序
+vim.opt.fileencoding = "utf-8"       -- 默认写入编码
+vim.opt.splitright = true            -- vsplit 新窗口在右侧
+vim.opt.splitbelow = true            -- split 新窗口在下方
 
 -- =============================================
 -- 1.6 基础映射 (Basic Keymaps)
 -- =============================================
-local map = vim.keymap.set
 
 -- <C-l> 清除搜索高亮
-map("n", "<C-l>", ":nohlsearch<CR><C-l>", { silent = true })
+vim.keymap.set("n", "<C-l>", ":nohlsearch<CR><C-l>", { silent = true })
 
 -- <leader>w 保存
-map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
+vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 
 -- <leader>l 切换不可见字符显示
-map("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
+vim.keymap.set("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
 
 -- <leader>p 粘贴模式 (模拟 vimrc 中的逻辑)
-map("n", "<leader>p", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
+vim.keymap.set("n", "<leader>p", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
 
 -- %% 命令行模式下快速展开当前文件目录
-map("c", "%%", function()
+vim.keymap.set("c", "%%", function()
     if vim.fn.getcmdtype() == ':' then
         return vim.fn.expand('%:h') .. '/'
     else
@@ -85,12 +83,10 @@ end, { expr = true, desc = "Expand directory" })
 -- =============================================
 -- 1.7 自动命令 (Autocommands)
 -- =============================================
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
 
 -- 1.7.1 自动插入文件头 (Auto Header)
 -- Python
-autocmd("BufNewFile", {
+vim.api.nvim_create_autocmd("BufNewFile", {
     pattern = "*.py",
     callback = function()
         local header = {
@@ -104,7 +100,7 @@ autocmd("BufNewFile", {
     end,
 })
 -- Bash
-autocmd("BufNewFile", {
+vim.api.nvim_create_autocmd("BufNewFile", {
     pattern = "*.sh",
     callback = function()
         local header = {
@@ -119,7 +115,7 @@ autocmd("BufNewFile", {
 
 -- 1.7.2 特定文件类型的缩进设置 (FileType Indent)
 local function set_indent(files, width)
-    autocmd("FileType", {
+    vim.api.nvim_create_autocmd("FileType", {
         pattern = files,
         callback = function()
             vim.opt_local.shiftwidth = width
@@ -137,8 +133,8 @@ set_indent({ "python", "sh", "zsh" }, 4)
 
 -- 1.7.3 Diff 模式优化 (Diff Mode)
 -- 在 Diff 模式下禁用折叠，方便阅读
-local diff_group = augroup("MyDiff", { clear = true })
-autocmd({ "VimEnter", "DiffUpdated" }, {
+local diff_group = vim.api.nvim_create_augroup("MyDiff", { clear = true })
+vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
     group = diff_group,
     callback = function()
         if vim.wo.diff then
