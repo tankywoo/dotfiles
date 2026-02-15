@@ -14,6 +14,12 @@ opt.signcolumn = "yes"       -- 总是显示侧边栏 (LSP需要)
 opt.cursorline = true        -- 高亮当前行
 opt.colorcolumn = "81"       -- 80字符提示线
 
+
+-- 显示不可见字符
+opt.list = true
+opt.listchars:append("tab:>-")
+opt.listchars:append("trail:.")
+
 -- 缩进 (Follow your .vimrc)
 opt.tabstop = 4
 opt.softtabstop = 4
