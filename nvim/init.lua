@@ -2,6 +2,46 @@
 -- https://tankywoo.com
 
 -- =============================================================================
+-- 快捷键指南 (Keymap Reference)
+-- =============================================================================
+-- Leader Key: \ (Backslash)
+--
+-- [General]
+-- <leader>w        : 保存文件
+-- <leader>l        : toggle list chars (显示空白字符)
+-- <leader>p        : 粘贴模式 (paste mode)
+-- <C-l>            : 清除搜索高亮
+-- %%               : (Command Line) 展开当前文件目录
+--
+-- [Files & Navigation]
+-- <leader>ff       : 查找文件 (Telescope Find Files)
+-- <leader>fg       : 全局搜索内容 (Telescope Live Grep)
+-- <leader>fb       : 查找已打开的 Buffer
+-- <leader>fh       : 查找帮助文档
+-- <leader>ne       : 切换文件树 (NvimTree Toggle)
+-- <leader>o        : 切换大纲视图 (Aerial Toggle)
+--
+-- [LSP & Coding]
+-- K                : 查看文档 (Hover)
+-- gd               : 跳转定义 (Go Definition)
+-- <leader>rn       : 重命名符号 (Rename)
+-- <leader>ca       : 代码操作 (Code Action)
+-- <leader>d        : 查看行内诊断错误 (Diagnostic Float)
+-- [d / ]d          : 跳转上一个/下一个错误
+-- [c / ]c          : (Git) 跳转上一个/下一个变更
+-- <Tab>/<S-Tab>    : (Completion) 选择补全项
+--
+-- [Editing & Search]
+-- s                : 快速跳转 (Flash Jump)
+-- S                : 快速选择区域 (Flash Treesitter)
+-- <C-F>f           : (CtrlSF) 全局搜索输入
+-- <C-F>n           : (CtrlSF) 搜索光标下单词
+-- <C-F>t           : (CtrlSF) 切换搜索结果窗口
+-- <leader>tm       : (Markdown) 开启表格模式
+-- gS / gJ          : 代码拆分/合并 (Split/Join)
+-- =============================================================================
+
+-- =============================================================================
 -- 1. 基础设置 (Basic Options)
 -- =============================================================================
 vim.g.mapleader = "\\"       -- Leader 键
