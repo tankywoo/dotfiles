@@ -37,6 +37,17 @@ opt.incsearch = true
 -- 系统剪贴板
 opt.clipboard:append("unnamedplus")
 
+-- 其他选项 (Migrated from .vimrc)
+opt.mouse = ""                   -- 禁用鼠标
+opt.showmatch = true             -- 括号匹配高亮
+opt.foldmethod = "indent"        -- 基于缩进的折叠
+opt.foldlevel = 99               -- 默认不折叠
+opt.backup = false               -- 禁用备份文件
+opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码识别
+opt.fileencoding = "utf-8"
+opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
+
+
 -- 2. 基础映射 (Basic Keymaps)
 local map = vim.keymap.set
 
@@ -45,6 +56,21 @@ map("n", "<C-l>", ":nohlsearch<CR><C-l>", { silent = true })
 
 -- <leader>w 保存
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
+
+-- <leader>l 切换不可见字符显示
+map("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
+
+-- <leader>p 粘贴模式 (模拟 vimrc 中的逻辑)
+map("n", "<leader>p", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
+
+-- %% 命令行模式下快速展开当前文件目录
+map("c", "%%", function()
+    if vim.fn.getcmdtype() == ':' then
+        return vim.fn.expand('%:h') .. '/'
+    else
+        return '%%'
+    end
+end, { expr = true, desc = "Expand directory" })
 
 -- -----------------------------------------------------------
 -- Phase 2: Plugin Manager (Lazy.nvim)
