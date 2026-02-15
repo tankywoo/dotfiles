@@ -278,6 +278,121 @@ require("lazy").setup({
     },
 
     -- =========================================================================
+    -- Phase 2.1: 新增功能插件 (Migrated from .vimrc)
+    -- =========================================================================
+
+    -- 2.6 Git 提示 (替代 gitgutter)
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function() 
+            require('gitsigns').setup({
+                signs = {
+                    add = { text = '+' },
+                    change = { text = '~' },
+                    delete = { text = '_' },
+                    topdelete = { text = '‾' },
+                    changedelete = { text = '~' },
+                },
+                on_attach = function(bufnr)
+                    local gs = package.loaded.gitsigns
+                    local function map(mode, l, r, opts)
+                        opts = opts or {}
+                        opts.buffer = bufnr
+                        vim.keymap.set(mode, l, r, opts)
+                    end
+
+                    -- 快捷键: 跳转 diff
+                    map('n', ']c', function()
+                        if vim.wo.diff then return ']c' end
+                        vim.schedule(function() gs.next_hunk() end)
+                        return '<Ignore>'
+                    end, {expr=true, desc="Next Hunk"})
+
+                    map('n', '[c', function()
+                        if vim.wo.diff then return '[c' end
+                        vim.schedule(function() gs.prev_hunk() end)
+                        return '<Ignore>'
+                    end, {expr=true, desc="Prev Hunk"})
+                end
+            })
+        end
+    },
+
+    -- 2.7 大纲视图 (替代 vista)
+    {
+        "stevearc/aerial.nvim",
+        dependencies = {
+           "nvim-treesitter/nvim-treesitter",
+           "nvim-tree/nvim-web-devicons"
+        },
+        config = function()
+            require("aerial").setup({
+                on_attach = function(bufnr)
+                    -- Toggle
+                    vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { buffer = bufnr, desc = "Toggle Outline" })
+                end
+            })
+        end
+    },
+
+    -- 2.8 Markdown 表格辅助 (替代 tabular)
+    {
+        "dhruvasagar/vim-table-mode",
+        ft = { "markdown" },
+        config = function()
+            vim.g.table_mode_corner = '|'
+            -- 快捷键 <leader>tm 开启表格模式
+            vim.keymap.set("n", "<leader>tm", ":TableModeToggle<CR>", { desc = "Toggle Table Mode" })
+        end
+    },
+
+    -- 2.9 自动括号 (替代 auto-pairs)
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true -- 使用默认配置
+    },
+
+    -- 2.10 快速跳转 (替代 easymotion / clever-f)
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+        },
+    },
+
+    -- 2.11 代码拆分/合并 (替代 splitjoin)
+    {
+        'Wansmer/treesj',
+        keys = { '<space>m', '<space>j', '<space>s' },
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = function()
+            require('treesj').setup({ use_default_keymaps = false })
+            -- 绑定 gS / gJ (模拟 vim-splitjoin)
+            vim.keymap.set('n', 'gJ', function() require('treesj').join() end)
+            vim.keymap.set('n', 'gS', function() require('treesj').split() end)
+        end,
+    },
+
+    -- 2.12 全局搜索编辑 (保留 VimScript 神器)
+    {
+        "dyng/ctrlsf.vim",
+        config = function()
+            vim.g.ctrlsf_auto_close = { normal = 0, compact = 0 }
+            vim.g.ctrlsf_auto_focus = { at = "start" }
+            -- 快捷键
+            vim.keymap.set("n", "<C-F>f", "<Plug>CtrlSFPrompt", { desc = "CtrlSF Prompt" })
+            vim.keymap.set("v", "<C-F>f", "<Plug>CtrlSFVwordpath", { desc = "CtrlSF Visual" })
+            vim.keymap.set("n", "<C-F>n", "<Plug>CtrlSFCwordPath", { desc = "CtrlSF Cword" })
+            vim.keymap.set("n", "<C-F>t", ":CtrlSFToggle<CR>", { desc = "CtrlSF Toggle" })
+        end
+    },
+
+    -- =========================================================================
     -- Phase 3: IDE Capabilities (LSP & Completion)
     -- =========================================================================
     
@@ -301,7 +416,7 @@ require("lazy").setup({
         config = function()
             -- 1. 自动安装 Server
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "bashls" } 
+                ensure_installed = { "lua_ls", "pyright", "bashls", "ruff" } 
             })
 
             -- 2.0 配置诊断显示样式 (新增)
@@ -321,7 +436,7 @@ require("lazy").setup({
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- 3. 批量启动 Servers (适配 Neovim 0.11+)
-            local servers = { "pyright", "bashls", "lua_ls" }
+            local servers = { "pyright", "bashls", "lua_ls", "ruff" }
 
             for _, server in ipairs(servers) do
                 -- 构造配置表
