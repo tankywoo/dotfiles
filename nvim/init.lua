@@ -200,6 +200,19 @@ require("lazy").setup({
                 ensure_installed = { "lua_ls", "pyright", "bashls" } 
             })
 
+            -- 2.0 配置诊断显示样式 (新增)
+            vim.diagnostic.config({
+                virtual_text = true,     -- 在行尾显示错误信息 (如果不喜欢可以设为 false)
+                signs = true,            -- 在侧边栏显示图标
+                update_in_insert = false,
+                underline = true,
+                severity_sort = true,
+                float = {
+                    border = "rounded",
+                    source = "always",
+                },
+            })
+
             -- 2. 通用能力配置 (Capabilities)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -240,6 +253,11 @@ require("lazy").setup({
                     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
                     -- 代码操作 (<leader>ca)
                     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                    -- 查看错误详情 (<leader>d)
+                    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+                    -- 跳转错误 ([d, ]d)
+                    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+                    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
                 end,
             })
         end,
