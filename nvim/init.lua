@@ -7,48 +7,58 @@ vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
 
--- 行号与显示
-opt.number = true
-opt.relativenumber = false
-opt.signcolumn = "yes"       -- 总是显示侧边栏 (LSP需要)
-opt.cursorline = true        -- 高亮当前行
-opt.colorcolumn = "81"       -- 80字符提示线
+-- =============================================
+-- 1.1 显示与外观 (UI & Appearance)
+-- =============================================
+opt.number = true                -- 显示行号
+opt.relativenumber = false       -- 不使用相对行号
+opt.signcolumn = "yes"           -- 总是显示侧边栏 (避免 LSP 报错时抖动)
+opt.cursorline = true            -- 高亮当前行
+opt.colorcolumn = "81"           -- 80字符提示线
+opt.list = true                  -- 显示不可见字符
+opt.listchars:append("tab:>-")   -- Tab 显示为 >-
+opt.listchars:append("trail:.")  --行尾空格显示为 .
+opt.showmatch = true             -- 插入括号时高亮匹配项
 
-
--- 显示不可见字符
-opt.list = true
-opt.listchars:append("tab:>-")
-opt.listchars:append("trail:.")
-
--- 缩进 (Follow your .vimrc)
-opt.tabstop = 4
+-- =============================================
+-- 1.2 缩进 (Indentation)
+-- =============================================
+opt.tabstop = 4                  -- Tab 宽度
 opt.softtabstop = 4
 opt.shiftwidth = 4
-opt.expandtab = true         -- 现代开发推荐开启
+opt.expandtab = true             -- 使用空格代替 Tab
 opt.autoindent = true
 opt.smartindent = true
 
--- 搜索
-opt.ignorecase = true
-opt.smartcase = true
-opt.hlsearch = true
-opt.incsearch = true
+-- =============================================
+-- 1.3 搜索 (Search)
+-- =============================================
+opt.ignorecase = true            -- 忽略大小写
+opt.smartcase = true             -- ...除非包含大写字母
+opt.hlsearch = true              -- 高亮搜索结果
+opt.incsearch = true             -- 实时增量搜索
 
--- 系统剪贴板
-opt.clipboard:append("unnamedplus")
-
--- 其他选项 (Migrated from .vimrc)
-opt.mouse = ""                   -- 禁用鼠标
-opt.showmatch = true             -- 括号匹配高亮
-opt.foldmethod = "indent"        -- 基于缩进的折叠
-opt.foldlevel = 99               -- 默认不折叠
-opt.backup = false               -- 禁用备份文件
-opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码识别
-opt.fileencoding = "utf-8"
+-- =============================================
+-- 1.4 编辑与交互 (Editing & Interaction)
+-- =============================================
+opt.mouse = ""                   -- 禁用鼠标 (符合纯键盘流习惯)
 opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
+opt.clipboard:append("unnamedplus") -- 使用系统剪贴板
+opt.foldmethod = "indent"        -- 基于缩进折叠
+opt.foldlevel = 99               -- 默认打开所有折叠
 
+-- =============================================
+-- 1.5 文件与编码 (Files & Encoding)
+-- =============================================
+opt.backup = false               -- 禁用备份文件
+opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码猜测顺序
+opt.fileencoding = "utf-8"       -- 默认写入编码
+opt.splitright = true            -- vsplit 新窗口在右侧
+opt.splitbelow = true            -- split 新窗口在下方
 
--- 2. 基础映射 (Basic Keymaps)
+-- =============================================
+-- 1.6 基础映射 (Basic Keymaps)
+-- =============================================
 local map = vim.keymap.set
 
 -- <C-l> 清除搜索高亮
