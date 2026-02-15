@@ -1,14 +1,16 @@
 -- Tanky Woo's Neovim Configuration
--- Phase 1: Basic Options & Mappings (Migrated from Vim 9.1)
+-- https://tankywoo.com
 
+-- =============================================================================
 -- 1. 基础设置 (Basic Options)
+-- =============================================================================
 vim.g.mapleader = "\\"       -- Leader 键
 vim.g.maplocalleader = "\\"
 
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.1 显示与外观 (UI & Appearance)
--- =============================================
+-- -----------------------------------------------------------------------------
 vim.opt.number = true                -- 显示行号
 vim.opt.relativenumber = false       -- 不使用相对行号
 vim.opt.signcolumn = "yes"           -- 总是显示侧边栏 (避免 LSP 报错时抖动)
@@ -19,9 +21,9 @@ vim.opt.listchars:append("tab:>-")   -- Tab 显示为 >-
 vim.opt.listchars:append("trail:.")  -- 行尾空格显示为 .
 vim.opt.showmatch = true             -- 插入括号时高亮匹配项
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.2 缩进 (Indentation)
--- =============================================
+-- -----------------------------------------------------------------------------
 vim.opt.tabstop = 4                  -- Tab 宽度
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -29,35 +31,35 @@ vim.opt.expandtab = true             -- 使用空格代替 Tab
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.3 搜索 (Search)
--- =============================================
+-- -----------------------------------------------------------------------------
 vim.opt.ignorecase = true            -- 忽略大小写
 vim.opt.smartcase = true             -- ...除非包含大写字母
 vim.opt.hlsearch = true              -- 高亮搜索结果
 vim.opt.incsearch = true             -- 实时增量搜索
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.4 编辑与交互 (Editing & Interaction)
--- =============================================
+-- -----------------------------------------------------------------------------
 vim.opt.mouse = ""                   -- 禁用鼠标 (符合纯键盘流习惯)
 vim.opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
 vim.opt.clipboard:append("unnamedplus") -- 使用系统剪贴板
 vim.opt.foldmethod = "indent"        -- 基于缩进折叠
 vim.opt.foldlevel = 99               -- 默认打开所有折叠
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.5 文件与编码 (Files & Encoding)
--- =============================================
+-- -----------------------------------------------------------------------------
 vim.opt.backup = false               -- 禁用备份文件
 vim.opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码猜测顺序
 vim.opt.fileencoding = "utf-8"       -- 默认写入编码
 vim.opt.splitright = true            -- vsplit 新窗口在右侧
 vim.opt.splitbelow = true            -- split 新窗口在下方
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.6 基础映射 (Basic Keymaps)
--- =============================================
+-- -----------------------------------------------------------------------------
 
 -- <C-l> 清除搜索高亮
 vim.keymap.set("n", "<C-l>", ":nohlsearch<CR><C-l>", { silent = true })
@@ -80,9 +82,9 @@ vim.keymap.set("c", "%%", function()
     end
 end, { expr = true, desc = "Expand directory" })
 
--- =============================================
+-- -----------------------------------------------------------------------------
 -- 1.7 自动命令 (Autocommands)
--- =============================================
+-- -----------------------------------------------------------------------------
 
 -- 1.7.1 自动插入文件头 (Auto Header)
 -- Python
@@ -144,11 +146,13 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
     end,
 })
 
--- -----------------------------------------------------------
--- Phase 2: Plugin Manager (Lazy.nvim)
--- -----------------------------------------------------------
+-- =============================================================================
+-- 2. 插件管理 (Plugins Manager)
+-- =============================================================================
 
--- 1. 自动安装 Lazy.nvim (Bootstrap)
+-- -----------------------------------------------------------------------------
+-- 2.1 自动安装管理器 (Bootstrap Lazy.nvim)
+-- -----------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -162,19 +166,23 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- 2. 插件列表 (Plugins)
+-- -----------------------------------------------------------------------------
+-- 2.2 插件列表 (Plugins List)
+-- -----------------------------------------------------------------------------
 require("lazy").setup({
-    -- 2.1 配色主题 (替换 apprentice)
-    { 
-        "ellisonleao/gruvbox.nvim", 
-        priority = 1000, 
-        config = true, 
-        opts = {
-            contrast = "hard", -- 类似 apprentice 的深色高对比
-        }
+    -- 配色主题 (替换 apprentice)
+    {
+        "ellisonleao/gruvbox.nvim",
+        priority = 1000,
+        config = function()
+            require("gruvbox").setup({
+                contrast = "hard", -- 类似 apprentice 的深色高对比
+            })
+            vim.cmd.colorscheme("gruvbox")
+        end,
     },
 
-    -- 2.2 文件浏览器 (替换 NERDTree)
+    -- 文件浏览器 (替换 NERDTree)
     {
         "nvim-tree/nvim-tree.lua",
         dependencies = { "nvim-tree/nvim-web-devicons" }, -- 图标支持
@@ -187,7 +195,7 @@ require("lazy").setup({
         end,
     },
 
-    -- 2.3 语法高亮 (Nvim-Treesitter)
+    -- 语法高亮 (Nvim-Treesitter)
     -- 核心逻辑:
     -- 1. build = ":TSUpdate": 每次更新插件时自动更新解析器
     -- 2. ensure_installed: 自动安装你常用的语言解析器
@@ -204,7 +212,7 @@ require("lazy").setup({
 
             configs.setup({
                 -- 自动安装这些语言的 parser
-                ensure_installed = { 
+                ensure_installed = {
                     "c", "lua", "vim", "vimdoc", "query", -- Neovim 自身依赖
                     "python", "bash", "markdown", "markdown_inline" -- 你的常用语言
                 },
@@ -228,19 +236,19 @@ require("lazy").setup({
         end,
     },
 
-    -- 2.4 模糊查找 (Telescope)
+    -- 模糊查找 (Telescope)
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
-        dependencies = { 
+        dependencies = {
             "nvim-lua/plenary.nvim",
             -- 可选：安装 fzf-native 提升排序性能 (需要系统安装cmake)
-            -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } 
+            -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
         },
         config = function()
             local telescope = require("telescope")
             local actions = require("telescope.actions")
-            
+
             telescope.setup({
                 defaults = {
                     -- 这里的配置可以调整 UI
@@ -266,7 +274,7 @@ require("lazy").setup({
         end,
     },
 
-    -- 2.5 状态栏 (lualine) - 提升颜值
+    -- 状态栏 (lualine) - 提升颜值
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -277,14 +285,10 @@ require("lazy").setup({
         end,
     },
 
-    -- =========================================================================
-    -- Phase 2.1: 新增功能插件 (Migrated from .vimrc)
-    -- =========================================================================
-
-    -- 2.6 Git 提示 (替代 gitgutter)
+    -- Git 提示 (替代 gitgutter)
     {
         "lewis6991/gitsigns.nvim",
-        config = function() 
+        config = function()
             require('gitsigns').setup({
                 signs = {
                     add = { text = '+' },
@@ -318,7 +322,7 @@ require("lazy").setup({
         end
     },
 
-    -- 2.7 大纲视图 (替代 vista)
+    -- 大纲视图 (替代 vista)
     {
         "stevearc/aerial.nvim",
         dependencies = {
@@ -335,7 +339,7 @@ require("lazy").setup({
         end
     },
 
-    -- 2.8 Markdown 表格辅助 (替代 tabular)
+    -- Markdown 表格辅助 (替代 tabular)
     {
         "dhruvasagar/vim-table-mode",
         ft = { "markdown" },
@@ -346,14 +350,14 @@ require("lazy").setup({
         end
     },
 
-    -- 2.9 自动括号 (替代 auto-pairs)
+    -- 自动括号 (替代 auto-pairs)
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = true -- 使用默认配置
     },
 
-    -- 2.10 快速跳转 (替代 easymotion / clever-f)
+    -- 快速跳转 (替代 easymotion / clever-f)
     {
         "folke/flash.nvim",
         event = "VeryLazy",
@@ -365,7 +369,7 @@ require("lazy").setup({
         },
     },
 
-    -- 2.11 代码拆分/合并 (替代 splitjoin)
+    -- 代码拆分/合并 (替代 splitjoin)
     {
         'Wansmer/treesj',
         keys = { '<space>m', '<space>j', '<space>s' },
@@ -378,7 +382,7 @@ require("lazy").setup({
         end,
     },
 
-    -- 2.12 全局搜索编辑 (保留 VimScript 神器)
+    -- 全局搜索编辑 (保留 VimScript 神器)
     {
         "dyng/ctrlsf.vim",
         config = function()
@@ -392,11 +396,7 @@ require("lazy").setup({
         end
     },
 
-    -- =========================================================================
-    -- Phase 3: IDE Capabilities (LSP & Completion)
-    -- =========================================================================
-    
-    -- 3.1 LSP 管理 (Mason)
+    -- LSP 管理 (Mason)
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
@@ -404,19 +404,19 @@ require("lazy").setup({
             require("mason").setup()
         end,
     },
-    
-    -- 3.2 LSP 配置 (LspConfig)
+
+    -- LSP 配置 (LspConfig)
     -- 负责将 Neovim 连接到 Mason 安装的 Language Servers
     {
         "neovim/nvim-lspconfig",
-        dependencies = { 
-            "williamboman/mason.nvim", 
+        dependencies = {
+            "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
             -- 1. 自动安装 Server
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "bashls", "ruff" } 
+                ensure_installed = { "lua_ls", "pyright", "bashls", "ruff" }
             })
 
             -- 2.0 配置诊断显示样式 (新增)
@@ -457,7 +457,7 @@ require("lazy").setup({
                 end
                 vim.lsp.enable(server)
             end
-            
+
             -- 4. 自动绑定快捷键 (LspAttach 事件)
             -- 以前是在 on_attach 里写，现在官方推荐用 autocmd
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -482,7 +482,7 @@ require("lazy").setup({
         end,
     },
 
-    -- 3.3 补全引擎 (Cmp)
+    -- 补全引擎 (Cmp)
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -515,6 +515,3 @@ require("lazy").setup({
         end,
     }
 })
-
--- 3. 应用配色
-vim.cmd("colorscheme gruvbox")
