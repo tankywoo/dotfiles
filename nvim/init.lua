@@ -1,5 +1,9 @@
 -- Tanky Woo's Neovim Configuration
 -- https://tankywoo.com
+--
+-- TODO:
+-- yetone/avante.nvim
+-- sindrets/diffview.nvim
 
 -- #############################################################################
 -- # 快捷键指南 (Keymap Reference)
@@ -232,6 +236,23 @@ vim.opt.rtp:prepend(lazypath)
 -- 2.2 插件列表 (Plugins List)
 -- -----------------------------------------------------------------------------
 require("lazy").setup({
+    -- 快捷键辅助 (Which-Key)
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            spec = {
+                { "<leader>f", group = "Find/Files" },
+                { "<leader>p", group = "Paste" },
+                { "<leader>t", group = "Table/Toggle" },
+                { "<leader>c", group = "Code" },
+                { "g", group = "Goto/LSP" },
+                { "[", group = "Prev" },
+                { "]", group = "Next" },
+            },
+        },
+    },
+
     -- 配色主题 (替换 apprentice)
     {
         "ellisonleao/gruvbox.nvim",
