@@ -301,7 +301,7 @@ require("lazy").setup({
     -- 模糊查找 (Telescope)
     {
         "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
+
         dependencies = {
             "nvim-lua/plenary.nvim",
             -- 可选：安装 fzf-native 提升排序性能 (需要系统安装cmake)
