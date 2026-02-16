@@ -253,6 +253,22 @@ require("lazy").setup({
         },
     },
 
+    -- Lua 开发增强 (必须在 LSP 配置前加载)
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- 仅在 Lua 文件中加载
+        opts = {
+            library = {
+                -- 为 Lazy.nvim 插件配置提供补全
+                { path = "lazy.nvim", words = { "LazyVim" } },
+            },
+        },
+    },
+
+    -- 智能缩进检测 (Auto Indent)
+    -- 自动调整 shiftwidth/expandtab 以匹配当前文件
+    "tpope/vim-sleuth",
+
     -- 配色主题 (替换 apprentice)
     {
         "ellisonleao/gruvbox.nvim",
@@ -325,6 +341,7 @@ require("lazy").setup({
 
         dependencies = {
             "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-ui-select.nvim", -- 新增 UI 扩展
             -- 可选：安装 fzf-native 提升排序性能 (需要系统安装cmake)
             -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
         },
@@ -333,6 +350,11 @@ require("lazy").setup({
             local actions = require("telescope.actions")
 
             telescope.setup({
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown(),
+                    },
+                },
                 defaults = {
                     -- 这里的配置可以调整 UI
                     mappings = {
@@ -343,6 +365,9 @@ require("lazy").setup({
                     },
                 },
             })
+
+            -- 加载扩展
+            pcall(telescope.load_extension, "ui-select")
 
             -- 核心快捷键
             local builtin = require("telescope.builtin")
