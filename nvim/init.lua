@@ -488,9 +488,12 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
+            -- 0. 定义启用的 LSP 服务器列表
+            local servers = { "lua_ls", "pyright", "bashls", "ruff" }
+
             -- 1. 自动安装 Server
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "bashls", "ruff" }
+                ensure_installed = servers
             })
 
             -- 2.0 配置诊断显示样式 (新增)
@@ -510,8 +513,6 @@ require("lazy").setup({
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- 3. 批量启动 Servers (适配 Neovim 0.11+)
-            local servers = { "pyright", "bashls", "lua_ls", "ruff" }
-
             for _, server in ipairs(servers) do
                 -- 构造配置表
                 local opts = {
