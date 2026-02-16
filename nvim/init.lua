@@ -9,7 +9,8 @@
 -- [General]
 -- <leader>w        : 保存文件
 -- <leader>l        : toggle list chars (显示空白字符)
--- <leader>p        : 粘贴模式 (paste mode)
+-- <leader>pp       : 粘贴模式下安全粘贴
+-- <leader>pt       : 切换粘贴模式 (toggle paste mode)
 -- <C-l>            : 清除搜索高亮
 -- %%               : (Command Line) 展开当前文件目录
 --
@@ -110,8 +111,11 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 -- <leader>l 切换不可见字符显示
 vim.keymap.set("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
 
--- <leader>p 粘贴模式 (模拟 vimrc 中的逻辑)
-vim.keymap.set("n", "<leader>p", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
+-- <leader>pp 粘贴模式下安全粘贴
+vim.keymap.set("n", "<leader>pp", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
+
+-- <leader>pt 切换粘贴模式
+vim.keymap.set("n", "<leader>pt", ':set paste!<CR>', { desc = "Toggle paste mode" })
 
 -- %% 命令行模式下快速展开当前文件目录
 vim.keymap.set("c", "%%", function()
@@ -320,7 +324,19 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("lualine").setup({
-                options = { theme = "gruvbox" }
+                options = { theme = "gruvbox" },
+                sections = {
+                    lualine_b = {
+                        {
+                            function() return "PASTE" end,
+                            cond = function() return vim.o.paste end,
+                            color = { fg = "#d75f5f", gui = "bold" }, -- 醒目的红色
+                        },
+                        "branch",
+                        "diff",
+                        "diagnostics",
+                    },
+                },
             })
         end,
     },
