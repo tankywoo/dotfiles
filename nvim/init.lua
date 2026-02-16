@@ -588,7 +588,17 @@ require("lazy").setup({
                 })
             })
         end,
+    },
+
+    -- 增强工具: 高亮显示TODO/FIX/NOTE标志，需后面带冒号
+    {
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      opts = {
+      }
     }
+
+
 }, {
     rocks = { enabled = false },
 })
