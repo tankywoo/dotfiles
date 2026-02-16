@@ -12,6 +12,7 @@
 -- <leader>pp       : 粘贴模式下安全粘贴
 -- <leader>pt       : 切换粘贴模式 (toggle paste mode)
 -- <C-l>            : 清除搜索高亮
+-- <C-w>w           : 循环切换窗口 (Split/Float)
 -- %%               : (Command Line) 展开当前文件目录
 --
 -- [Files & Navigation]
@@ -23,14 +24,14 @@
 -- <leader>o        : 切换大纲视图 (Aerial Toggle)
 --
 -- [LSP & Coding]
--- K                : 查看文档 (Hover)
+-- K                : 查看文档 (Hover) / 连按两次进入窗口滚动
 -- gd               : 跳转定义 (Go Definition)
 -- <leader>rn       : 重命名符号 (Rename)
 -- <leader>ca       : 代码操作 (Code Action)
 -- <leader>d        : 查看行内诊断错误 (Diagnostic Float)
 -- [d / ]d          : 跳转上一个/下一个错误
 -- [c / ]c          : (Git) 跳转上一个/下一个变更
--- <Tab>/<S-Tab>    : (Completion) 选择补全项
+-- <Tab>/<Shift-Tab> : (Completion) 选择补全项
 --
 -- [Editing & Search]
 -- s                : 快速跳转 (Flash Jump)
@@ -264,7 +265,7 @@ require("lazy").setup({
                 highlight = {
                     enable = true,
                     -- 如果遇到极大文件，为了性能可以临时禁用
-                    disable = function(lang, buf)
+                    disable = function(_, buf)
                         local max_filesize = 100 * 1024 -- 100 KB
                         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                         if ok and stats and stats.size > max_filesize then
