@@ -3,7 +3,6 @@
 --
 -- TODO:
 -- yetone/avante.nvim
--- sindrets/diffview.nvim
 
 -- #############################################################################
 -- # 快捷键指南 (Keymap Reference)
@@ -18,6 +17,11 @@
 -- <C-l>            : 清除搜索高亮
 -- <C-w>w           : 循环切换窗口 (Split/Float)
 -- %%               : (Command Line) 展开当前文件目录
+--
+-- [Git]
+-- <leader>dfo      : 打开 Git 差异对比 (DiffviewOpen)
+-- <leader>dfc      : 关闭 Git 差异对比 (DiffviewClose)
+-- <leader>dfh      : 查看当前文件历史  (DiffviewFileHistory)
 --
 -- [Files & Navigation]
 -- <leader>ff       : 查找文件 (Telescope Find Files)
@@ -65,6 +69,8 @@
 -- :Lazy        : 打开插件管理器面板 (管理插件更新/回滚)
 -- :Mason       : 打开 LSP/Linter 安装面板
 -- :LspInfo     : 查看当前 Buffer 的 LSP 连接状态
+-- :DiffviewOpen : 打开 Git 差异对比视图
+-- :DiffviewFileHistory % : 查看当前文件的 Git 历史
 -- :messages    : 查看历史消息 (报错信息等)
 -- -----------------------------------------------------------------------------
 
@@ -210,8 +216,8 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
     group = diff_group,
     callback = function()
         if vim.wo.diff then
-            vim.opt_local.foldenable = false
-            vim.opt_local.foldmethod = "manual"
+            -- 保持默认行为，允许折叠以对齐 diff
+            vim.opt_local.wrap = false
         end
     end,
 })
@@ -446,6 +452,19 @@ require("lazy").setup({
         end
     },
 
+    -- Git DiffView (Git 增强)
+    {
+      "sindrets/diffview.nvim",
+      dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+      cmd = { "DiffviewOpen", "DiffviewClose"},
+      keys = {
+        { "<leader>dfo", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
+        { "<leader>dfc", ":DiffviewClose <CR>", desc = "Git Diff Close" },
+        { "<leader>dfh", ":DiffviewFileHistory %<CR>", desc = "Git File History" },
+      },
+      config = true, -- 使用默认配置 (即便没有显式 setup 调用)
+    },
+
     -- 大纲视图 (替代 vista)
     {
         "stevearc/aerial.nvim",
@@ -665,7 +684,6 @@ require("lazy").setup({
         vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
       end,
     },
-
 
 }, {
     rocks = { enabled = false },
