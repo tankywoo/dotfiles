@@ -44,6 +44,7 @@
 -- [AI Assistant]
 -- <M-CR>           : 接受建议 (Copilot Accept)
 -- <M-[/]>          : 切换建议 (Copilot Prev/Next)
+-- <leader>ct       : 开关 Copilot (Copilot Toggle)
 --
 -- [Editing & Search]
 -- s                : 快速跳转 (Flash Jump)
@@ -410,6 +411,21 @@ require("lazy").setup({
                         "diff",
                         "diagnostics",
                     },
+                    lualine_x = {
+                        {
+                            function()
+                                local icon = " "
+                                local status = vim.g.copilot_enabled and "ON" or "OFF"
+                                return icon .. status
+                            end,
+                            color = function()
+                                return { fg = vim.g.copilot_enabled and "#b8bb26" or "#928374" } -- Green if ON, Gray if OFF
+                            end,
+                        },
+                        "encoding",
+                        "fileformat",
+                        "filetype",
+                    },
                 },
             })
         end,
@@ -671,17 +687,33 @@ require("lazy").setup({
     {
       "github/copilot.vim",
       config = function()
-        -- 禁用默认的 Tab 映射，避免与 nvim-cmp 冲突
+        -- 1. 默认关闭 Copilot
+        vim.g.copilot_enabled = false
+
+        -- 2. 禁用默认按键
         vim.g.copilot_no_tab_map = true
-        -- 禁用默认的 Shift+Tab 映射，避免与 nvim-cmp 冲突
         vim.g.copilot_assist_map = ""
 
-        -- 设置新的快捷键: Alt+Enter 接受建议
+        -- 3. 设置操作快捷键
+        -- Alt(Opt)+Enter 接受建议
         vim.api.nvim_set_keymap("i", "<M-CR>", "copilot#Accept('<CR>')", { noremap = true, silent = true, expr = true })
-        -- 设置新的快捷键: Alt+] 接受下一个建议
+        -- Alt(Opt)+] 切换下一个建议
         vim.api.nvim_set_keymap("i", "<M-]>", "copilot#Next()", { noremap = true, silent = true, expr = true })
-        -- 设置新的快捷键: Alt+[ 接受上一个建议
+        -- Alt(Opt)+[ 切换上一个建议
         vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
+
+        -- 4. 设置开关快捷键 (Toggle)
+        vim.keymap.set("n", "<leader>ct", function()
+            if vim.g.copilot_enabled then
+                vim.b.copilot_enabled = false
+                vim.g.copilot_enabled = false
+                print("Copilot Disabled")
+            else
+                vim.b.copilot_enabled = true
+                vim.g.copilot_enabled = true
+                print("Copilot Enabled")
+            end
+        end, { desc = "Toggle Copilot" })
       end,
     },
 
