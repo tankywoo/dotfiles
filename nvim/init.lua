@@ -37,6 +37,10 @@
 -- [c / ]c          : (Git) 跳转上一个/下一个变更
 -- <Tab>/<Shift-Tab> : (Completion) 选择补全项
 --
+-- [AI Assistant]
+-- <M-CR>           : 接受建议 (Copilot Accept)
+-- <M-[/]>          : 切换建议 (Copilot Prev/Next)
+--
 -- [Editing & Search]
 -- s                : 快速跳转 (Flash Jump)
 -- S                : 快速选择区域 (Flash Treesitter)
@@ -642,7 +646,25 @@ require("lazy").setup({
       dependencies = { "nvim-lua/plenary.nvim" },
       opts = {
       }
-    }
+    },
+
+    -- Github Copilot (AI补全助手)
+    {
+      "github/copilot.vim",
+      config = function()
+        -- 禁用默认的 Tab 映射，避免与 nvim-cmp 冲突
+        vim.g.copilot_no_tab_map = true
+        -- 禁用默认的 Shift+Tab 映射，避免与 nvim-cmp 冲突
+        vim.g.copilot_assist_map = ""
+
+        -- 设置新的快捷键: Alt+Enter 接受建议
+        vim.api.nvim_set_keymap("i", "<M-CR>", "copilot#Accept('<CR>')", { noremap = true, silent = true, expr = true })
+        -- 设置新的快捷键: Alt+] 接受下一个建议
+        vim.api.nvim_set_keymap("i", "<M-]>", "copilot#Next()", { noremap = true, silent = true, expr = true })
+        -- 设置新的快捷键: Alt+[ 接受上一个建议
+        vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
+      end,
+    },
 
 
 }, {
