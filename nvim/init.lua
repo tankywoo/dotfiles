@@ -235,6 +235,17 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
     end,
 })
 
+-- 1.7.4 外部文件修改自动重载 (Auto Reload)
+-- 当 Neovim 重新获得系统焦点，或是关闭内聚终端切回时，主动下发检测外部缓冲变化的通知，以触发 autoread 重载
+vim.o.autoread = true
+vim.api.nvim_create_autocmd(
+  { "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold", "CursorHoldI" },
+  {
+    pattern = "*",
+    command = "if mode() != 'c' | checktime | endif",
+  }
+)
+
 -- =============================================================================
 -- 2. 插件管理 (Plugins Manager)
 -- =============================================================================
