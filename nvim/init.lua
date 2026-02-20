@@ -22,6 +22,9 @@
 -- <leader>dfo      : 打开 Git 差异对比 (DiffviewOpen)
 -- <leader>dfc      : 关闭 Git 差异对比 (DiffviewClose)
 -- <leader>dfh      : 查看当前文件历史  (DiffviewFileHistory)
+-- <leader>lg       : 唤起 Lazygit 面板 (Snacks)
+-- <leader>gb       : 查看当前代码行 Git Blame (Snacks)
+-- <leader>gB       : 在浏览器中打开当前代码行 (Snacks)
 --
 -- [Files & Navigation]
 -- <leader>ff       : 查找文件 (Telescope Find Files)
@@ -29,7 +32,10 @@
 -- <leader>fb       : 查找已打开的 Buffer
 -- <leader>fh       : 查找帮助文档
 -- <leader>ne       : 切换文件树 (NvimTree Toggle)
+-- <leader>ns       : 尝鲜文件浏览器 (Snacks Explorer)
 -- <leader>o        : 切换大纲视图 (Aerial Toggle)
+-- <leader>.        : 切换草稿本 (Snacks Scratch)
+-- <leader>bd       : 关闭当前 Buffer，保留窗口布局 (Snacks BufDelete)
 --
 -- [LSP & Coding]
 -- K                : 查看文档 (Hover) / 连按两次进入窗口滚动
@@ -38,8 +44,14 @@
 -- <leader>ca       : 代码操作 (Code Action)
 -- <leader>d        : 查看行内诊断错误 (Diagnostic Float)
 -- [d / ]d          : 跳转上一个/下一个错误
+-- ]] / [[          : 跳转下一个/上一个单词引用 (Snacks Words)
 -- [c / ]c          : (Git) 跳转上一个/下一个变更
 -- <Tab>/<Shift-Tab> : (Completion) 选择补全项
+--
+-- [Terminal & Tools]
+-- <leader>tt       : 开关底部浮动终端 (Snacks Terminal)
+-- <leader>n        : 查看历史通知面板 (Snacks Notifier)
+-- Cmd + /          : MacOS/终端 高亮定位光标位置 (有意思的系统级特性)
 --
 -- [AI Assistant]
 -- <M-CR>           : 接受建议 (Copilot Accept)
@@ -261,6 +273,44 @@ require("lazy").setup({
                 { "[", group = "Prev" },
                 { "]", group = "Next" },
             },
+        },
+    },
+
+    -- 功能性插件 Snacks.nvim
+    -- 提供 Dashboard, Explorer, Terminal, Notifier 等现代组件
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            bigfile = { enabled = true }, -- 自动优化大文件处理
+            dashboard = { enabled = true }, -- 启动页
+            explorer = { enabled = true }, -- 文件浏览器 (替代 nvim-tree 的潜力股)
+            indent = { enabled = true }, -- 缩进线
+            input = { enabled = true }, -- 更好的 input UI
+            notifier = { enabled = true }, -- 通知弹窗
+            picker = { enabled = true }, -- 选择器核心
+            quickfile = { enabled = true }, -- 快速加载
+            scope = { enabled = true }, -- 作用域高亮
+            statuscolumn = { enabled = true }, -- 状态列美化
+            words = { enabled = true }, -- 光标下单词引用高亮
+        },
+        keys = {
+            -- Explorer (和nvim-tree类似)
+            { "<leader>ns", function() Snacks.explorer() end, desc = "Snacks Explorer" },
+
+            -- Git 相关
+            { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" }, -- 注意：需要先在系统安装 lazygit 命令行工具
+            { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
+            { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (Open in Browser)" },
+
+            -- 其他实用工具
+            { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+            { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+            { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+            { "<leader>tt", function() Snacks.terminal() end, desc = "Toggle Terminal" },
+            { "]]",         function() Snacks.words.jump(1, true) end, desc = "Next Reference" },
+            { "[[",         function() Snacks.words.jump(-1, true) end, desc = "Prev Reference" },
         },
     },
 
