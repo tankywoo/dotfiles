@@ -236,6 +236,8 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
 })
 
 -- 1.7.4 外部文件修改自动重载 (Auto Reload)
+-- CursorHold 触发的时间 (默认是 4000ms)
+vim.opt.updatetime = 1000
 -- 当 Neovim 重新获得系统焦点，或是关闭内聚终端切回时，主动下发检测外部缓冲变化的通知，以触发 autoread 重载
 vim.o.autoread = true
 vim.api.nvim_create_autocmd(
@@ -269,6 +271,13 @@ vim.opt.rtp:prepend(lazypath)
 -- -----------------------------------------------------------------------------
 -- 2.2 插件列表 (Plugins List)
 -- -----------------------------------------------------------------------------
+
+-- ==============================================================================
+-- 配色主题统一控制台 (Theme Selector)
+-- 可选值: "nightfox" | "nordfox" | "vague" | "zenbones" | "kanagawa" | "catppuccin" | "nordic"
+-- ==============================================================================
+local active_theme = os.getenv("NEOVIM_THEME") or "nightfox"
+
 require("lazy").setup({
     -- 快捷键辅助 (Which-Key)
     {
@@ -341,15 +350,121 @@ require("lazy").setup({
     -- 自动调整 shiftwidth/expandtab 以匹配当前文件
     "tpope/vim-sleuth",
 
-    -- 配色主题 (替换 apprentice)
+    -- ==============================================================================
+    -- 配色主题 (Themes)
+    -- ==============================================================================
+
+    -- Nightfox * (柔和暗色系)
     {
-        "ellisonleao/gruvbox.nvim",
+        "EdenEast/nightfox.nvim",
         priority = 1000,
         config = function()
-            require("gruvbox").setup({
-                contrast = "hard", -- 类似 apprentice 的深色高对比
+            require("nightfox").setup({
+                options = { transparent = true },
+                -- groups = {
+                --     all = {
+                --         ["@markup.strong.markdown_inline"] = { fg = "#90a682" },
+                --         ["@markup.raw.markdown_inline"] = { fg = "#F6E7BC" },
+                --         ["@markup.raw.block.markdown"] = { fg = "#5C6F2B" },
+                --         ["@label.markdown"] = { fg = "#A5C89E" },
+                --         -- DiagnosticVirtualTextWarn = { fg = "#90a682" }
+                --     }
+                -- }
             })
-            vim.cmd.colorscheme("gruvbox")
+            if active_theme == "nightfox" or active_theme == "nordfox" then
+                vim.cmd.colorscheme(active_theme)
+            end
+        end,
+    },
+
+    -- Vague * (低对比暗色)
+    {
+        "vague-theme/vague.nvim",
+        priority = 1000,
+        config = function()
+            require("vague").setup({ transparent = true })
+            if active_theme == "vague" then
+                vim.cmd.colorscheme("vague")
+            end
+        end,
+    },
+
+    -- Zenbones (极简护眼禅意)
+    {
+        "mcchrish/zenbones.nvim",
+        dependencies = { "rktjmp/lush.nvim" },
+        priority = 1000,
+        config = function()
+            if active_theme == "zenbones" then
+                vim.o.background = "dark"
+                vim.cmd.colorscheme("zenbones")
+                vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+                vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
+                -- 取消 Markdown 的加粗高亮 (将样式重置，不再自动加粗)
+                vim.api.nvim_set_hl(0, "@markup.strong", { bold = false })
+                vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = false })
+                vim.api.nvim_set_hl(0, "markdownBold", { bold = false })
+                vim.api.nvim_set_hl(0, "markdownBoldDelimiter", { bold = false })
+            end
+        end,
+    },
+
+    -- Kanagawa Dragon (低饱和度高级灰调)
+    {
+        "rebelot/kanagawa.nvim",
+        priority = 1000,
+        config = function()
+            require("kanagawa").setup({
+                compile = false,
+                transparent = true,
+            })
+            if active_theme == "kanagawa" then
+                vim.cmd.colorscheme("kanagawa-dragon")
+            end
+        end,
+    },
+
+    -- Catppuccin (Mocha 变体，极其暗沉不会有高亮色)
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "mocha", -- mocha 是 4 个变体中最暗的一款
+                transparent_background = true,
+                float = {
+                    transparent = true, -- enable transparent floating windows
+                    solid = true, -- use solid styling for floating windows, see |winborder|
+                },
+                dim_inactive = {
+                    enabled = true, -- dims the background color of inactive window
+                    shade = "dark",
+                    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+                },
+            })
+            if active_theme == "catppuccin" then
+                vim.cmd.colorscheme("catppuccin-mocha")
+            end
+        end,
+    },
+
+    -- Nordic (极度低调的北欧幽暗灰蓝系)
+    {
+        "AlexvZyl/nordic.nvim",
+        priority = 1000,
+        config = function()
+            require("nordic").setup({
+                transparent = {
+                    bg = true,
+                    float = true,
+                },
+                reduced_blue = true, -- 为了更低调，减少蓝色饱和度使其偏灰
+            })
+            if active_theme == "nordic" then
+                vim.cmd.colorscheme("nordic")
+            end
         end,
     },
 
@@ -460,7 +575,7 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("lualine").setup({
-                options = { theme = "gruvbox" },
+                options = { theme = "auto" },
                 sections = {
                     lualine_b = {
                         {
