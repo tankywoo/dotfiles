@@ -639,6 +639,12 @@ require("lazy").setup({
                         vim.schedule(function() gs.prev_hunk() end)
                         return '<Ignore>'
                     end, {expr=true, desc="Prev Hunk"})
+
+                    -- 快捷键: 临时切换/关闭 sign 功能
+                    map('n', '<leader>ts', gs.toggle_signs, {desc="Toggle Git Signs"})
+                    map('n', '<leader>tn', gs.toggle_numhl, {desc="Toggle Git Numhl"})
+                    map('n', '<leader>tl', gs.toggle_linehl, {desc="Toggle Git Linehl"})
+                    map('n', '<leader>tb', gs.toggle_current_line_blame, {desc="Toggle Git Blame Line"})
                 end
             })
         end
