@@ -218,9 +218,9 @@ local function set_indent(files, width)
 end
 
 -- 2 空格缩进: 前端相关 + Vim
-set_indent({ "html", "htmldjango", "css", "javascript", "typescript", "vim", "lua", "yaml", "json" }, 2)
+set_indent({ "html", "htmldjango", "css", "javascript", "typescript", "vim", "yaml", "json" }, 2)
 -- 4 空格缩进: Python, Shell (虽然默认是4，显式设置更安全)
-set_indent({ "python", "sh", "zsh" }, 4)
+set_indent({ "python", "lua", "sh", "zsh" }, 4)
 
 -- 1.7.3 Diff 模式优化 (Diff Mode)
 -- 在 Diff 模式下禁用折叠，方便阅读
@@ -241,11 +241,11 @@ vim.opt.updatetime = 1000
 -- 当 Neovim 重新获得系统焦点，或是关闭内聚终端切回时，主动下发检测外部缓冲变化的通知，以触发 autoread 重载
 vim.o.autoread = true
 vim.api.nvim_create_autocmd(
-  { "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold", "CursorHoldI" },
-  {
-    pattern = "*",
-    command = "if mode() != 'c' | checktime | endif",
-  }
+    { "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold", "CursorHoldI" },
+    {
+        pattern = "*",
+        command = "if mode() != 'c' | checktime | endif",
+    }
 )
 
 -- =============================================================================
@@ -257,14 +257,14 @@ vim.api.nvim_create_autocmd(
 -- -----------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -646,15 +646,15 @@ require("lazy").setup({
 
     -- Git DiffView (Git 增强)
     {
-      "sindrets/diffview.nvim",
-      dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-      cmd = { "DiffviewOpen", "DiffviewClose"},
-      keys = {
-        { "<leader>dfo", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
-        { "<leader>dfc", ":DiffviewClose <CR>", desc = "Git Diff Close" },
-        { "<leader>dfh", ":DiffviewFileHistory %<CR>", desc = "Git File History" },
-      },
-      config = true, -- 使用默认配置 (即便没有显式 setup 调用)
+        "sindrets/diffview.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+        cmd = { "DiffviewOpen", "DiffviewClose"},
+        keys = {
+            { "<leader>dfo", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
+            { "<leader>dfc", ":DiffviewClose <CR>", desc = "Git Diff Close" },
+            { "<leader>dfh", ":DiffviewFileHistory %<CR>", desc = "Git File History" },
+        },
+        config = true, -- 使用默认配置 (即便没有显式 setup 调用)
     },
 
     -- 大纲视图 (替代 vista)
@@ -853,44 +853,44 @@ require("lazy").setup({
 
     -- 增强工具: 高亮显示TODO/FIX/NOTE标志，需后面带冒号
     {
-      "folke/todo-comments.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      opts = {
-      }
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+        }
     },
 
     -- Github Copilot (AI补全助手)
     {
-      "github/copilot.vim",
-      config = function()
-        -- 1. 默认关闭 Copilot
-        vim.g.copilot_enabled = false
+        "github/copilot.vim",
+        config = function()
+            -- 1. 默认关闭 Copilot
+            vim.g.copilot_enabled = false
 
-        -- 2. 禁用默认按键
-        vim.g.copilot_no_tab_map = true
-        vim.g.copilot_assist_map = ""
+            -- 2. 禁用默认按键
+            vim.g.copilot_no_tab_map = true
+            vim.g.copilot_assist_map = ""
 
-        -- 3. 设置操作快捷键
-        -- Alt(Opt)+Enter 接受建议
-        vim.api.nvim_set_keymap("i", "<M-CR>", "copilot#Accept('<CR>')", { noremap = true, silent = true, expr = true })
-        -- Alt(Opt)+] 切换下一个建议
-        vim.api.nvim_set_keymap("i", "<M-]>", "copilot#Next()", { noremap = true, silent = true, expr = true })
-        -- Alt(Opt)+[ 切换上一个建议
-        vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
+            -- 3. 设置操作快捷键
+            -- Alt(Opt)+Enter 接受建议
+            vim.api.nvim_set_keymap("i", "<M-CR>", "copilot#Accept('<CR>')", { noremap = true, silent = true, expr = true })
+            -- Alt(Opt)+] 切换下一个建议
+            vim.api.nvim_set_keymap("i", "<M-]>", "copilot#Next()", { noremap = true, silent = true, expr = true })
+            -- Alt(Opt)+[ 切换上一个建议
+            vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
 
-        -- 4. 设置开关快捷键 (Toggle)
-        vim.keymap.set("n", "<leader>ct", function()
-            if vim.g.copilot_enabled then
-                vim.b.copilot_enabled = false
-                vim.g.copilot_enabled = false
-                print("Copilot Disabled")
-            else
-                vim.b.copilot_enabled = true
-                vim.g.copilot_enabled = true
-                print("Copilot Enabled")
-            end
-        end, { desc = "Toggle Copilot" })
-      end,
+            -- 4. 设置开关快捷键 (Toggle)
+            vim.keymap.set("n", "<leader>ct", function()
+                if vim.g.copilot_enabled then
+                    vim.b.copilot_enabled = false
+                    vim.g.copilot_enabled = false
+                    print("Copilot Disabled")
+                else
+                    vim.b.copilot_enabled = true
+                    vim.g.copilot_enabled = true
+                    print("Copilot Enabled")
+                end
+            end, { desc = "Toggle Copilot" })
+        end,
     },
 
 }, {
