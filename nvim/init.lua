@@ -342,6 +342,7 @@ require("lazy").setup({
             library = {
                 -- 为 Lazy.nvim 插件配置提供补全
                 { path = "lazy.nvim", words = { "LazyVim" } },
+                { path = "snacks.nvim", words = { "Snacks" } },
             },
         },
     },
@@ -789,7 +790,7 @@ require("lazy").setup({
                 -- Lua 特殊配置
                 if server == "lua_ls" then
                     opts.settings = {
-                        Lua = { diagnostics = { globals = { "vim" } } }
+                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } }
                     }
                 end
 
