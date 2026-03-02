@@ -90,58 +90,57 @@
 -- =============================================================================
 -- 1. 基础设置 (Basic Options)
 -- =============================================================================
-vim.g.mapleader = "\\"       -- Leader 键
+vim.g.mapleader = "\\" -- Leader 键
 vim.g.maplocalleader = "\\"
-
 
 -- -----------------------------------------------------------------------------
 -- 1.1 显示与外观 (UI & Appearance)
 -- -----------------------------------------------------------------------------
-vim.opt.number = true                -- 显示行号
-vim.opt.relativenumber = false       -- 不使用相对行号
-vim.opt.signcolumn = "yes"           -- 总是显示侧边栏 (避免 LSP 报错时抖动)
-vim.opt.cursorline = true            -- 高亮当前行
-vim.opt.colorcolumn = "81"           -- 80字符提示线
-vim.opt.list = true                  -- 显示不可见字符
-vim.opt.listchars:append("tab:>-")   -- Tab 显示为 >-
-vim.opt.listchars:append("trail:.")  -- 行尾空格显示为 .
-vim.opt.showmatch = true             -- 插入括号时高亮匹配项
+vim.opt.number = true -- 显示行号
+vim.opt.relativenumber = false -- 不使用相对行号
+vim.opt.signcolumn = "yes" -- 总是显示侧边栏 (避免 LSP 报错时抖动)
+vim.opt.cursorline = true -- 高亮当前行
+vim.opt.colorcolumn = "81" -- 80字符提示线
+vim.opt.list = true -- 显示不可见字符
+vim.opt.listchars:append("tab:>-") -- Tab 显示为 >-
+vim.opt.listchars:append("trail:.") -- 行尾空格显示为 .
+vim.opt.showmatch = true -- 插入括号时高亮匹配项
 
 -- -----------------------------------------------------------------------------
 -- 1.2 缩进 (Indentation)
 -- -----------------------------------------------------------------------------
-vim.opt.tabstop = 4                  -- Tab 宽度
+vim.opt.tabstop = 4 -- Tab 宽度
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = true             -- 使用空格代替 Tab
+vim.opt.expandtab = true -- 使用空格代替 Tab
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
 -- -----------------------------------------------------------------------------
 -- 1.3 搜索 (Search)
 -- -----------------------------------------------------------------------------
-vim.opt.ignorecase = true            -- 忽略大小写
-vim.opt.smartcase = true             -- ...除非包含大写字母
-vim.opt.hlsearch = true              -- 高亮搜索结果
-vim.opt.incsearch = true             -- 实时增量搜索
+vim.opt.ignorecase = true -- 忽略大小写
+vim.opt.smartcase = true -- ...除非包含大写字母
+vim.opt.hlsearch = true -- 高亮搜索结果
+vim.opt.incsearch = true -- 实时增量搜索
 
 -- -----------------------------------------------------------------------------
 -- 1.4 编辑与交互 (Editing & Interaction)
 -- -----------------------------------------------------------------------------
-vim.opt.mouse = ""                   -- 禁用鼠标 (符合纯键盘流习惯)
+vim.opt.mouse = "" -- 禁用鼠标 (符合纯键盘流习惯)
 vim.opt.backspace = { "indent", "eol", "start" } -- 增强退格键行为
 vim.opt.clipboard:append("unnamedplus") -- 使用系统剪贴板
-vim.opt.foldmethod = "indent"        -- 基于缩进折叠
-vim.opt.foldlevel = 99               -- 默认打开所有折叠
+vim.opt.foldmethod = "indent" -- 基于缩进折叠
+vim.opt.foldlevel = 99 -- 默认打开所有折叠
 
 -- -----------------------------------------------------------------------------
 -- 1.5 文件与编码 (Files & Encoding)
 -- -----------------------------------------------------------------------------
-vim.opt.backup = false               -- 禁用备份文件
+vim.opt.backup = false -- 禁用备份文件
 vim.opt.fileencodings = { "utf-8", "gb18030", "cp936", "big5" } -- 编码猜测顺序
-vim.opt.fileencoding = "utf-8"       -- 默认写入编码
-vim.opt.splitright = true            -- vsplit 新窗口在右侧
-vim.opt.splitbelow = true            -- split 新窗口在下方
+vim.opt.fileencoding = "utf-8" -- 默认写入编码
+vim.opt.splitright = true -- vsplit 新窗口在右侧
+vim.opt.splitbelow = true -- split 新窗口在下方
 
 -- -----------------------------------------------------------------------------
 -- 1.6 基础映射 (Basic Keymaps)
@@ -160,14 +159,14 @@ vim.keymap.set("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Togg
 vim.keymap.set("n", "<leader>pp", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
 
 -- <leader>pt 切换粘贴模式
-vim.keymap.set("n", "<leader>pt", ':set paste!<CR>', { desc = "Toggle paste mode" })
+vim.keymap.set("n", "<leader>pt", ":set paste!<CR>", { desc = "Toggle paste mode" })
 
 -- %% 命令行模式下快速展开当前文件目录
 vim.keymap.set("c", "%%", function()
-    if vim.fn.getcmdtype() == ':' then
-        return vim.fn.expand('%:h') .. '/'
+    if vim.fn.getcmdtype() == ":" then
+        return vim.fn.expand("%:h") .. "/"
     else
-        return '%%'
+        return "%%"
     end
 end, { expr = true, desc = "Expand directory" })
 
@@ -240,13 +239,10 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DiffUpdated" }, {
 vim.opt.updatetime = 1000
 -- 当 Neovim 重新获得系统焦点，或是关闭内聚终端切回时，主动下发检测外部缓冲变化的通知，以触发 autoread 重载
 vim.o.autoread = true
-vim.api.nvim_create_autocmd(
-    { "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold", "CursorHoldI" },
-    {
-        pattern = "*",
-        command = "if mode() != 'c' | checktime | endif",
-    }
-)
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    pattern = "*",
+    command = "if mode() != 'c' | checktime | endif",
+})
 
 -- =============================================================================
 -- 2. 插件管理 (Plugins Manager)
@@ -325,12 +321,12 @@ require("lazy").setup({
             { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (Open in Browser)" },
 
             -- 其他实用工具
-            { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-            { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+            { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+            { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
             { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
             { "<leader>tt", function() Snacks.terminal() end, desc = "Toggle Terminal" },
-            { "]]",         function() Snacks.words.jump(1, true) end, desc = "Next Reference" },
-            { "[[",         function() Snacks.words.jump(-1, true) end, desc = "Prev Reference" },
+            { "]]", function() Snacks.words.jump(1, true) end, desc = "Next Reference" },
+            { "[[", function() Snacks.words.jump(-1, true) end, desc = "Prev Reference" },
         },
     },
 
@@ -500,8 +496,15 @@ require("lazy").setup({
             configs.setup({
                 -- 自动安装这些语言的 parser
                 ensure_installed = {
-                    "c", "lua", "vim", "vimdoc", "query", -- Neovim 自身依赖
-                    "python", "bash", "markdown", "markdown_inline" -- 你的常用语言
+                    "c",
+                    "lua",
+                    "vim",
+                    "vimdoc",
+                    "query",
+                    "python",
+                    "bash",
+                    "markdown",
+                    "markdown_inline",
                 },
                 -- 启用高亮模块
                 highlight = {
@@ -548,7 +551,7 @@ require("lazy").setup({
                     mappings = {
                         i = {
                             ["<C-k>"] = actions.move_selection_previous, -- 上移
-                            ["<C-j>"] = actions.move_selection_next,     -- 下移
+                            ["<C-j>"] = actions.move_selection_next, -- 下移
                         },
                     },
                 },
@@ -612,13 +615,13 @@ require("lazy").setup({
     {
         "lewis6991/gitsigns.nvim",
         config = function()
-            require('gitsigns').setup({
+            require("gitsigns").setup({
                 signs = {
-                    add = { text = '+' },
-                    change = { text = '~' },
-                    delete = { text = '_' },
-                    topdelete = { text = '‾' },
-                    changedelete = { text = '~' },
+                    add = { text = "+" },
+                    change = { text = "~" },
+                    delete = { text = "_" },
+                    topdelete = { text = "‾" },
+                    changedelete = { text = "~" },
                 },
                 on_attach = function(bufnr)
                     local gs = package.loaded.gitsigns
@@ -629,33 +632,37 @@ require("lazy").setup({
                     end
 
                     -- 快捷键: 跳转 diff
-                    map('n', ']c', function()
-                        if vim.wo.diff then return ']c' end
+                    map("n", "]c", function()
+                        if vim.wo.diff then
+                            return "]c"
+                        end
                         vim.schedule(function() gs.next_hunk() end)
-                        return '<Ignore>'
-                    end, {expr=true, desc="Next Hunk"})
+                        return "<Ignore>"
+                    end, { expr = true, desc = "Next Hunk" })
 
-                    map('n', '[c', function()
-                        if vim.wo.diff then return '[c' end
+                    map("n", "[c", function()
+                        if vim.wo.diff then
+                            return "[c"
+                        end
                         vim.schedule(function() gs.prev_hunk() end)
-                        return '<Ignore>'
-                    end, {expr=true, desc="Prev Hunk"})
+                        return "<Ignore>"
+                    end, { expr = true, desc = "Prev Hunk" })
 
                     -- 快捷键: 临时切换/关闭 sign 功能
-                    map('n', '<leader>ts', gs.toggle_signs, {desc="Toggle Git Signs"})
-                    map('n', '<leader>tn', gs.toggle_numhl, {desc="Toggle Git Numhl"})
-                    map('n', '<leader>tl', gs.toggle_linehl, {desc="Toggle Git Linehl"})
-                    map('n', '<leader>tb', gs.toggle_current_line_blame, {desc="Toggle Git Blame Line"})
-                end
+                    map("n", "<leader>ts", gs.toggle_signs, { desc = "Toggle Git Signs" })
+                    map("n", "<leader>tn", gs.toggle_numhl, { desc = "Toggle Git Numhl" })
+                    map("n", "<leader>tl", gs.toggle_linehl, { desc = "Toggle Git Linehl" })
+                    map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle Git Blame Line" })
+                end,
             })
-        end
+        end,
     },
 
     -- Git DiffView (Git 增强)
     {
         "sindrets/diffview.nvim",
         dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-        cmd = { "DiffviewOpen", "DiffviewClose"},
+        cmd = { "DiffviewOpen", "DiffviewClose" },
         keys = {
             { "<leader>dfo", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
             { "<leader>dfc", ":DiffviewClose <CR>", desc = "Git Diff Close" },
@@ -668,17 +675,17 @@ require("lazy").setup({
     {
         "stevearc/aerial.nvim",
         dependencies = {
-           "nvim-treesitter/nvim-treesitter",
-           "nvim-tree/nvim-web-devicons"
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
         },
         config = function()
             require("aerial").setup({
                 on_attach = function(bufnr)
                     -- Toggle
                     vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { buffer = bufnr, desc = "Toggle Outline" })
-                end
+                end,
             })
-        end
+        end,
     },
 
     -- Markdown 表格辅助 (替代 tabular)
@@ -686,17 +693,17 @@ require("lazy").setup({
         "dhruvasagar/vim-table-mode",
         ft = { "markdown" },
         config = function()
-            vim.g.table_mode_corner = '|'
+            vim.g.table_mode_corner = "|"
             -- 快捷键 <leader>tm 开启表格模式
             vim.keymap.set("n", "<leader>tm", ":TableModeToggle<CR>", { desc = "Toggle Table Mode" })
-        end
+        end,
     },
 
     -- 自动括号 (替代 auto-pairs)
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true -- 使用默认配置
+        config = true, -- 使用默认配置
     },
 
     -- 快速跳转 (替代 easymotion / clever-f)
@@ -713,14 +720,14 @@ require("lazy").setup({
 
     -- 代码拆分/合并 (替代 splitjoin)
     {
-        'Wansmer/treesj',
-        keys = { '<space>m', '<space>j', '<space>s' },
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        "Wansmer/treesj",
+        keys = { "<space>m", "<space>j", "<space>s" },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
-            require('treesj').setup({ use_default_keymaps = false })
+            require("treesj").setup({ use_default_keymaps = false })
             -- 绑定 gS / gJ (模拟 vim-splitjoin)
-            vim.keymap.set('n', 'gJ', function() require('treesj').join() end)
-            vim.keymap.set('n', 'gS', function() require('treesj').split() end)
+            vim.keymap.set("n", "gJ", function() require("treesj").join() end)
+            vim.keymap.set("n", "gS", function() require("treesj").split() end)
         end,
     },
 
@@ -735,16 +742,14 @@ require("lazy").setup({
             vim.keymap.set("v", "<C-F>f", "<Plug>CtrlSFVwordpath", { desc = "CtrlSF Visual" })
             vim.keymap.set("n", "<C-F>n", "<Plug>CtrlSFCwordPath", { desc = "CtrlSF Cword" })
             vim.keymap.set("n", "<C-F>t", ":CtrlSFToggle<CR>", { desc = "CtrlSF Toggle" })
-        end
+        end,
     },
 
     -- LSP 管理 (Mason)
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
-        config = function()
-            require("mason").setup()
-        end,
+        config = function() require("mason").setup() end,
     },
 
     -- LSP 配置 (LspConfig)
@@ -761,13 +766,13 @@ require("lazy").setup({
 
             -- 1. 自动安装 Server
             require("mason-lspconfig").setup({
-                ensure_installed = servers
+                ensure_installed = servers,
             })
 
             -- 2.0 配置诊断显示样式 (新增)
             vim.diagnostic.config({
-                virtual_text = true,     -- 在行尾显示错误信息 (如果不喜欢可以设为 false)
-                signs = true,            -- 在侧边栏显示图标
+                virtual_text = true, -- 在行尾显示错误信息 (如果不喜欢可以设为 false)
+                signs = true, -- 在侧边栏显示图标
                 update_in_insert = false,
                 underline = true,
                 severity_sort = true,
@@ -790,7 +795,7 @@ require("lazy").setup({
                 -- Lua 特殊配置
                 if server == "lua_ls" then
                     opts.settings = {
-                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } }
+                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } },
                     }
                 end
 
@@ -825,22 +830,88 @@ require("lazy").setup({
         end,
     },
 
+    -- 现代代码格式化核心 (Conform.nvim)
+    -- run `:MasonInstall stylua isort black prettierd shfmt`
+    {
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" }, -- 保存文件前触发
+        cmd = { "ConformInfo" }, -- 提供可用于 debug 的命令
+        keys = {
+            {
+                -- 绑定到 <leader>cf (Code Format)
+                "<leader>cf",
+                function()
+                    -- 按下快捷键时，异步格式化，并开启“智能降级(fallback)”
+                    require("conform").format({
+                        async = true,
+                        lsp_format = "fallback",
+                    })
+                end,
+                mode = { "n", "v" },
+                desc = "Format buffer (Conform)",
+            },
+        },
+        opts = {
+            -- 1. 定义每个文件类型对应的格式化工具
+            formatters_by_ft = {
+                lua = { "stylua" },
+                -- python：先执行 isort 整理导入，再执行 black(或 ruff_format) 排版
+                python = { "isort", "black" },
+                -- 前端与通用格式：优先尝试使用性能更好的 prettierd，如果没有找到则回退到 prettier
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                typescript = { "prettierd", "prettier", stop_after_first = true },
+                html = { "prettierd", "prettier", stop_after_first = true },
+                css = { "prettierd", "prettier", stop_after_first = true },
+                json = { "prettierd", "prettier", stop_after_first = true },
+                markdown = { "prettierd", "prettier", stop_after_first = true },
+                sh = { "shfmt" },
+            },
+            -- 2. 这里的配置实现了“智能降级”工作流
+            format_on_save = {
+                timeout_ms = 500,
+                -- 核心工作流：Conform 决定格式化策略
+                -- fallback: 会先尝试用上面 formatters_by_ft 专门配置的工具；
+                -- 假如上面的工具没安装/没配置，它就退而求其次(fallback)交给当前激活的 LSP 处理。
+                lsp_format = "fallback",
+            },
+            -- 3. （可选）微调外部工具的参数
+            formatters = {
+                shfmt = {
+                    -- 给 shfmt 工具塞个参数，让它使用 4 个空格缩进，匹配你的习惯
+                    prepend_args = { "-i", "4" },
+                },
+                stylua = {
+                    -- 强制让 stylua 使用 4 个空格，而不是它默认的 Tab 缩进
+                    -- 并开启简单语句折叠保留单行函数，放宽每行字符上限到 150 个字符
+                    prepend_args = {
+                        "--indent-type",
+                        "Spaces",
+                        "--indent-width",
+                        "4",
+                        "--collapse-simple-statement",
+                        "FunctionOnly",
+                        "--column-width",
+                        "150",
+                    },
+                },
+            },
+        },
+    },
+
     -- 补全引擎 (Cmp)
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",    -- 这里是 nvim-cmp 和 LSP 的桥梁
-            "hrsh7th/cmp-buffer",      -- 补全当前文件内容
-            "hrsh7th/cmp-path",        -- 补全系统路径
-            "L3MON4D3/LuaSnip",        -- Snippet 引擎 (必须)
+            "hrsh7th/cmp-nvim-lsp", -- 这里是 nvim-cmp 和 LSP 的桥梁
+            "hrsh7th/cmp-buffer", -- 补全当前文件内容
+            "hrsh7th/cmp-path", -- 补全系统路径
+            "L3MON4D3/LuaSnip", -- Snippet 引擎 (必须)
         },
         config = function()
             local cmp = require("cmp")
             cmp.setup({
                 snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
+                    expand = function(args) require("luasnip").lsp_expand(args.body) end,
                 },
                 mapping = cmp.mapping.preset.insert({
                     ["<Tab>"] = cmp.mapping.select_next_item(), -- Tab 下一个
@@ -849,11 +920,11 @@ require("lazy").setup({
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" }, -- 优先级最高：LSP
-                    { name = "luasnip" },  -- Snippet
+                    { name = "luasnip" }, -- Snippet
                 }, {
-                    { name = "buffer" },   -- 其次：当前文件
-                    { name = "path" },     -- 路径
-                })
+                    { name = "buffer" }, -- 其次：当前文件
+                    { name = "path" }, -- 路径
+                }),
             })
         end,
     },
@@ -862,8 +933,7 @@ require("lazy").setup({
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-        }
+        opts = {},
     },
 
     -- Github Copilot (AI补全助手)
@@ -899,7 +969,6 @@ require("lazy").setup({
             end, { desc = "Toggle Copilot" })
         end,
     },
-
 }, {
     rocks = { enabled = false },
 })
