@@ -9,40 +9,40 @@
 -- #############################################################################
 -- Leader Key: \ (Backslash)
 --
--- [General]
+-- [General & Toggle]
 -- <leader>w        : 保存文件
--- <leader>l        : toggle list chars (显示空白字符)
--- <leader>pp       : 粘贴模式下安全粘贴
--- <leader>pt       : 切换粘贴模式 (toggle paste mode)
+-- <leader>p        : 粘贴板安全粘贴
+-- <leader>tl       : 切换显示空白字符 (Toggle list chars)
+-- <leader>tp       : 切换粘贴模式 (Toggle paste mode)
 -- <C-l>            : 清除搜索高亮
 -- <C-w>w           : 循环切换窗口 (Split/Float)
 -- %%               : (Command Line) 展开当前文件目录
 --
 -- [Git]
--- <leader>dfo      : 打开 Git 差异对比 (DiffviewOpen)
--- <leader>dfc      : 关闭 Git 差异对比 (DiffviewClose)
--- <leader>dfh      : 查看当前文件历史  (DiffviewFileHistory)
--- <leader>lg       : 唤起 Lazygit 面板 (Snacks)
+-- <leader>gd       : 打开 Git 差异对比 (DiffviewOpen)
+-- <leader>gD       : 关闭 Git 差异对比 (DiffviewClose)
+-- <leader>gh       : 查看当前文件历史  (DiffviewFileHistory)
+-- <leader>gg       : 唤起 Lazygit 面板 (Snacks)
 -- <leader>gb       : 查看当前代码行 Git Blame (Snacks)
--- <leader>gB       : 在浏览器中打开当前代码行 (Snacks)
+-- <leader>go       : 在浏览器中打开当前代码行 (Snacks)
 --
 -- [Files & Navigation]
 -- <leader>ff       : 查找文件 (Telescope Find Files)
 -- <leader>fg       : 全局搜索内容 (Telescope Live Grep)
 -- <leader>fb       : 查找已打开的 Buffer
 -- <leader>fh       : 查找帮助文档
--- <leader>ne       : 切换文件树 (NvimTree Toggle)
--- <leader>ns       : 尝鲜文件浏览器 (Snacks Explorer)
--- <leader>o        : 切换大纲视图 (Aerial Toggle)
+-- <leader>e        : 文件浏览器 (Snacks Explorer)
+-- <leader>to       : 切换大纲视图 (Aerial Toggle)
 -- <leader>.        : 切换草稿本 (Snacks Scratch)
 -- <leader>bd       : 关闭当前 Buffer，保留窗口布局 (Snacks BufDelete)
 --
 -- [LSP & Coding]
 -- K                : 查看文档 (Hover) / 连按两次进入窗口滚动
 -- gd               : 跳转定义 (Go Definition)
--- <leader>rn       : 重命名符号 (Rename)
+-- <leader>cr       : 重命名符号 (Code Rename)
 -- <leader>ca       : 代码操作 (Code Action)
--- <leader>d        : 查看行内诊断错误 (Diagnostic Float)
+-- <leader>cd       : 查看行内诊断错误 (Code Diagnostic Float)
+-- <leader>cf       : 格式化代码 (Code Format)
 -- [d / ]d          : 跳转上一个/下一个错误
 -- ]] / [[          : 跳转下一个/上一个单词引用 (Snacks Words)
 -- [c / ]c          : (Git) 跳转上一个/下一个变更
@@ -56,14 +56,11 @@
 -- [AI Assistant]
 -- <M-CR>           : 接受建议 (Copilot Accept)
 -- <M-[/]>          : 切换建议 (Copilot Prev/Next)
--- <leader>ct       : 开关 Copilot (Copilot Toggle)
+-- <leader>tc       : 开关 Copilot (Copilot Toggle)
 --
 -- [Editing & Search]
 -- s                : 快速跳转 (Flash Jump)
 -- S                : 快速选择区域 (Flash Treesitter)
--- <C-F>f           : (CtrlSF) 全局搜索输入
--- <C-F>n           : (CtrlSF) 搜索光标下单词
--- <C-F>t           : (CtrlSF) 切换搜索结果窗口
 -- <leader>tm       : (Markdown) 开启表格模式
 -- gS / gJ          : 代码拆分/合并 (Split/Join)
 -- -----------------------------------------------------------------------------
@@ -152,14 +149,14 @@ vim.keymap.set("n", "<C-l>", ":nohlsearch<CR><C-l>", { silent = true })
 -- <leader>w 保存
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 
--- <leader>l 切换不可见字符显示
-vim.keymap.set("n", "<leader>l", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
+-- <leader>tl 切换不可见字符显示
+vim.keymap.set("n", "<leader>tl", ":set list!<CR>", { silent = true, desc = "Toggle listchars" })
 
--- <leader>pp 粘贴模式下安全粘贴
-vim.keymap.set("n", "<leader>pp", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
+-- <leader>p 粘贴模式下安全粘贴
+vim.keymap.set("n", "<leader>p", ':set paste<CR>"+p:set nopaste<CR>', { desc = "Paste from clipboard" })
 
--- <leader>pt 切换粘贴模式
-vim.keymap.set("n", "<leader>pt", ":set paste!<CR>", { desc = "Toggle paste mode" })
+-- <leader>tp 切换粘贴模式
+vim.keymap.set("n", "<leader>tp", ":set paste!<CR>", { desc = "Toggle paste mode" })
 
 -- %% 命令行模式下快速展开当前文件目录
 vim.keymap.set("c", "%%", function()
@@ -281,10 +278,12 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = {
             spec = {
-                { "<leader>f", group = "Find/Files" },
+                { "<leader>f", group = "Find" },
                 { "<leader>p", group = "Paste" },
-                { "<leader>t", group = "Table/Toggle" },
+                { "<leader>b", group = "Buffer" },
+                { "<leader>t", group = "Toggle" },
                 { "<leader>c", group = "Code" },
+                { "<leader>g", group = "Git" },
                 { "g", group = "Goto/LSP" },
                 { "[", group = "Prev" },
                 { "]", group = "Next" },
@@ -313,12 +312,12 @@ require("lazy").setup({
         },
         keys = {
             -- Explorer (和nvim-tree类似)
-            { "<leader>ns", function() Snacks.explorer() end, desc = "Snacks Explorer" },
+            { "<leader>e", function() Snacks.explorer() end, desc = "Snacks Explorer" },
 
             -- Git 相关
-            { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" }, -- 注意：需要先在系统安装 lazygit 命令行工具
+            { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" }, -- 注意：需要先在系统安装 lazygit 命令行工具
             { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
-            { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (Open in Browser)" },
+            { "<leader>go", function() Snacks.gitbrowse() end, desc = "Git Browse (Open in Browser)" },
 
             -- 其他实用工具
             { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
@@ -643,9 +642,9 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
         cmd = { "DiffviewOpen", "DiffviewClose" },
         keys = {
-            { "<leader>dfo", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
-            { "<leader>dfc", ":DiffviewClose <CR>", desc = "Git Diff Close" },
-            { "<leader>dfh", ":DiffviewFileHistory %<CR>", desc = "Git File History" },
+            { "<leader>gd", ":DiffviewOpen <CR>", desc = "Git Diff Open" },
+            { "<leader>gD", ":DiffviewClose <CR>", desc = "Git Diff Close" },
+            { "<leader>gh", ":DiffviewFileHistory %<CR>", desc = "Git File History" },
         },
         config = true, -- 使用默认配置 (即便没有显式 setup 调用)
     },
@@ -661,7 +660,7 @@ require("lazy").setup({
             require("aerial").setup({
                 on_attach = function(bufnr)
                     -- Toggle
-                    vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { buffer = bufnr, desc = "Toggle Outline" })
+                    vim.keymap.set("n", "<leader>to", "<cmd>AerialToggle!<CR>", { buffer = bufnr, desc = "Toggle Outline" })
                 end,
             })
         end,
@@ -774,12 +773,12 @@ require("lazy").setup({
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
                     -- 查看文档 (K)
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    -- 重命名 (<leader>rn)
-                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                    -- 重命名 (<leader>cr)
+                    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
                     -- 代码操作 (<leader>ca)
                     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                    -- 查看错误详情 (<leader>d)
-                    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+                    -- 查看错误详情 (<leader>cd)
+                    vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
                     -- 跳转错误 ([d, ]d)
                     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
                     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -914,7 +913,7 @@ require("lazy").setup({
             vim.api.nvim_set_keymap("i", "<M-[>", "copilot#Previous()", { noremap = true, silent = true, expr = true })
 
             -- 4. 设置开关快捷键 (Toggle)
-            vim.keymap.set("n", "<leader>ct", function()
+            vim.keymap.set("n", "<leader>tc", function()
                 if vim.g.copilot_enabled then
                     vim.b.copilot_enabled = false
                     vim.g.copilot_enabled = false
