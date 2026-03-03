@@ -465,19 +465,6 @@ require("lazy").setup({
         end,
     },
 
-    -- 文件浏览器 (替换 NERDTree)
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" }, -- 图标支持
-        config = function()
-            require("nvim-tree").setup({
-                filters = { dotfiles = false }, -- 显示 .config 这里文件方便调试
-            })
-            -- 保持你的习惯: <leader>ne
-            vim.keymap.set("n", "<leader>ne", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
-        end,
-    },
-
     -- 语法高亮 (Nvim-Treesitter)
     -- 核心逻辑:
     -- 1. build = ":TSUpdate": 每次更新插件时自动更新解析器
@@ -509,14 +496,6 @@ require("lazy").setup({
                 -- 启用高亮模块
                 highlight = {
                     enable = true,
-                    -- 如果遇到极大文件，为了性能可以临时禁用
-                    disable = function(_, buf)
-                        local max_filesize = 100 * 1024 -- 100 KB
-                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                        if ok and stats and stats.size > max_filesize then
-                            return true
-                        end
-                    end,
                     -- 这里的 regex 兼容是为了在某些极小众语言下回退到 regex
                     additional_vim_regex_highlighting = false,
                 },
@@ -731,20 +710,6 @@ require("lazy").setup({
         end,
     },
 
-    -- 全局搜索编辑 (保留 VimScript 神器)
-    {
-        "dyng/ctrlsf.vim",
-        config = function()
-            vim.g.ctrlsf_auto_close = { normal = 0, compact = 0 }
-            vim.g.ctrlsf_auto_focus = { at = "start" }
-            -- 快捷键
-            vim.keymap.set("n", "<C-F>f", "<Plug>CtrlSFPrompt", { desc = "CtrlSF Prompt" })
-            vim.keymap.set("v", "<C-F>f", "<Plug>CtrlSFVwordpath", { desc = "CtrlSF Visual" })
-            vim.keymap.set("n", "<C-F>n", "<Plug>CtrlSFCwordPath", { desc = "CtrlSF Cword" })
-            vim.keymap.set("n", "<C-F>t", ":CtrlSFToggle<CR>", { desc = "CtrlSF Toggle" })
-        end,
-    },
-
     -- LSP 管理 (Mason)
     {
         "williamboman/mason.nvim",
@@ -792,13 +757,6 @@ require("lazy").setup({
                     capabilities = capabilities,
                 }
 
-                -- Lua 特殊配置
-                if server == "lua_ls" then
-                    opts.settings = {
-                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } },
-                    }
-                end
-
                 -- 核心改动 (Neovim 0.11+):
                 if vim.lsp.config then
                     vim.lsp.config(server, opts)
@@ -831,7 +789,7 @@ require("lazy").setup({
     },
 
     -- 现代代码格式化核心 (Conform.nvim)
-    -- run `:MasonInstall stylua isort black prettierd shfmt`
+    -- run `:MasonInstall stylua prettierd shfmt`
     {
         "stevearc/conform.nvim",
         event = { "BufWritePre" }, -- 保存文件前触发
@@ -855,8 +813,8 @@ require("lazy").setup({
             -- 1. 定义每个文件类型对应的格式化工具
             formatters_by_ft = {
                 lua = { "stylua" },
-                -- python：先执行 isort 整理导入，再执行 black(或 ruff_format) 排版
-                python = { "isort", "black" },
+                -- python：全面拥抱 ruff
+                python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
                 -- 前端与通用格式：优先尝试使用性能更好的 prettierd，如果没有找到则回退到 prettier
                 javascript = { "prettierd", "prettier", stop_after_first = true },
                 typescript = { "prettierd", "prettier", stop_after_first = true },
