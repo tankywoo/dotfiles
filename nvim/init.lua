@@ -755,8 +755,14 @@ require("lazy").setup({
                 local opts = {
                     capabilities = capabilities,
                 }
+                -- Lua 特殊配置 (处理 Neovim原生 LSP API 下 lazydev hook 失效的问题)
+                if server == "lua_ls" then
+                    opts.settings = {
+                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } },
+                    }
+                end
 
-                -- 核心改动 (Neovim 0.11+):
+                -- 核心改动 (Neovim 0.11+ 原生启动):
                 if vim.lsp.config then
                     vim.lsp.config(server, opts)
                 end
