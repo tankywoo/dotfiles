@@ -249,15 +249,18 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "BufEnter
 -- 2.1 自动安装管理器 (Bootstrap Lazy.nvim)
 -- -----------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out, "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -451,6 +454,7 @@ require("lazy").setup({
         "AlexvZyl/nordic.nvim",
         priority = 1000,
         config = function()
+            ---@diagnostic disable-next-line: missing-fields
             require("nordic").setup({
                 transparent = {
                     bg = true,
@@ -742,7 +746,7 @@ require("lazy").setup({
                 severity_sort = true,
                 float = {
                     border = "rounded",
-                    source = "always",
+                    source = true,
                 },
             })
 
@@ -757,8 +761,14 @@ require("lazy").setup({
                 }
                 -- Lua 特殊配置 (处理 Neovim原生 LSP API 下 lazydev hook 失效的问题)
                 if server == "lua_ls" then
+                    -- <https://vi.stackexchange.com/a/46493>
                     opts.settings = {
-                        Lua = { diagnostics = { globals = { "vim", "Snacks" } } },
+                        Lua = {
+                            -- diagnostics = { globals = { "vim", "Snacks" } },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("", true),
+                            },
+                        },
                     }
                 end
 
@@ -786,8 +796,8 @@ require("lazy").setup({
                     -- 查看错误详情 (<leader>cd)
                     vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
                     -- 跳转错误 ([d, ]d)
-                    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-                    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+                    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+                    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
                 end,
             })
         end,
